@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head></h:head>
+    <h:body>
+        <!-- Main header -->
+        <header class="header">
+            <div class="main-header" data-animate="fadeInUp" data-delay=".9">
+                <div class="container py-2">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-7">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <a href="index.html">
+<!--                                        <img src="/resources/img/logo.png" alt=""/>-->
+<!--                                        <h:graphicImage value="resources/img/logo.png" />-->
+                                        <img src="/DealShop/user/resources/img/logo.png" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-7">
+                            <!-- Header Call -->
+                            <div class="header-top-right d-flex align-items-center justify-content-center justify-content-md-end">
+                                <form class="parsley-validate d-flex position-relative" action="#">
+                                    <input type="text" placeholder="I am looking for" required="true" />
+                                    <button type="submit"><i class="fa fa-search"></i></button>
+                                </form>
+                                <div class="client-area position-relative">
+                                    <h:form>
+                                        <span id="dropdownMenuButton" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o"></i></span>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+<!--                                            <c:choose>-->
+<!--                                                <c:when test="#userCDIBean.isUserLoggedIn()}">
+                                                    <h:commandLink class="dropdown-item" action="/user/UserDeals.jsf" value="Cart" />
+                                                    <h:commandLink class="dropdown-item" action="#userCDIBean.logout()}">Logout</h:commandLink>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <h:commandLink class="dropdown-item" action="#userCDIBean.goToLogin()}">Sign In</h:commandLink>
+                                                    <h:commandLink class="dropdown-item" action="#userCDIBean.goToRegister()}">Sign Up</h:commandLink>
+                                                </c:otherwise>-->
+<!--                                            </c:choose>-->
+                                        </div>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- End of Main header -->
+    </h:body>
+</html>
+

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./UserTemplate.xhtml">
+            <c:if test="#{userCDIBean.isUserLoggedIn()}">
+                #{userCDIBean.goToHomePage()}
+            </c:if>
+            <ui:define name="content">
+                <div class="p-2 mb-30 d-flex justify-content-center">
+                    <div class="card bg-light" style="width:500px;">
+                        <div class="card-body">
+<!--                            <p class="text-danger">#userCDIBean.userActionMessage}</p>-->
+                            <h:form>
+                                <div class="form-field">
+                                    <span class="input-label">E-mail Address <span class="text-danger">*</span></span>
+                                    <h:inputText class="theme-input-style" value="#{loginBean.email}" required="true" />
+                                </div>
+                                <div class="form-field">
+                                    <span class="input-label">Password <span class="text-danger">*</span></span>
+                                    <h:inputSecret class="theme-input-style" value="#{loginBean.password}" required="true" />
+                                </div>
+                                <div class="form-field d-flex align-items-center">
+                                    <h:commandButton class="btn btn-info" action="#{loginBean.login()}" label="Login" value="Login"></h:commandButton>
+                                </div>
+                            </h:form>
+                            <h:form>
+<!--                                <h:commandLink action="#userCDIBean.goToRegister()}">Don't have an account? Register from here.</h:commandLink>-->
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
