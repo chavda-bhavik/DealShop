@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsf/core"
+      xmlns:cjsp="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+        <ui:composition template="./UserTemplate.xhtml">
+            <ui:define name="content">
+                
+                <!-- Deals Categories -->
+                <section class="light-bg pt-50 pb-30">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <h:form>
+                                    <ul class="brands list-unstyled d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-0">                                    
+                                        <cjsp:forEach var="category" items="#{dealsCategoryBean.categories}">
+                                            <h:commandLink action="#{dealsBean.showDealsByCategory(category.categoryID)}">
+                                                <li class="text-center" data-animate="fadeInUp" data-delay=".05">
+                                                    <img src="/DealShop/user/resources/images/dealscategory/#{category.image}" alt=""/><br />
+                                                    #{category.name}
+                                                </li>
+                                            </h:commandLink>
+                                        </cjsp:forEach>
+                                    </ul>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End of Deals Categories -->
+                
+                <!-- Offers -->
+                <div class="container">
+                    <cjsp:forEach var="offer" items="#{offersBean.offers}">
+                        <img src="/DealShop/user/resources/img/#{offer.bannerImage}" class="my-2" />
+                    </cjsp:forEach>
+                </div>
+                <!-- End Offers -->
+                
+                <!-- Popular Deals-->
+                <section class="pt-120 pb-120">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-6 col-lg-8 col-md-10">
+                                <div class="section-title text-center" data-animate="fadeInUp" data-delay=".1">
+                                    <h2>Popular Deals</h2>
+                                    <p>DealShop has varied amount of deals that are popular among our customers.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="product-carousel-wraper position-relative">
+                                    <div class="swiper-container product-carousel">
+                                        <div class="swiper-wrapper">
+                                            <cjsp:forEach var="deal" items="#{dealsBean.maxSoldDeals}">
+                                                <div class="swiper-slide single-product">
+                                                    <span class="tip">New</span>
+                                                    <img src="/DealShop/user/resources/images/deals/#{deal.bannerImage}" data-rjs="2" alt="" />
+                                                    <ul class="list-inline">
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                    </ul>
+                                                    <h3 class="h5">
+                                                        <a href="#">#{deal.name}</a>
+                                                    </h3>
+                                                    <div class="price-and-all position-relative">
+                                                        <span class="price">${deal.averageCost}</span>
+                                                        <ul class="list-unstyled d-flex">
+                                                            <li><a href="#" class="btn">Add to Cart</a></li>
+                                                            <li><a href="#" class="btn btn-icon"><i class="fa fa-heart-o"></i></a></li>
+                                                            <li><a href="#" class="btn btn-icon"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </cjsp:forEach>
+                                            <div class="swiper-slide single-product">
+                                                <span class="tip">New</span>
+                                                <span class="discount">25% off</span>
+                                                <img src="/DealShop/user/resources/img/products/product2.jpg" data-rjs="2" alt="" />
+                                                <ul class="list-inline">
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                </ul>
+                                                <h3 class="h5">
+                                                    <a href="#">TpLink-MR3420, 3G/4G Wireless N Router</a>
+                                                </h3>
+                                                <div class="price-and-all position-relative">
+                                                    <span class="price"><del>$12.50</del> $10.50</span>
+                                                    <ul class="list-unstyled d-flex">
+                                                        <li><a href="#" class="btn">Add to Cart</a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-eye"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide single-product">
+                                                <span class="tip">New</span>
+                                                <img src="/DealShop/user/resources/img/products/product3.jpg" data-rjs="2" alt="" />
+                                                <ul class="list-inline">
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                </ul>
+                                                <h3 class="h5">
+                                                    <a href="#">Unlocked 4g lte Modem Aircard Sierra 320U 4G LTE</a>
+                                                </h3>
+                                                <div class="price-and-all position-relative">
+                                                    <span class="price">$10.50</span>
+                                                    <ul class="list-unstyled d-flex">
+                                                        <li><a href="#" class="btn">Add to Cart</a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-eye"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide single-product">
+                                                <span class="tip">New</span>
+                                                <img src="/DealShop/user/resources/img/products/product4.jpg" data-rjs="2" alt="" />
+                                                <ul class="list-inline">
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                </ul>
+                                                <h3 class="h5">
+                                                    <a href="#">Micro-soft Office 365 Business Premium</a>
+                                                </h3>
+                                                <div class="price-and-all position-relative">
+                                                    <span class="price">$10.50</span>
+                                                    <ul class="list-unstyled d-flex">
+                                                        <li><a href="#" class="btn">Add to Cart</a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-eye"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide single-product">
+                                                <span class="tip">New</span>
+                                                <span class="discount">25% off</span>
+                                                <img src="/DealShop/user/resources/img/products/product5.jpg" data-rjs="2" alt="" />
+                                                <ul class="list-inline">
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                </ul>
+                                                <h3 class="h5">
+                                                    <a href="#">TP-LINK TL-WR642G - wireless router - 802.11</a>
+                                                </h3>
+                                                <div class="price-and-all position-relative">
+                                                    <span class="price"><del>$12.50</del> $10.50</span>
+                                                    <ul class="list-unstyled d-flex">
+                                                        <li><a href="#" class="btn">Add to Cart</a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-eye"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide single-product">
+                                                <span class="tip">New</span>
+                                                <span class="discount">25% off</span>
+                                                <img src="/DealShop/user/resources/img/products/product6.jpg" data-rjs="2" alt="" />
+                                                <ul class="list-inline">
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                </ul>
+                                                <h3 class="h5">
+                                                    <a href="#">LaCie Porsche Design 32GB USB 3.0 Flash Drive</a>
+                                                </h3>
+                                                <div class="price-and-all position-relative">
+                                                    <span class="price"><del>$12.50</del> $10.50</span>
+                                                    <ul class="list-unstyled d-flex">
+                                                        <li><a href="#" class="btn">Add to Cart</a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li><a href="#" class="btn btn-icon"><i class="fa fa-eye"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-button-next next-product">
+                                        <img src="/DealShop/user/resources/img/icons/right-arrow.svg" alt="" class="svg" />
+                                    </div>
+                                    <div class="swiper-button-prev prev-product">
+                                        <img src="/DealShop/user/resources/img/icons/left-arrow.svg" alt="" class="svg" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End of Popular Deals-->
+                
+                <!-- Deals Topic-->
+                <section class="pb-60">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-6 col-lg-8 col-md-10">
+                                <div class="section-title text-center" data-animate="fadeInUp" data-delay=".1">
+                                    <h2>What's in your mind?</h2>
+                                    <p>What are you today looking for...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channels-wrap" data-animate="fadeInUp" data-delay=".3">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/zoom.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/rtv.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/satv.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/sling.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/sm.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/pogo.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/axn.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/fox.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/cnbc.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/disney.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/hgtv.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/cnn.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/cw.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/tvland.png" alt="" />
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-4">
+                                    <img src="/DealShop/user/resources/img/channels/global.png" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End of Deals Topic-->
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

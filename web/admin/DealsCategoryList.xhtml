@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                <div class="content-wrapper">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            Deals Category List
+                            <h:commandButton class="btn btn-primary float-right" value="Add Category" action="${dealsCategoryAdminBean.addCategory()}" />
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                               <table class="table" id="datatable1">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Category Name</th>
+                                            <th>Photo</th>
+                                            <th>Edit</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat var="category" value="${dealsCategoryAdminBean.dealsCategories}" varStatus="status">
+                                            <tr>
+                                                <td>${status.index + 1}</td>
+                                                <td>${category.name}</td>
+                                                <td>${category.image}</td>
+                                                <td><h:commandButton class="btn btn-info" value="Edit" action="${dealsCategoryAdminBean.editCategory(category.categoryID)}" /></td>
+                                                <td><h:commandButton class="btn btn-danger" value="Remove" action="${dealsCategoryAdminBean.removeCategory(category.categoryID)}" /></td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                               </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

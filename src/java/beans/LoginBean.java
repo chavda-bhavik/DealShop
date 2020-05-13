@@ -5,11 +5,14 @@
  */
 package beans;
 
+import java.io.IOException;
 import java.util.Set;
 import javax.inject.Named;
+import javax.faces.context.FacesContext;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.security.enterprise.AuthenticationStatus;
@@ -22,6 +25,7 @@ import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,6 +37,12 @@ public class LoginBean {
 
     @Inject private SecurityContext securityContext;
 
+    //FacesContext facesContext = FacesContext.getCurrentInstance();
+    //HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+    //HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+    //HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+    
+    UserCDIBean userCDIBean;
     private String email;
     private String username;
     private String password;
@@ -47,7 +57,6 @@ public class LoginBean {
     public void setEmail(String email) {
         this.email = email;
     }
-    
     
     public SecurityContext getSecurityContext() {
         return securityContext;
@@ -85,7 +94,7 @@ public class LoginBean {
         return password;
     }
 
-     public void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -99,6 +108,21 @@ public class LoginBean {
     
     public LoginBean() {
     }
+    
+    public void checkLoginAndRedirect() throws IOException {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        Object h = request.getSession().getAttribute("token");
+        if(h==null) {
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/user/Home.jsf");
+        }
+    }
+    public Boolean isUserLoggedIn() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        System.out.println(request.getSession().getAttribute("token"));
+        return request.getSession().getAttribute("token") != null;
+    }
+    
     public String login()
     {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -110,23 +134,18 @@ public class LoginBean {
             AuthenticationStatus status= securityContext.authenticate(request, response, withParams().credential(credential));                               
      
             if (status.equals(SEND_CONTINUE)) {
-                // Authentication mechanism has send a redirect, should not
-                // send anything to response from JSF now. The control will now go into HttpAuthenticationMechanism
                 context.responseComplete();
             }
-       
-            //else if (status.equals(SEND_FAILURE)) {
-            //  message = "Login Failed";
-            //  System.out.println(message);
-            //  addError(context, "Authentication failed");
-            // }
-            //  if(securityContext.isCallerInRole("Admin"))
+
+            userCDIBean = new UserCDIBean();
+            userCDIBean.getAndSetLoginCredentials(email);
+            
             System.out.println("In bean");
             if(roles.contains("Admin"))
             {
                 System.out.println("In admin");
                 request.getSession().setAttribute("logged-group", "Admin");
-                return "/admin/Home.jsf?faces-redirec=true";
+                return "/admin/Home.jsf?faces-redirect=true";
             }
             else if(roles.contains("User"))
             {
@@ -138,7 +157,7 @@ public class LoginBean {
             {
                 System.out.println("In Business");
                 request.getSession().setAttribute("logged-group", "Business");
-                return "/business/Home.jsf";
+                return "/business/Home.jsf?faces-redirect=true";
             }
         }
         catch (Exception e)
@@ -153,13 +172,13 @@ public class LoginBean {
         context = FacesContext.getCurrentInstance();
         context.addMessage(null,new FacesMessage(SEVERITY_ERROR, message, null));
     }
-    public String logout() throws ServletException
+    public void logout() throws ServletException
     {
         System.out.println("In Log out");
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         request.getSession().setAttribute("logged-group", "");
         request.logout();
         request.getSession().invalidate();  
-        return "/Login.jsf";     
+        //return "/user/Home.jsf";
     }
 }

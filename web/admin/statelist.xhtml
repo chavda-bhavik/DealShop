@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                <div class="content-wrapper">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            State List
+                            <h:commandButton class="btn btn-primary float-right" value="Add States" action="${stateBean.addState()}" />
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                               <table class="table" id="datatable1">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Edit</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat var="state" value="${stateBean.states}" varStatus="status">
+                                            <tr>
+                                                <td>${status.index + 1}</td>
+                                                <td>${state.name}</td>
+                                                <td><h:commandButton class="btn btn-info" value="Edit" action="${stateBean.editState(state.stateID)}" /></td>
+                                                <td><h:commandButton class="btn btn-danger" value="Remove" action="${stateBean.removeState(state.stateID)}" /></td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                               </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

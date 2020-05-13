@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <aside class="aside-container">
+                <!-- START Sidebar (left)-->
+                <div class="aside-inner">
+                   <nav class="sidebar" data-sidebar-anyclick-close="">
+                      <!-- START sidebar nav-->
+                      <ul class="sidebar-nav">
+                         <!-- START user info-->
+                         <li class="has-user-block">
+                            <div class="collapse" id="user-block">
+                               <div class="item user-block">
+                                  <!-- User picture-->
+                                  <div class="user-block-picture">
+                                     <div class="user-block-status"><img class="img-thumbnail rounded-circle" src="img/user/02.jpg" alt="Avatar" width="60" height="60" />
+                                        <div class="circle bg-success circle-lg"></div>
+                                     </div>
+                                  </div><!-- Name and Job-->
+                                  <div class="user-block-info"><span class="user-block-name">Hello, Mike</span><span class="user-block-role">Designer</span></div>
+                               </div>
+                            </div>
+                         </li>
+                         <!-- END user info-->
+
+                         <!-- Iterates over all sidebar items-->
+       <!--                  <li class="nav-heading ">
+                             <span data-localize="sidebar.heading.HEADER">Main Navigation</span>
+                         </li>
+                         <li class=" ">
+                               <a href="#dashboard" title="Dashboard" data-toggle="collapse">
+                                   <div class="float-right badge badge-success">3</div>
+                                   <em class="icon-speedometer"></em>
+                                   <span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+                               </a>
+                               <ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
+                                   <li class="sidebar-subnav-header">Dashboard</li>
+                                   <li class=" "><a href="dashboard.html" title="Dashboard v1"><span>Dashboard v1</span></a></li>
+                                   <li class=" "><a href="dashboard_v2.html" title="Dashboard v2"><span>Dashboard v2</span></a></li>
+                                   <li class=" "><a href="dashboard_v3.html" title="Dashboard v3"><span>Dashboard v3</span></a></li>
+                               </ul>
+                         </li>-->
+
+       <!--                    <li class=" ">
+                               <a href="widgets.html" title="Widgets">
+                                   <div class="float-right badge badge-success">30</div>
+                                   <em class="icon-grid"></em>
+                                   <span data-localize="sidebar.nav.WIDGETS">Widgets</span>
+                               </a>
+                           </li>-->
+
+                           <li class=" ">
+                                <h:commandLink action="/admin/statelist.jsf?faces-redirect=true" title="Manage State">
+                                    <em class="icon-list"></em> Manage State
+                                </h:commandLink>
+                           </li>
+                           <li class=" ">
+                                <h:commandLink action="/admin/CityList.jsf?faces-redirect=true" title="Manage City">
+                                    <em class="icon-list"></em> Manage City
+                                </h:commandLink>
+                           </li>
+                           <li class=" ">
+                                <h:commandLink action="/admin/BCategoryList.jsf?faces-redirect=true" title="Business Category">
+                                    <em class="icon-list"></em> Business Category
+                                </h:commandLink>
+                           </li>
+                           <li class=" ">
+                                <h:commandLink action="/admin/BTypeList.jsf?faces-redirect=true" title="Business Type">
+                                    <em class="icon-list"></em> Business Type
+                                </h:commandLink>
+                           </li>
+                           <li class=" ">
+                                <h:commandLink action="/admin/BLinksList.jsf?faces-redirect=true" title="Business Links">
+                                    <em class="icon-list"></em> Business Links
+                                </h:commandLink>
+                           </li>
+                           <li class=" ">
+                                <h:commandLink action="/admin/BInfoList.jsf?faces-redirect=true" title="Business Information">
+                                    <em class="icon-list"></em> Business Information
+                                </h:commandLink>
+                           </li>
+                           <li class=" ">
+                                <h:commandLink action="/admin/DealsCategoryList.jsf?faces-redirect=true" title="Deals Category">
+                                    <em class="icon-list"></em> Deals Category
+                                </h:commandLink>
+                           </li>
+                           <li class=" ">
+                               <h:commandLink action="/admin/OffersList.jsf?faces-redirect=true" title="Offers">
+                                   <em class="icon-list"></em> Offers
+                               </h:commandLink>
+                           </li>
+                           <li class=" ">
+                                <h:commandLink action="/admin/dealslist.jsf?faces-redirect=true" title="Deals">
+                                    <em class="icon-list"></em> Deals
+                                </h:commandLink>
+                           </li>
+                           <li class=" ">
+                                <h:commandLink action="/admin/offerslist.jsf?faces-redirect=true" title="Offers">
+                                    <em class="icon-list"></em> Offers
+                                </h:commandLink>
+                           </li>
+       <!--                  <li class="nav-heading "><span data-localize="sidebar.heading.COMPONENTS">Components</span></li>-->
+                      </ul><!-- END sidebar nav-->
+                   </nav>
+                </div><!-- END Sidebar (left)-->
+             </aside>
+        </h:form>
+    </h:body>
+</html>
+

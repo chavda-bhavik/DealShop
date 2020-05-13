@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cjsp="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./UserTemplate.xhtml">
+
+            <ui:define name="content">
+                
+            <!-- Deals -->
+            <section class="pt-50 pb-65">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h:form>
+                                <div class="products">
+                                    <div class="row">
+                                            <cjsp:forEach items="#{dealsBean.showingDeals}" var="deal">
+                                                <!-- Single Deal -->
+                                                    <div class="col-md-4 col-sm-6">
+                                                        <div class="single-product mb-55" data-animate="fadeInUp" data-delay=".1">
+                                                            <span class="tip">New</span>
+                                                            <img src="/DealShop/user/resources/images/deals/#{deal.bannerImage}" data-rjs="2" alt="" />
+                                                            <ul class="list-inline">
+                                                                <li><i class="fa fa-star"></i></li>
+                                                                <li><i class="fa fa-star"></i></li>
+                                                                <li><i class="fa fa-star"></i></li>
+                                                                <li><i class="fa fa-star"></i></li>
+                                                                <li><i class="fa fa-star"></i></li>
+                                                            </ul>
+                                                            <h3 class="h5">
+                                                                <h:link value="#{deal.name}" outcome="/user/ShowDeal.jsf?dealid=#{deal.dealID}">
+                                                                    <f:param name="dealid" value="#{deal.dealID}" />
+                                                                </h:link>
+                                                            </h3>
+                                                            <div class="price-and-all position-relative">
+                                                                <span class="price">#{deal.averageCost}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <!-- End of Single Deal -->
+                                            </cjsp:forEach>
+                                    </div>
+                                    <ul class="pagination blog-pagination align-items-center justify-content-center mb-55" data-animate="fadeInUp" data-delay=".1">
+                                        <li><a href="#"><img src="/DealShop/user/resources/img/icons/left-arrow.svg" alt="" class="svg" /></a></li>
+                                        <li class="active"><a href="#">01</a></li>
+                                        <li><a href="#">02</a></li>
+                                        <li><a href="#">03</a></li>
+                                        <li><a href="#">04</a></li>
+                                        <li><a href="#">05</a></li>
+                                        <li><a href="#"><img src="/DealShop/user/resources/img/icons/right-arrow.svg" alt="" class="svg" /></a></li>
+                                    </ul>
+                                </div>
+                            </h:form>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="col-lg-3">
+                            <aside>
+                                <div class="sidebar-widget mb-30" data-animate="fadeInUp" data-delay=".1">
+                                    <div class="search-widget">
+                                        
+                                            <div class="form-field">
+                                                <input class="theme-input-style" type="text" placeholder="Search here..." />
+                                                <button type="submit"><i class="fa fa-search"></i></button>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="sidebar-widget mb-30" data-animate="fadeInUp" data-delay=".1">
+                                    <h3 class="bordered-title">Categories</h3>
+                                    <div class="list-widget">
+                                        <h:form>
+                                            <ul class="list-unstyled m-0 p-0">
+                                                <cjsp:forEach var="category" items="#{dealsCategoryBean.categories}">
+                                                    <li>
+                                                        <h:commandLink action="#{dealsBean.showDealsByCategory(category.categoryID)}">
+                                                            #{category.name}
+                                                        </h:commandLink>
+                                                    </li>
+                                                </cjsp:forEach>
+                                            </ul>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+                        <!-- End of Sidebar -->
+                    </div>
+                </div>
+            </section>
+            <!-- End of Deals -->
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -27,9 +27,23 @@ public class AdminClient {
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/DealShop/webresources";
 
-    public AdminClient() {
+    public AdminClient(String token) {
         client = javax.ws.rs.client.ClientBuilder.newClient();
+        client.register(new RestFilter(token));
         webTarget = client.target(BASE_URI).path("admin");
+    }
+    static {
+        //for localhost testing only
+        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
+            new javax.net.ssl.HostnameVerifier() {
+                public boolean verify(String hostname,javax.net.ssl.SSLSession sslSession) {
+                    if (hostname.equals("localhost")) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        );
     }
 
     public void removeDealsCategory(String dcId) throws ClientErrorException {

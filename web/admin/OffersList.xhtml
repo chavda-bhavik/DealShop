@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+              <h:form>
+                <div class="content-wrapper">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            Offers List
+                            <h:commandButton class="btn btn-primary float-right" value="Add Offer" action="${offersAdminBean.addOffer()}" />
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                               <table class="table" id="datatable1">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Offer Name</th>
+                                            <th>Code</th>
+                                            <th>Issue Date</th>
+                                            <th>Due Date</th>
+                                            <th>Percent Off</th>
+                                            <th>Dollars Off</th>
+                                            <th>Edit</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat var="offer" value="${offersAdminBean.offers}" varStatus="status">
+                                            <tr>
+                                                <td>${status.index + 1}</td>
+                                                <td>${offer.name}</td>
+                                                <td>${offer.code}</td>
+                                                <td>${offer.issueDate}</td>
+                                                <td>${offer.dueDate}</td>
+                                                <td>${offer.percentOff}</td>
+                                                <td>${offer.dollarsOff}</td>
+                                                <td><h:commandButton class="btn btn-info" value="Edit" action="${offersAdminBean.editOffer(offer.offerID)}" /></td>
+                                                <td><h:commandButton class="btn btn-danger" value="Remove" action="${offersAdminBean.removeOffer(offer.offerID)}" /></td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                               </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                <div class="content-wrapper">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            Business Information List
+                            <h:commandButton class="btn btn-primary float-right" value="Add States" action="${bInfoBean.addInfo()}" />
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                               <table class="table" id="datatable1">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Edit</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat var="info" value="${bInfoBean.infos}" varStatus="status">
+                                            <tr>
+                                                <td>${status.index + 1}</td>
+                                                <td>${info.title}</td>
+                                                <td><h:commandButton class="btn btn-info" value="Edit" action="${bInfoBean.editInfo(info.informationID)}" /></td>
+                                                <td><h:commandButton class="btn btn-danger" value="Remove" action="${bInfoBean.removeInfo(info.informationID)}" /></td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                               </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

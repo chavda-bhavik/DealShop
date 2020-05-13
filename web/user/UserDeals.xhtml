@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./UserTemplate.xhtml">
+
+            <ui:define name="content">
+                <!-- User Deals -->
+                #{userDealsBean.checkLoginAndRedirect()}
+                <section class="pt-50 pb-50">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="table-responsive">
+                                    <h:form>
+                                        <div class="table-responsive">
+                                            <h:dataTable class="text-center light-bg mb-30 table table-bordered" binding="#{table}" var="cart" value="#{userDealsBean.userCart}" style="font-size:17px;">
+                                                <h:column>
+                                                    <f:facet name="header">#</f:facet>
+                                                    <h:outputText value="#{table.rowIndex + 1}" />
+                                                </h:column>
+                                                <h:column class="text-left">
+                                                    <f:facet name="header">Deal</f:facet>
+                                                    <img src="/DealShop/assets/images/deals/#{cart.dealID.bannerImage}" style="height: 60px; width: 60px; margin: 2px 5px;" />
+                                                    <h:outputText value="#{cart.dealID.name}" />
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Cost</f:facet>
+                                                    <h:outputText value="$#{cart.dealID.averageCost}" />
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Remove</f:facet>
+                                                    <h:commandLink class="btn btn-danger" value="Remove" style="padding:5px;">
+                                                        <f:ajax render="@form" listener="#{userDealsBean.removeDealFromCart(cart.cartID)}" />
+                                                    </h:commandLink>
+                                                </h:column>
+                                            </h:dataTable>
+                                            <c:choose>
+                                                <c:when test="${userDealsBean.userCart.size() == 0}">
+                                                    <h:column class="mb-30">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p>Your cart is Empty! Add Some deals to enjoy your weekend. 
+                                                                <h:commandLink action="${dealsBean.showDealsByDueDate()}">Browse Deals</h:commandLink>
+                                                            </p>
+                                                        </div>
+                                                    </h:column>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <h:column class="mb-30">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="cupon-field position-relative">
+                                                                <h:inputText class="theme-input-style" required="true" value="#{userDealsBean.offerCode}" />
+                                                                <h:commandLink class="btn" value="#{userDealsBean.offerButtonText}" action="#{userDealsBean.applyOfferCode()}" />
+        <!--                                                            <f:ajax render="@form" listener="#userDealsBean.applyOfferCode()}" />-->
+                                                                        <span class="text-danger">#{userDealsBean.offerMessage}</span>
+                                                            </div>
+                                                            <div class="cart-update">
+                                                                <h:link class="btn btn-info" value="Checkout" outcome="/user/Checkout.jsf?faces-redirect=true"/>
+                                                            </div>
+                                                        </div>
+                                                    </h:column>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    </h:form>
+                                </div>
+                                
+                                <!-- Price Calculation Table -->
+<!--                                <div class="d-flex justify-content-end" data-animate="fadeInUp" data-delay=".1">
+                                    <div class="cart-totals light-bg">
+                                        <h2 class="bordered-title">Cart Total</h2>
+                                        <table class="w-100">
+                                            <tr>
+                                                <th>Sub Total</th>
+                                                <td>$48.00</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Shipping</th>
+                                                <td>Free</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total</th>
+                                                <td>$48.00</td>
+                                            </tr>
+                                        </table>
+                                        <a href="#" class="btn">Proceed To Checkout</a>
+                                    </div>
+                                </div>-->
+                                <!-- End of Price Calculation Table -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End of User Deals -->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

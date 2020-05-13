@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./UserTemplate.xhtml">
+                
+            <ui:define name="content">
+                #{dealsDetailsBean.fetchAllData()}
+                <div class="container pt-30">
+                    <div class="row bg-light">
+                        <div class="col-9">
+                            <h3 class="mt-2">#{dealsDetailsBean.deal.name}</h3>
+                            <hr class="px-1" />
+                            <div class="contact-widget-content">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        #{dealsDetailsBean.deal.businessID.address}
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        #{dealsDetailsBean.deal.businessID.customerCarePhoneNo}, #{dealsDetailsBean.deal.businessID.reservationPhoneNo}
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-money" aria-hidden="true"></i>
+                                        #{dealsDetailsBean.dealDetails.validFor} People - $#{dealsDetailsBean.deal.averageCost}
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-sun-o" aria-hidden="true"></i>
+                                        #{dealsDetailsBean.dealDetails.validOn} accessible
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-2 text-right">
+                            <img class="img-fluid" src="/DealShop/user/resources/images/deals/#{dealsDetailsBean.deal.bannerImage}" alt=""/>
+                        </div>
+                    </div>
+
+                    <div class="row pt-30">
+                        <div class="col-12 col-md-9">
+                            <div class="product-tabbed-content" data-animate="fadeInUp" data-delay=".1">
+                                <ul class="nav pro-tab-nav" role="tablist">
+                                    <li>
+                                        <a id="features-tab" data-toggle="tab" href="#about" role="tab" aria-controls="pro-about-tab" aria-selected="false">About</a>
+                                    </li>
+                                    <li>
+                                        <a class="active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="pro-description-tab" aria-selected="true">Description</a>
+                                    </li>
+                                    <li>
+                                        <a id="features-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="pro-menu-tab" aria-selected="false">Menu</a>
+                                    </li>
+                                    <li>
+                                        <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="pro-reviews-tab" aria-selected="false">03 Reviews</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <!-- About Deal & Business -->
+                                    <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+
+                                        <h3 class="h5">Photos</h3>
+                                        <ui:repeat var="photo" value="#{dealsDetailsBean.businessPhotos}" >
+                                            <img src="/DealShop/assets/images/business/#{photo.photo}" alt="#{photo.photo}" />
+                                        </ui:repeat>
+
+                                        <h3 class="h5">Facilities</h3>
+                                        <ul class="rubik list-unstyled m-0 clearfix">
+                                            <ui:repeat var="info" value="#{dealsDetailsBean.informations}">
+                                                <li>#{info.title}</li>
+                                            </ui:repeat>
+                                        </ul>
+
+                                    </div>
+                                    <!-- End of About Deal & Business -->
+
+                                    <!-- Deal Description -->
+                                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                        <h3 class="h5">Menu</h3>
+                                        <p>#{dealsDetailsBean.dealMenu.menuData}</p>
+                                        <h3 class="h5">How to Use</h3>
+                                        <p>#{dealsDetailsBean.dealDetails.howToUse}</p>
+                                        <h3 class="h5">Things to Remember</h3>
+                                        <p>#{dealsDetailsBean.dealDetails.thingsToRemember}</p>
+                                        <h3 class="h5">Deal Inclusion</h3>
+                                        <p>#{dealsDetailsBean.dealDetails.inclusion}</p>
+                                    </div>
+                                    <!-- End of Deal Description -->
+
+                                    <!-- Deal Menu -->
+                                    <div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                                        <ui:repeat var="photo" value="#{dealsDetailsBean.menuPhotos}" >
+                                            <img src="/DealShop/assets/images/menu/#{photo.photo}" alt="#{photo.photo}" />
+                                        </ui:repeat>
+                                    </div>
+                                    <!-- End of Deal Menu -->
+
+                                    <!-- Deal Reviews -->
+                                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                        <!-- Product Comments -->
+                                        <ul class="comment-list parent-comment list-unstyled p-0 m-0">
+                                            <ui:repeat var="review" value="#{dealsDetailsBean.businessReviews}">
+                                                <li>
+                                                    <div class="single-comment">
+                                                        <div class="comment-author">
+                                                            <img src="/DealShop/user/resources/img/authors/male.png" alt="" />
+                                                        </div>
+                                                        <div class="comment-content">
+                                                            <h6>#{review.userID.name}</h6>
+                                                            <p>#{review.review}</p>
+                                                            <div class="star-rating mr-0">
+                                                                <ui:repeat var="item" value="#{review.rate}">
+                                                                    <i class="fa fa-star"></i>
+                                                                </ui:repeat>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ui:repeat>
+                                        </ul>
+                                        <!-- End of Product Comments -->
+
+                                        <hr class="mb-55 mt-60" />
+
+                                        <!-- Product Comment Form -->
+                                        <div class="comment-form mb-55">
+                                            <h3 class="h4">Add A Review</h3>
+                                            <div class="comment-rating">
+                                                <span class="comment-rating-title">Your Rating :</span>
+                                                <span class="star-rating">
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </span>
+                                                <p>Your e-mail address will not be published. Drop your rating and review.</p>
+                                            </div>
+                                            <form class="parsley-validate" action="#">
+                                                <div class="form-field">
+                                                    <textarea  class="theme-input-style" placeholder="Write your text" />
+                                                </div>
+                                                <div class="row half-gutters">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-field">
+                                                            <input type="text" class="theme-input-style" placeholder="Your name" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-field">
+                                                            <input type="email" class="theme-input-style" placeholder="Email address" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn">Submit Review</button>
+                                            </form>
+                                        </div>
+                                        <!-- End of Product Comment Form -->
+                                    </div>
+                                    <!-- End of Deal Reviews -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="cart-totals light-bg" style="width: inherit !important;">
+                                <h2 class="bordered-title">Deal Price</h2>
+                                <table class="w-100">
+                                    <tr>
+                                        <th>Price</th>
+                                        <td>$#{dealsDetailsBean.deal.averageCost}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Valid For</th>
+                                        <td>#{dealsDetailsBean.dealDetails.validFor}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>$#{dealsDetailsBean.deal.averageCost}</td>
+                                    </tr>
+                                </table>
+                                <h:form>
+                                    <c:choose>
+                                        <c:when test="#{loginBean.isUserLoggedIn()}">
+                                            <c:choose>
+                                                <c:when test="#{dealsDetailsBean.cartContainsDeal}">
+                                                    <h:link class="btn btn-primary btn-block" outcome="/user/UserDeals.jsf?dealid=#{dealsDetailsBean.deal.dealID}">Go to Checkout</h:link>
+                                                </c:when>
+                                                <c:otherwise>
+<!--                                                    <h:link class="btn btn-primary btn-block" outcome="/user/UserDeals.jsf?dealid=#dealsDetailsBean.deal.dealID}">Add deal to Cart</h:link>-->
+<h:commandButton action="${dealsDetailsBean.addDealToCart()}" class="btn btn-primary btn-block" value="Add deal to cart"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h:link class="btn btn-primary btn-block" outcome="/user/Login.jsf">Login to Continue</h:link>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

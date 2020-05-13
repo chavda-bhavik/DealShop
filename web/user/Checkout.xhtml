@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./UserTemplate.xhtml">
+
+            <ui:define name="content">
+                #{userDealsBean.checkLoginAndRedirect()}
+                #{checkoutBean.checkAndApplyOffer()}
+                <!-- Checkout -->
+                <section class="pt-50 pb-30">
+                    <div class="container">
+                        <form class="parsley-validate" action="#">
+                            <div class="row">
+                                <!-- Order Details -->
+                                <div class="col-lg-6">
+                                    <div class="order-details" data-animate="fadeInUp" data-delay=".4">
+                                        <h4 class="bordered-title">Your Order</h4>
+                                        <table class="order-details-table table table-bordered mb-50">
+                                            <tbody>
+                                                <ui:repeat var="item" value="${userDealsBean.userCart}">
+                                                    <tr>
+                                                        <td>${item.dealID.name}</td>
+                                                        <td>$${item.dealID.averageCost}</td>
+                                                    </tr>
+                                                </ui:repeat>
+                                                <tr>
+                                                    <td>Offer Applied</td>
+                                                    <td>#{checkoutBean.offer.code}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>VAT</td>
+                                                    <td>10%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total</td>
+                                                    <td>$#{session.getAttribute("totalPrice")}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <h:form>
+                                            <div class="form-field">
+                                                <div class="payment-method">
+                                                    <hr class="mt-30 mb-30" />
+                                                    <h:commandButton value="Place Order" class="btn btn-success" action="${checkoutBean.placeOrder()}" />
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                                <!-- End of Order Details -->
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                <!-- End of Checkout -->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
