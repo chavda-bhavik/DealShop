@@ -43,6 +43,7 @@ public class BusinessBean implements BusinessBeanLocal {
     
     @Override
     public void registerBusiness(String Name, String EmailID, String Address, String CustomerCareNumber, String ReservationNumber, String DaysOfOperation, String HoursOfOperation, String Location, String NeedToKnow, String AwardsRecognition, int CategoryID, int TypeID, int StateID, int CityID, int UserID) {
+        
         Businesscategorytb bcategory = em.find(Businesscategorytb.class, CategoryID);
         Collection<Businesstb> categories = bcategory.getBusinesstbCollection();
         
@@ -74,6 +75,7 @@ public class BusinessBean implements BusinessBeanLocal {
         business.setCityID(city);
         business.setStateID(state);
         business.setUserID(user);
+        business.setIsVerified(1);
         
         categories.add(business);
         types.add(business);

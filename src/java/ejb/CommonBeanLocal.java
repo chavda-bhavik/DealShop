@@ -32,6 +32,7 @@ public interface CommonBeanLocal {
     //---Information---
     Collection<Businesscategorytb> getAllBusinessCategories();
     Collection<Businesstypetb> getAllBusinessTypes();
+    Collection<Businesstypetb> getBussinessTypesByCategory(int CategoryId);
     Collection<Businesstb> getAllBusiness();
     
 //    Collection<Businesstb> getAllBusinessByLocation();
@@ -49,8 +50,9 @@ public interface CommonBeanLocal {
     //--State & City
     Collection<Statetb> getAllState();
     Collection<Citytb> getAllCity();
+    Collection<Citytb> getCitiesByState(int stateId);
     
-    //---Links
+//---Links
     Collection<Linkstb> getLinksList();
     Collection<Linkstb> getBussinessLinks(int BusinessID);
     
@@ -77,4 +79,5 @@ public interface CommonBeanLocal {
     //---Login---
     Usertb login(String Email, String Password);
     Usertb getLoginUser(String Email);
+    void registerUser(String name, String Email, String Password, int type);
 }

@@ -50,6 +50,10 @@ public class CommonClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public void registerBusinessUser(Object requestEntity) throws ClientErrorException {
+        webTarget.path("registerBusinessUser").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
     public <T> T getDealsBySoldNo(Class<T> responseType, String limit) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("dealsBySoldNo/{0}", new Object[]{limit}));
@@ -81,6 +85,12 @@ public class CommonClient {
     public <T> T getBusinessByState(Class<T> responseType, String stateId) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("businessByState/{0}", new Object[]{stateId}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T getCitiesByState(Class<T> responseType, String stateId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("cityByState/{0}", new Object[]{stateId}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
@@ -126,6 +136,14 @@ public class CommonClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public void registerBusiness(Object requestEntity) throws ClientErrorException {
+        webTarget.path("registerBusiness").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public void registerCommonUser(Object requestEntity) throws ClientErrorException {
+        webTarget.path("registerUser").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
     public <T> T getDealMenu(Class<T> responseType, String did) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("dealMenu/{0}", new Object[]{did}));
@@ -147,6 +165,12 @@ public class CommonClient {
     public <T> T getDealDetails(Class<T> responseType, String did) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("dealDetail/{0}", new Object[]{did}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T getBussinessTypesByCategory(Class<T> responseType, String categoryId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("businessTypesByCategory/{0}", new Object[]{categoryId}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 

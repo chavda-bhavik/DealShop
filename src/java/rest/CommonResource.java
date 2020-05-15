@@ -5,6 +5,7 @@
  */
 package rest;
 
+import ejb.BusinessBeanLocal;
 import ejb.CommonBeanLocal;
 import entity.Businesscategorytb;
 import entity.Businessphotostb;
@@ -41,6 +42,7 @@ import javax.ws.rs.core.MediaType;
 @Path("common")
 public class CommonResource {
     @EJB CommonBeanLocal common;
+    @EJB BusinessBeanLocal bbl;
     
     @Context
     private UriInfo context;
@@ -63,6 +65,12 @@ public class CommonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Businesstypetb> getAllBusinessTypes() {
         return common.getAllBusinessTypes();
+    }
+    @GET
+    @Path("/businessTypesByCategory/{categoryId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Businesstypetb> getBussinessTypesByCategory(@PathParam("categoryId") int categoryId) {
+        return common.getBussinessTypesByCategory(categoryId);
     }
     @GET
     @Path("/businesses")
@@ -133,6 +141,12 @@ public class CommonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Citytb> getAllCities() {
         return common.getAllCity();
+    }
+    @GET
+    @Path("/cityByState/{stateId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Citytb> getCitiesByState(@PathParam("stateId") int stateId) {
+        return common.getCitiesByState(stateId);
     }
     
     //  Links
@@ -247,5 +261,27 @@ public class CommonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Usertb getLoginUser(@PathParam("email") String Email) {
         return common.getLoginUser(Email);
+    }
+    
+    @POST
+    @Path("/registerUser")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void registerCommonUser(Usertb user) {
+        common.registerUser(user.getName(), user.getEmail(), user.getPassword(), 2);
+    }
+    
+    @POST
+    @Path("/registerBusinessUser")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void registerBusinessUser(Usertb user) {
+        common.registerUser(user.getName(), user.getEmail(), user.getPassword(), 3);
+    }
+    
+    // Business
+    @POST
+    @Path("/registerBusiness")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void registerBusiness(Businesstb b) {
+        bbl.registerBusiness(b.getBusinessName(), b.getEmailID(), b.getAddress(), b.getCustomerCarePhoneNo(), b.getReservationPhoneNo(), b.getDaysOfOperation(), b.getHoursOfOperation(), b.getLocation(), b.getNeedToKnow(), b.getAwardsRecognition(), b.getBusinessCategoryID().getCategoryID(), b.getBusinessTypeID().getBusinessTypeID(), b.getStateID().getStateID(), b.getCityID().getCityID(), b.getUserID().getUserID());
     }
 }

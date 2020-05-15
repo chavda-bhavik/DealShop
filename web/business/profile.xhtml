@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                <div class="content-wrapper" style="color:black !important;">
+                    <div class="card card-default" id="cardDemo14">
+                        <div class="card-header card-title">
+                            Manage Your Profile
+                        </div>
+                        <div class="card-body">
+                            <div role="tabpanel">
+                                <!-- Nav tabs-->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" href="#photos" aria-controls="photos" role="tab" data-toggle="tab">Photos</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" href="#facilities" aria-controls="facilities" role="tab" data-toggle="tab">Facilities</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" href="#links" aria-controls="links" role="tab" data-toggle="tab">Links</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes-->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="details" role="tabpanel">
+                                        <h:form>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Business Name</label>
+                                                        <input class="form-control" type="email" placeholder="Enter email" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Email address</label>
+                                                        <input class="form-control" type="email" placeholder="Enter email" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Customer care no.</label>
+                                                        <input class="form-control" type="text" placeholder="Enter email" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Reservation no.</label>
+                                                        <input class="form-control" type="text" placeholder="Enter email" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Days of Operation</label>
+                                                        <input class="form-control" type="text" placeholder="Enter email" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Hours of Operation</label>
+                                                        <input class="form-control" type="text" placeholder="Enter email" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Address</label>
+                                                        <textarea class="form-control" type="text" placeholder="Enter Address" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Awards &amp; Recognition</label>
+                                                        <textarea class="form-control" type="text" placeholder="Enter List" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>State</label>
+                                                        <select class="form-control">
+                                                            <option>Gujarat</option>
+                                                            <option>Maharastra</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>City</label>
+                                                        <select class="form-control">
+                                                            <option>Surat</option>
+                                                            <option>Ahemdabad</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                    <div class="tab-pane" id="photos" role="tabpanel">
+                                        <h:form >
+                                            <div class="row">
+                                                <div class="col-10">
+                                                    <h:inputFile class="form-control" />
+                                                </div>
+                                                <div class="col-2">
+                                                    <h:commandButton class="btn btn-primary btn-block" value="Add"/>
+                                                </div>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col-3">
+                                                    <img src="/DealShop/assets/images/business/product5.jpg" class="img-thumbnail" />
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                    <div class="tab-pane" id="facilities" role="tabpanel">
+                                        <h:form>
+                                            <div class="row p-4">
+                                                <div class="col-6">
+                                                    <div class="checkbox c-checkbox">
+                                                        <label>
+                                                            <input type="checkbox" />
+                                                            <span class="fa fa-check" /> Option one
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="checkbox c-checkbox">
+                                                        <label>
+                                                            <input type="checkbox" checked="true" value="" />
+                                                            <span class="fa fa-check" /> Option two checked
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                    <div class="tab-pane" id="links" role="tabpanel">
+                                        <h:form>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Link for</label>
+                                                        <select class="form-control">
+                                                            <option>Twitter</option>
+                                                            <option>Facebook</option>
+                                                            <option>Website</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Link Address</label>
+                                                        <h:inputText class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary">Add</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <dl class="my-3">
+                                                <p class="h4">Links</p>
+                                                <div class="row">
+                                                    <dt class="col-2 text-right">Facebook</dt>
+                                                    <dd class="col">www.facebook.com</dd>
+                                                </div>
+                                                <div class="row">
+                                                    <dt class="col-2 text-right">Website</dt>
+                                                    <dd class="col">www.rajchineese.com</dd>
+                                                </div>
+                                            </dl>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

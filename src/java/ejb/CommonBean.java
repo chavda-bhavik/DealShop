@@ -20,6 +20,7 @@ import entity.Linkstb;
 import entity.Offertb;
 import entity.Reviewtb;
 import entity.Statetb;
+import entity.Usercategorytb;
 import entity.Usertb;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,6 +45,12 @@ public class CommonBean implements CommonBeanLocal {
     @Override
     public Collection<Businesstypetb> getAllBusinessTypes() {
         return em.createNamedQuery("Businesstypetb.findAll").getResultList();
+    }
+
+    @Override
+    public Collection<Businesstypetb> getBussinessTypesByCategory(int CategoryId) {
+        Businesscategorytb category = em.find(Businesscategorytb.class, CategoryId);
+        return category.getBusinesstypetbCollection();
     }
 
     @Override
@@ -114,6 +121,12 @@ public class CommonBean implements CommonBeanLocal {
     public Collection<Citytb> getAllCity() {
         Collection<Citytb> cities = em.createNamedQuery("Citytb.findAll").getResultList();
         return cities;
+    }
+
+    @Override
+    public Collection<Citytb> getCitiesByState(int stateId) {
+        Statetb state = em.find(Statetb.class, stateId);
+        return state.getCitytbCollection();
     }
 
     @Override
@@ -230,4 +243,23 @@ public class CommonBean implements CommonBeanLocal {
         Usertb user = (Usertb) em.createNamedQuery("Usertb.findByEmail").setParameter("email", Email).getSingleResult();
         return user;
     }
+
+    @Override
+    public void registerUser(String name, String Email, String Password, int type) {
+        
+        Usercategorytb ucategory = em.find(Usercategorytb.class, type);
+        Collection<Usertb> users = ucategory.getUsertbCollection();
+        
+        Usertb user = new Usertb();
+        user.setUserCategoryID(ucategory);
+        user.setEmail(Email);
+        user.setName(name);
+        user.setPassword(Password);
+        users.add(user);
+        
+        em.persist(user);
+        em.merge(ucategory);
+    }
+    
+    
 }

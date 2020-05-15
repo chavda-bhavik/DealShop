@@ -1,113 +1,198 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <!-- FONT AWESOME-->
-        <link href="resources/vendor/@fortawesome/fontawesome-free/css/brands.css" rel="stylesheet" type="text/css"/>
-        <link href="resources/vendor/@fortawesome/fontawesome-free/css/brands.css" rel="stylesheet" type="text/css"/>
-        <link href="resources/vendor/@fortawesome/fontawesome-free/css/brands.css" rel="stylesheet" type="text/css"/>
-        <link href="resources/vendor/@fortawesome/fontawesome-free/css/brands.css" rel="stylesheet" type="text/css"/>
-        <!-- SIMPLE LINE ICONS-->
-        <link href="resources/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css"/>
-        <!-- ANIMATE.CSS-->
-        <link href="resources/vendor/animate/animate.css" rel="stylesheet" type="text/css"/>
-        <!-- WHIRL (spinners)-->
-        <link href="resources/vendor/whirl/dist/whirl.css" rel="stylesheet" type="text/css"/>
-        <!-- =============== PAGE VENDOR STYLES ===============-->
-        <!-- =============== BOOTSTRAP STYLES ===============-->
-        <link href="resources/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <!-- =============== APP STYLES ===============-->
-        <link href="resources/css/app.css" rel="stylesheet" type="text/css"/>
-        <link href="resources/css/theme-g.css" rel="stylesheet" type="text/css"/>
-        <title>Deal-Shop - Business</title>
+        <meta charset="utf-8" />
+        <title>form-v1 by Colorlib</title>
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <!-- Font-->
+        <link rel="stylesheet" type="text/css" href="resources/css/opensans-font.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/material-design-iconic-font.min.css" />
+        <!-- Main Style Css -->
+        <link rel="stylesheet" href="resources/css/style.css"/>
     </h:head>
     <h:body>
-        <div class="content-wrapper">
-            <div class="row">
-                <div class="col-sm-6 offset-sm-3">
-                    <div class="card border-dark">
-                        <a href="#">
-                            <img class="img-fluid" src="/DealShop-war/business/resources/images/bg3.jpg" alt="demo" />
-                        </a>
-                        <div class="card-body">
-                            <p class="d-flex">
-                                <small>
-                                    <span>You are just <strong>56 seconds</strong> away from bringing your business at India level.</span>
-                                </small>
-                            </p>
-                           <h4>Register your business with us</h4>
-                            <form class="form-horizontal">
-                                <div class="form-group row">
-                                    <label class="col-xl-2 col-form-label">Name</label>
-                                    <div class="col-xl-10">
-                                        <input class="form-control" type="name" placeholder="Name" />
+        <div class="page-content">
+            <div class="form-v1-content">
+                <div class="wizard-form">
+<!--                    <form class="form-register" action="#" method="post" id="form">-->
+                    <h:form class="form-register">
+                        <div id="form-total">
+                            <!-- SECTION 1 -->
+                            <h2>
+                                <p class="step-icon"><span>01</span></p>
+                                <span class="step-text">Personal Information</span>
+                            </h2>
+                            <section>
+                                <div class="inner">
+                                    <div class="wizard-header">
+                                        <h3 class="heading">Personal Infomation</h3>
+                                        <p>Please enter your information and proceed to the next step so we can build your account.</p>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-holder form-holder-2">
+                                            <fieldset>
+                                                <legend>Owner Name</legend>
+                                                <h:inputText class="form-control" value="#{businessBean.userName}" id="ownerName" >
+                                                    <f:validator validatorId="requiredAjaxValidator" />
+                                                    <f:ajax event="change" render="ownerNameMessage" />
+                                                    <f:ajax event="blur" render="ownerNameMessage" />
+                                                </h:inputText>
+                                                <h:message class="text-danger" id="ownerNameMessage" for="ownerName" />
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-holder form-holder-2">
+                                            <fieldset>
+                                                <legend>Owner Email</legend>
+                                                <h:inputText class="form-control" value="#{businessBean.userEmail}" id="ownerEmail">
+                                                    <f:validator validatorId="requiredAjaxValidator" />
+                                                    <f:ajax event="change" render="ownerEmailMessage" />
+                                                    <f:ajax event="blur" render="ownerEmailMessage" />
+                                                </h:inputText>
+                                                <h:message class="text-danger" id="ownerEmailMessage" for="ownerEmail" />
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-holder form-holder-2">
+                                            <fieldset>
+                                                <legend>Password</legend>
+                                                <h:inputSecret id="password" class="form-control" value="#{businessBean.userpassword}">
+                                                    <f:validator validatorId="requiredAjaxValidator" />
+                                                    <f:ajax event="change" render="passwordMessage" />
+                                                    <f:ajax event="blur" render="passwordMessage" />
+                                                </h:inputSecret>
+                                                <h:message class="text-danger" id="passwordMessage" for="password" />
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-holder form-holder-2">
+                                            <fieldset>
+                                                <legend>Confirm Password</legend>
+                                                <h:inputSecret class="form-control" value="#{businessBean.confirmUserPassword}" id="confirmPassword" >
+                                                    <f:ajax event="change" render="confirmPasswordMessage" listener="#{businessBean.confirmPassword}" />
+<!--                                                    <f:ajax event="blur" render="confirmPasswordMessage" listener="#businessBean.confirmPassword()}" />-->
+                                                </h:inputSecret>
+                                                <h:outputText class="text-danger" id="confirmPasswordMessage" value="#{businessBean.passwordError}" />
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-xl-2 col-form-label">Mobile</label>
-                                    <div class="col-xl-10">
-                                        <input class="form-control" type="name" placeholder="Mobile No." />
+                            </section>
+                            <!-- SECTION 2 -->
+                            <h2>
+                                <p class="step-icon"><span>02</span></p>
+                                <span class="step-text">Business Information</span>
+                            </h2>
+                            <section>
+                                <div class="inner">
+                                    <div class="wizard-header">
+                                        <h3 class="heading">Business Information</h3>
+                                        <p>Please enter your business infomation so we can build your business accounts.</p>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-holder form-holder-2">
+                                            <fieldset>
+                                                <legend>Business Name</legend>
+                                                <h:inputText class="form-control" value="#{businessBean.businessName}" id="businessName">
+                                                    <f:validator validatorId="requiredAjaxValidator" />
+                                                    <f:ajax event="change" render="businessNameMessage" />
+                                                    <f:ajax event="blur" render="businessNameMessage" />
+                                                </h:inputText>
+                                                <h:message class="text-danger" id="businessNameMessage" for="businessName" />
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-holder form-holder-2">
+                                            <fieldset>
+                                                <legend>Business Email</legend>
+                                                <h:inputText class="form-control" value="#{businessBean.businessEmailID}" id="businessEmail">
+                                                    <f:validator validatorId="emailAjaxValidator" />
+                                                    <f:ajax render="businessEmailMessage" event="change" />
+                                                    <f:ajax render="businessEmailMessage" event="blur" />
+                                                </h:inputText>
+                                                <h:message class="text-danger" id="businessEmailMessage" for="businessEmail" />
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-holder form-holder-2">
+                                            <fieldset>
+                                                <legend>Business Address</legend>
+                                                <h:inputTextarea class="form-control" value="#{businessBean.address}" id="businessAddress">
+                                                    <f:validator validatorId="requiredAjaxValidator" />
+                                                    <f:ajax render="businessAddressMessage" event="change" />
+                                                    <f:ajax render="businessAddressMessage" event="blur" />
+                                                </h:inputTextarea>
+                                                <h:message class="text-danger" id="businessAddressMessage" for="businessAddress" />
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="form-row form-row-date">
+                                        <div class="form-holder form-holder-2">
+                                            <!-- <label class="special-label">Birth Date:</label>-->
+                                            <h:selectOneMenu id="state" value="${businessBean.selectedState}" class="form-control" >
+                                                <f:selectItem itemLabel="State" itemDisabled="true" itemValue="0" />
+                                                <f:selectItems value="#{businessBean.states}" var="state" itemLabel="#{state.name}" itemValue="#{state.stateID}"/>
+                                                <f:ajax event="change" execute="state" render="city" listener="#{businessBean.stateChanged()}" />
+                                            </h:selectOneMenu>
+
+                                            <h:selectOneMenu id="city" value="${businessBean.selectedCity}" class="form-control" >
+                                                <f:selectItem itemLabel="City" itemDisabled="true" itemValue="0" />
+                                                <f:selectItems value="#{businessBean.cities}" var="city" itemLabel="#{city.name}" itemValue="#{city.cityID}"/>
+                                            </h:selectOneMenu>
+                                            
+                                            <h:selectOneMenu id="category" value="${businessBean.selectedBusinessCategory}" class="form-control" >
+                                                <f:selectItem itemLabel="Business Category" itemDisabled="true" itemValue="0" />
+                                                <f:selectItems value="#{businessBean.bcategories}" var="category" itemLabel="#{category.name}" itemValue="#{category.categoryID}"/>
+                                                <f:ajax event="change" execute="category" render="type" listener="#{businessBean.categoryChanged()}" />
+                                            </h:selectOneMenu>
+
+                                            <h:selectOneMenu id="type" value="${businessBean.selectedBusinessType}" class="form-control" >
+                                                <f:selectItem itemLabel="Business Type" itemDisabled="true" itemValue="0" />
+                                                <f:selectItems value="#{businessBean.btypes}" var="tp" itemLabel="#{tp.name}" itemValue="#{tp.businessTypeID}"/>
+                                            </h:selectOneMenu>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-xl-2 col-form-label">Email</label>
-                                    <div class="col-xl-10">
-                                        <input class="form-control" type="email" placeholder="Email" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-xl-2 col-form-label">Password</label>
-                                    <div class="col-xl-10">
-                                        <input class="form-control" type="password" placeholder="Password" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-xl-2 col-form-label">State</label>
-                                    <div class="col-xl-10">
-                                        <select class="form-control">
-                                            <option>Gujarat</option>
-                                            <option>Maharastra</option>
-                                            <option>Madhya Pradesh</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-xl-2 col-form-label">City</label>
-                                    <div class="col-xl-10">
-                                        <select class="form-control">
-                                            <option>Surat</option>
-                                            <option>Ahemdabad</option>
-                                            <option>Vadodara</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-xl-10">
-                                        <button class="btn btn-success" type="submit">Register</button>
-                                    </div>
-                                </div>
-                            </form>
+                                <!-- 
+                                    <h:commandButton id="regBtn" actionListener="#businessBean.registerBusiness()}" style="display: none;" />
+                                    <p:remoteCommand name="formsubmit" actionListener="#businessBean.registerBusiness()}" />
+                                -->
+                                <h:commandScript name="jsFunction" action="#{businessBean.RegisterBusiness}"/>
+                            </section>
                         </div>
-                    </div>  
+                    </h:form>
                 </div>
             </div>
         </div>
-        
-        <!-- MODERNIZR-->
-        <script src="resources/vendor/modernizr/modernizr.custom.js" type="text/javascript"></script>
-        <script src="resources/vendor/js-storage/js.storage.js" type="text/javascript"></script>
-        <script src="resources/vendor/screenfull/dist/screenfull.js" type="text/javascript"></script>
-        <script src="resources/vendor/i18next/i18next.js" type="text/javascript"></script>
-        <script src="resources/vendor/i18next-xhr-backend/i18nextXHRBackend.js" type="text/javascript"></script>
-        <script src="resources/vendor/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="resources/vendor/popper.js/dist/umd/popper.js" type="text/javascript"></script>
-        <script src="resources/vendor/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
-        <script src="resources/js/app.js" type="text/javascript"></script>
-    </h:body>
-
+        <script src="resources/js/jquery-3.3.1.min.js"></script>
+        <script src="resources/js/jquery.steps.js"></script>
+        <script src="resources/js/main.js"></script>
+        <script>
+            $(document).ready(function() {
+                $(".end").on("click", function() {
+                    if(confirm("Are you sure to submit?")) {
+                        jsFunction();
+                    }
+                })
+//$.fn.steps.defaults.onFinished = function (event, currentIndex) {
+//  console.log("I set this globally -- all finished");
+//};
+//                $("#form").steps({
+//                    onFinished: function () {
+//                        alert("Finish button was clicked");
+//                    }
+//                });
+            })
+        </script>
+    </h:body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
-
