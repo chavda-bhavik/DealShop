@@ -13,6 +13,8 @@ import entity.Dealspaymenttb;
 import entity.Dealstb;
 import java.util.Collection;
 import java.util.HashMap;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -32,6 +34,7 @@ import javax.ws.rs.core.MediaType;
  * @author bhavik
  */
 @Path("business")
+@DeclareRoles("Business")
 public class BusinessResource {
     @EJB BusinessBeanLocal bbl;
     
@@ -43,17 +46,21 @@ public class BusinessResource {
     
     // Business
     @POST
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void registerBusiness(Businesstb b) {
         bbl.registerBusiness(b.getBusinessName(), b.getEmailID(), b.getAddress(), b.getCustomerCarePhoneNo(), b.getReservationPhoneNo(), b.getDaysOfOperation(), b.getHoursOfOperation(), b.getLocation(), b.getNeedToKnow(), b.getAwardsRecognition(), b.getBusinessCategoryID().getCategoryID(), b.getBusinessTypeID().getBusinessTypeID(), b.getStateID().getStateID(), b.getCityID().getCityID(), b.getUserID().getUserID());
     }
     @PUT
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void editBusiness(Businesstb b) {
+        System.out.println("edit gone to");
         bbl.editBusinessProfile(b.getBusinessID(), b.getBusinessName(), b.getEmailID(), b.getAddress(), b.getCustomerCarePhoneNo(), b.getReservationPhoneNo(), b.getDaysOfOperation(), b.getHoursOfOperation(), b.getLocation(), b.getNeedToKnow(), b.getAwardsRecognition(), b.getBusinessCategoryID().getCategoryID(), b.getBusinessTypeID().getBusinessTypeID(), b.getStateID().getStateID(), b.getCityID().getCityID());
     }
     @DELETE
     @Path("/{bid}")
+    @RolesAllowed("Business")
     public void removeBusiness(@PathParam("bid") int bid) {
         bbl.removeBusiness(bid);
     }
@@ -61,6 +68,7 @@ public class BusinessResource {
     // Business Information
     @POST
     @Path("/info/{id}")
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void setBusinessInfo(@PathParam("id") int id, Collection<Integer> InfoIDs) {
         bbl.setBusinessInfo(id, InfoIDs);
@@ -69,17 +77,20 @@ public class BusinessResource {
     // Business Photos
     @POST
     @Path("/photos/{bid}")
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void setBusinessPhotos(@PathParam("bid") int id, Collection<String> photos) {
         bbl.addBusinessPhotos(id, photos);
     }
     @DELETE
     @Path("/photos/{bid}")
+    @RolesAllowed("Business")
     public void removeBusinessPhoto(@PathParam("bid") int id, int photoid) {
         bbl.removeBussinessPhotos(id, photoid);
     }
     @POST
     @Path("/links/{bid}")
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void setBusinessLinks(@PathParam("bid") int id, HashMap<Integer, String> links) {
         bbl.setBusinessLinks(id, links);
@@ -88,29 +99,34 @@ public class BusinessResource {
     // Deals
     @POST
     @Path("/deals/{bid}")
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addBusinessDeal(@PathParam("bid") int bid, Dealstb d) {
         bbl.addDeal(bid, d.getName(), d.getIssueDate(), d.getDueDate(), d.getAverageCost(), d.getDealsCategoryID().getCategoryID(), d.getBannerImage());
     }
     @PUT
     @Path("/deals")
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void editDeal(Dealstb d) {
         bbl.editDeal(d.getDealID(), d.getName(), d.getIssueDate(), d.getDueDate(), d.getAverageCost(), d.getDealsCategoryID().getCategoryID(), d.getBannerImage());
     }
     @DELETE
     @Path("/deals/{did}")
+    @RolesAllowed("Business")
     public void removeDeal(@PathParam("did") int did) {
         bbl.removeDeal(did);
     }
     @GET
     @Path("/deals/{businessid}")
+    @RolesAllowed("Business")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Dealstb> getAllDeals(@PathParam("businessid") int bid) {
         return bbl.getBusinessDeals(bid);
     }
     @GET
     @Path("/dealsPayments/{did}")
+    @RolesAllowed("Business")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Dealspaymenttb> getDealsPayments(@PathParam("did") int did) {
         return bbl.getDealPayments(did);
@@ -119,18 +135,21 @@ public class BusinessResource {
     // Deal Details
     @POST
     @Path("/dealDetails/{did}")
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addDealDetails(@PathParam("did") int did, Dealsdetailstb detail) {
         bbl.addDealDetails(did, detail.getCanncellationAllowed(), detail.getHowToUse(), detail.getThingsToRemember(), detail.getInclusion(), detail.getValidFor(), detail.getValidOn());
     }
     @PUT
     @Path("/dealDetails/{did}")
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void editDealDetails(@PathParam("did") int ddid, Dealsdetailstb detail) {
         bbl.editDealDetails(ddid, detail.getCanncellationAllowed(), detail.getHowToUse(), detail.getThingsToRemember(), detail.getInclusion(), detail.getValidFor(), detail.getValidOn());
     }    
     @DELETE
     @Path("/dealDetails/{did}")
+    @RolesAllowed("Business")
     public void removeDealDetails(@PathParam("did") int ddid) {
         bbl.removeDealDetails(ddid);
     }
@@ -138,18 +157,21 @@ public class BusinessResource {
     // Deal Menu
     @POST
     @Path("/dealMenu/{dealid}")
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addDealMenu(@PathParam("dealid") int dealid, Dealsmenutb menu) {
         bbl.addDealMenu(dealid, menu.getMenuData());
     }
     @PUT
     @Path("/dealMenu")
+    @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void editDealMenu(Dealsmenutb menu) {
         bbl.editDealMenu(menu.getMenuID(), menu.getMenuData());
     }
     @DELETE
     @Path("/dealMenu/{menuid}")
+    @RolesAllowed("Business")
     public void removeDealMenu(@PathParam("menuid") int menuid) {
         bbl.removeDealMenu(menuid);
     }
@@ -157,6 +179,7 @@ public class BusinessResource {
     // Deal Usage
     @POST
     @Path("/dealUsage/{dealid}")
+    @RolesAllowed("Business")
     public void changeDealUsage(@PathParam("dealid") int dealid) {
         bbl.changeUsageStatus(dealid);
     }

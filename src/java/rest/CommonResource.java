@@ -142,6 +142,7 @@ public class CommonResource {
     public Collection<Citytb> getAllCities() {
         return common.getAllCity();
     }
+    
     @GET
     @Path("/cityByState/{stateId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -156,6 +157,7 @@ public class CommonResource {
     public Collection<Linkstb> getLinks() {
         return common.getLinksList();
     }
+    
     @GET
     @Path("/businessLinks/{bid}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -179,24 +181,28 @@ public class CommonResource {
     public Collection<Dealscategorytb> getDealsCategory() {
         return common.getDealsCategoryList();
     }
+    
     @GET
     @Path("/businessDeals/{bid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Dealstb> getBusinessDeals(@PathParam("bid") int id) {
         return common.getBusinessDeals(id);
     }
+   
     @GET
     @Path("/dealsCategory/{cid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Dealstb> getDealsByCategory(@PathParam("cid") int id) {
         return common.getDealsByCategory(id);
     }
+    
     @GET
     @Path("/dealsBySoldNo/{limit}")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Dealstb> getDealsBySoldNo(@PathParam("limit") int limit) {
         return common.getDealsByMaxSoldNo(limit);
     }
+    
     @GET
     @Path("/dealsByDueDate")
     @Produces(MediaType.APPLICATION_JSON)
@@ -284,4 +290,12 @@ public class CommonResource {
     public void registerBusiness(Businesstb b) {
         bbl.registerBusiness(b.getBusinessName(), b.getEmailID(), b.getAddress(), b.getCustomerCarePhoneNo(), b.getReservationPhoneNo(), b.getDaysOfOperation(), b.getHoursOfOperation(), b.getLocation(), b.getNeedToKnow(), b.getAwardsRecognition(), b.getBusinessCategoryID().getCategoryID(), b.getBusinessTypeID().getBusinessTypeID(), b.getStateID().getStateID(), b.getCityID().getCityID(), b.getUserID().getUserID());
     }
+    
+    @POST
+    @Path("/checkEmail/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Boolean checkEmailExists(@PathParam("email") String email) {
+        return common.checkEmailExists(email);
+    }
+    
 }

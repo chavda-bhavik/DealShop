@@ -3,41 +3,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+>
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DealShop sign up</title>
 
-    <body>
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="resources/fonts/material-design-iconic-font.min.css" />
+    <!-- Main css -->
+    <link rel="stylesheet" href="resources/css/login_register_style.css" />
+</h:head>
+<h:body>
 
-        <ui:composition template="./UserTemplate.xhtml">
-            <c:if test="#{userCDIBean.isUserLoggedIn()}">
-                #{userCDIBean.goToHomePage()}
-            </c:if>
-            <ui:define name="content">
-                <div class="p-2 mb-30 d-flex justify-content-center">
-                    <div class="card bg-light" style="width:500px;">
-                        <div class="card-body">
-<!--                            <p class="text-danger">#userCDIBean.userActionMessage}</p>-->
-                            <h:form>
-                                <div class="form-field">
-                                    <span class="input-label">E-mail Address <span class="text-danger">*</span></span>
-                                    <h:inputText class="theme-input-style" value="#{loginBean.email}" required="true" />
-                                </div>
-                                <div class="form-field">
-                                    <span class="input-label">Password <span class="text-danger">*</span></span>
-                                    <h:inputSecret class="theme-input-style" value="#{loginBean.password}" required="true" />
-                                </div>
-                                <div class="form-field d-flex align-items-center">
-                                    <h:commandButton class="btn btn-info" action="#{loginBean.login()}" label="Login" value="Login"></h:commandButton>
-                                </div>
-                            </h:form>
-                            <h:form>
-<!--                                <h:commandLink action="#userCDIBean.goToRegister()}">Don't have an account? Register from here.</h:commandLink>-->
-                            </h:form>
+    <div class="main">
+        <h:form>
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="/DealShop/assets/images/others/signin-image.jpg" alt="sing up image" /></figure>
+                        <h:commandLink action="#{loginBean.goToUserRegister()}" class="signup-image-link">Create an account</h:commandLink>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign in</h2>
+                        <div class="register-form" id="login-form">
+                            <p class="text-danger">#{loginBean.message}</p>
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <h:inputText class="theme-input-style" value="#{loginBean.email}" required="true" pt:placeholder="Email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                <h:inputSecret class="theme-input-style" value="#{loginBean.password}" required="true" pt:placeholder="Password" />
+                            </div>
+                            <div class="form-group form-button">
+                                <h:commandButton class="form-submit" action="#{loginBean.login()}" label="Login" value="Login" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </ui:define>
+            </div>
+        </section>
+        </h:form>
+    </div>
 
-        </ui:composition>
-
-    </body>
+    <!-- JS -->
+    <script src="resources/js/jquery-3.3.1.min.js"></script>
+    <script src="resources/js/login-register.js"></script>
+</h:body>
 </html>

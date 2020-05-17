@@ -174,6 +174,10 @@ public class CommonClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public <T> T checkEmailExists(Class<T> responseType, String email) throws ClientErrorException {
+        return webTarget.path(java.text.MessageFormat.format("checkEmail/{0}", new Object[]{email})).request().post(null, responseType);
+    }
+
     public <T> T getBusinessReviews(Class<T> responseType, String bId) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("businessReviews/{0}", new Object[]{bId}));

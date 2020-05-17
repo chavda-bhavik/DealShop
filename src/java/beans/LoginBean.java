@@ -5,10 +5,11 @@
  */
 package beans;
 
+import client.CommonClient;
+import entity.Usertb;
 import java.io.IOException;
 import java.util.Set;
 import javax.inject.Named;
-import javax.faces.context.FacesContext;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
@@ -25,7 +26,7 @@ import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 /**
  *
@@ -41,6 +42,9 @@ public class LoginBean {
     //HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
     //HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
     //HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+    
+    Pbkdf2PasswordHashImpl pbkd;
+    CommonClient commonClient;
     
     UserCDIBean userCDIBean;
     private String email;
@@ -107,6 +111,8 @@ public class LoginBean {
     }
     
     public LoginBean() {
+        pbkd = new Pbkdf2PasswordHashImpl();
+        commonClient = new CommonClient();
     }
     
     public void checkLoginAndRedirect() throws IOException {
@@ -117,14 +123,26 @@ public class LoginBean {
             context.redirect(context.getRequestContextPath() + "/user/Home.jsf");
         }
     }
+    
     public Boolean isUserLoggedIn() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         System.out.println(request.getSession().getAttribute("token"));
         return request.getSession().getAttribute("token") != null;
     }
     
-    public String login()
-    {
+    public String goToLogin() {
+        return "/user/Login.jsf?faces-redirect=true";
+    }
+    
+    public String goToUserRegister() {
+        return "/user/Register.jsf?faces-redirect=true";
+    }
+    
+    public String goToBusinessRegister() {
+        return "/business/Register.jsf?faces-redirect=true";
+    }
+    
+    public String login() {
         FacesContext context = FacesContext.getCurrentInstance();
         try{
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -162,23 +180,40 @@ public class LoginBean {
         }
         catch (Exception e)
         {
-            message = "Out- Either user or login is wrong !!!";
+            message = "Email/password is wrong !!!";
             e.printStackTrace();
         }
         return "/user/Login.jsf";
     }
    
+    public String registerUser() {
+        Usertb ur = new Usertb();
+        ur.setEmail(email);
+        ur.setName(username);
+        ur.setPassword(pbkd.generate(password.toCharArray()));
+        commonClient.registerCommonUser(ur);
+        return "/user/Login.jsf";
+    }
+    
     private static void addError(FacesContext context, String message) {
         context = FacesContext.getCurrentInstance();
         context.addMessage(null,new FacesMessage(SEVERITY_ERROR, message, null));
     }
-    public void logout() throws ServletException
-    {
+    
+    public void logout() throws ServletException {
         System.out.println("In Log out");
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         request.getSession().setAttribute("logged-group", "");
         request.logout();
         request.getSession().invalidate();  
         //return "/user/Home.jsf";
+    }
+    public String logoutUser() throws ServletException {
+        System.out.println("In Log out");
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        request.getSession().setAttribute("logged-group", "");
+        request.logout();
+        request.getSession().invalidate();
+        return "/user/Home.jsf";
     }
 }

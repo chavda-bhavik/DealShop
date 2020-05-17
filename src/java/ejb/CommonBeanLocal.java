@@ -80,4 +80,5 @@ public interface CommonBeanLocal {
     Usertb login(String Email, String Password);
     Usertb getLoginUser(String Email);
     void registerUser(String name, String Email, String Password, int type);
+    Boolean checkEmailExists(String Email);
 }

@@ -77,8 +77,14 @@ public class CommonBean implements CommonBeanLocal {
     }
 
     @Override
-    public Businesstb getBusiness(int BusinessID) {
-        Businesstb business = em.find(Businesstb.class, BusinessID);
+    public Businesstb getBusiness(int UserID) {
+        Usertb user = em.find(Usertb.class, UserID);
+        Collection<Businesstb> userBussinesses = user.getBusinesstbCollection();
+        Businesstb business = new Businesstb();
+        for (Businesstb userBussinesse : userBussinesses) {
+            business = userBussinesse;
+        }
+//        Businesstb business = em.find(Businesstb.class, BusinessID);
         return business;
     }
 
@@ -260,6 +266,16 @@ public class CommonBean implements CommonBeanLocal {
         em.persist(user);
         em.merge(ucategory);
     }
-    
-    
+
+    @Override
+    public Boolean checkEmailExists(String Email) {
+        try {
+            Object user = em.createNamedQuery("Usertb.findByEmail").setParameter("email", Email).getSingleResult();
+            System.out.println("Bean true");
+            return true;
+        } catch(Exception e) {
+            System.out.println("Bean false");
+            return false;
+        }
+    }
 }

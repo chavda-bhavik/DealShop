@@ -92,6 +92,7 @@ public class BusinessBean implements BusinessBeanLocal {
 
     @Override
     public void editBusinessProfile(int BusinessID, String Name, String EmailID, String Address, String CustomerCareNumber, String ReservationNumber, String DaysOfOperation, String HoursOfOperation, String Location, String NeedToKnow, String AwardsRecognition, int CategoryID, int TypeID, int StateID, int CityID) {
+        System.out.println("edit from bean");
         Businesscategorytb bcategory = em.find(Businesscategorytb.class, CategoryID);
         Collection<Businesstb> categories = bcategory.getBusinesstbCollection();
         

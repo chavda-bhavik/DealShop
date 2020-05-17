@@ -31,16 +31,16 @@
                                     <h:form>
                                         <span id="dropdownMenuButton" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o"></i></span>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-<!--                                            <c:choose>-->
-<!--                                                <c:when test="#userCDIBean.isUserLoggedIn()}">
+                                            <c:choose>
+                                                <c:when test="${loginBean.isUserLoggedIn()}">
                                                     <h:commandLink class="dropdown-item" action="/user/UserDeals.jsf" value="Cart" />
-                                                    <h:commandLink class="dropdown-item" action="#userCDIBean.logout()}">Logout</h:commandLink>
+                                                    <h:commandLink class="dropdown-item" action="${loginBean.logoutUser()}">Logout</h:commandLink>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <h:commandLink class="dropdown-item" action="#userCDIBean.goToLogin()}">Sign In</h:commandLink>
-                                                    <h:commandLink class="dropdown-item" action="#userCDIBean.goToRegister()}">Sign Up</h:commandLink>
-                                                </c:otherwise>-->
-<!--                                            </c:choose>-->
+                                                    <h:commandLink class="dropdown-item" action="${loginBean.goToLogin()}">Sign In</h:commandLink>
+                                                    <h:commandLink class="dropdown-item" action="${loginBean.goToUserRegister()}">Sign Up</h:commandLink>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                     </h:form>
                                 </div>

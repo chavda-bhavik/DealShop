@@ -2,46 +2,66 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+>
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DealShop sign up</title>
 
-    <body>
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="resources/fonts/material-design-iconic-font.min.css" />
+    <!-- Main css -->
+    <link rel="stylesheet" href="resources/css/login_register_style.css" />
+</h:head>
+<h:body>
 
-        <ui:composition template="./UserTemplate.xhtml">
-
-            <ui:define name="content">
-                <div class="p-2 mb-30 d-flex justify-content-center">
-                    <div class="card bg-light" style="width:500px;">
-                        <div class="card-body">
-                            <h:form>
-                                <div class="form-field">
-                                    <span class="input-label">Full Name <span class="text-danger">*</span></span>
-                                    <h:inputText class="theme-input-style" value="#{userCDIBean.username}" />
-                                </div>
-                                <div class="form-field">
-                                    <span class="input-label">E-mail Address <span class="text-danger">*</span></span>
-                                    <h:inputText class="theme-input-style" value="#{userCDIBean.email}" />
-                                </div>
-                                <div class="form-field">
-                                    <span class="input-label">Password <span class="text-danger">*</span></span>
-                                    <h:inputSecret class="theme-input-style" value="#{userCDIBean.password}" />
-                                </div>
-                                <div class="form-field">
-                                    <span class="input-label">Confirm Password <span class="text-danger">*</span></span>
-                                    <h:inputSecret class="theme-input-style" value="#{userCDIBean.confirmPassword}" />
-                                </div>
-                                <div class="form-field d-flex align-items-center">
-                                    <h:commandButton class="btn btn-primary" action="#{userCDIBean.register()}" value="Register"></h:commandButton>
-                                </div>
-                            </h:form>
-                            <h:form>
-                                <h:commandLink action="#{userCDIBean.goToLogin()}">Already have an account? Login from here.</h:commandLink>
-                            </h:form>
+    <div class="main">
+        <h:form>
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <div class="register-form" id="register-form">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <h:inputText value="#{loginBean.username}" pt:placeholder="Your Name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <h:inputText pt:placeholder="Your Email" value="#{loginBean.email}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <h:inputSecret pt:placeholder="Your Password" value="#{loginBean.password}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <h:inputSecret pt:placeholder="Confirm Password"/>
+                            </div>
+                            <div class="form-group form-button">
+                                <h:commandButton class="form-submit" action="#{loginBean.registerUser()}" value="Register" />
+                            </div>
                         </div>
                     </div>
+                    <div class="signup-image">
+                        <figure>
+                            <img src="/DealShop/assets/images/others/signup-image.jpg" alt="sing up image" />
+                        </figure>
+                        <h:commandLink action="#{loginBean.goToLogin()}" class="signup-image-link">Already have an account? Login from here.</h:commandLink>
+                    </div>
                 </div>
-            </ui:define>
+            </div>
+        </section>
+        </h:form>
+    </div>
 
-        </ui:composition>
-
-    </body>
+    <!-- JS -->
+    <script src="resources/js/jquery-3.3.1.min.js"></script>
+    <script src="resources/js/login-register.js"></script>
+</h:body>
 </html>

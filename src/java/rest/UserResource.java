@@ -12,6 +12,7 @@ import entity.Dealsusagetb;
 import entity.Reviewtb;
 import entity.Usertb;
 import java.util.Collection;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -45,6 +46,7 @@ public class UserResource {
         ubl.addUser(u.getName(), u.getEmail(), u.getPassword());
     }
     @PUT
+    @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public void editUser(Usertb u) {
         ubl.editUser(u.getUserID(), u.getName(), u.getEmail(), u.getPassword());
@@ -53,18 +55,21 @@ public class UserResource {
 //    Review
     @POST
     @Path("/review")
+    @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addReview(Reviewtb review) {
         ubl.addReview(review.getUserID().getUserID(), review.getBussinessID().getBusinessID(), review.getRate(), review.getTitle(), review.getReview());
     }
     @PUT
     @Path("/review")
+    @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public void editReview(Reviewtb review) {
         ubl.editReview(review.getReviewID(), review.getRate(), review.getTitle(), review.getReview());
     }
     @DELETE
     @Path("/review/{reviewId}")
+    @RolesAllowed("User")
     public void deleteReview(@PathParam("reviewId") int reviewId) {
         ubl.removeReview(reviewId);
     }
@@ -72,22 +77,26 @@ public class UserResource {
 //    Cart
     @POST
     @Path("/cart/{userId}/{dealId}")
+    @RolesAllowed("User")
     public void addDealToCart(@PathParam("userId") int userid, @PathParam("dealId") int dealid) {
         ubl.addDealToCart(userid, dealid);
     }
     @DELETE
     @Path("/cart/{cartId}")
+    @RolesAllowed("User")
     public void removeDealFromCart(@PathParam("cartId") int cartId) {
         ubl.removeDealFromCart(cartId);
     }
     @GET
     @Path("/cart/{userId}")
+    @RolesAllowed("User")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Carttb> getUserCartDeals(@PathParam("userId") int uid) {
         return ubl.getUserCartDeals(uid);
     }
     @POST
     @Path("/cartcontains/{userId}/{dealId}")
+    @RolesAllowed("User")
     @Produces(MediaType.APPLICATION_JSON)
     public Boolean ifCartContainsDeal(@PathParam("userId") int userId, @PathParam("dealId") int dealId) {
         boolean result = ubl.isDealInTheCart(userId, dealId);
@@ -97,11 +106,13 @@ public class UserResource {
 //    Payment
     @POST
     @Path("/payment")
+    @RolesAllowed("User")
     @Produces(MediaType.APPLICATION_JSON)
     public void createPayment(Dealspaymenttb payment) {
         ubl.makePayment(payment.getUserID().getUserID(), payment.getOfferID().getOfferID(), payment.getPaymentMode(), payment.getStatus());
     }
     @GET
+    @RolesAllowed("User")
     @Path("/payment/{paymentId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Dealspaymenttb> getUserPayments(@PathParam("paymentId") int paymentId) {
@@ -110,6 +121,7 @@ public class UserResource {
     
 //    Rating
     @GET
+    @RolesAllowed("User")
     @Path("/rating/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Dealsusagetb> getUserDealsRating(@PathParam("userId") int userId) {
@@ -117,6 +129,7 @@ public class UserResource {
     }
     @POST
     @Path("/rating")
+    @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public void giveRating(Dealsusagetb usage) {
         ubl.giveRating(usage.getUserID().getUserID(), usage.getUserRating(), usage.getUserComment());

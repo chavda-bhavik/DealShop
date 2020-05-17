@@ -51,7 +51,7 @@
                                             <fieldset>
                                                 <legend>Owner Email</legend>
                                                 <h:inputText class="form-control" value="#{businessBean.userEmail}" id="ownerEmail">
-                                                    <f:validator validatorId="requiredAjaxValidator" />
+                                                    <f:validator validatorId="uniqueEmailValidator" />
                                                     <f:ajax event="change" render="ownerEmailMessage" />
                                                     <f:ajax event="blur" render="ownerEmailMessage" />
                                                 </h:inputText>

@@ -5,6 +5,7 @@
  */
 package beans.business;
 
+import client.BusinessClient;
 import client.CommonClient;
 import entity.Businesscategorytb;
 import entity.Businesstb;
@@ -16,6 +17,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
@@ -30,6 +34,7 @@ public class BusinessBean implements Serializable {
 
     Pbkdf2PasswordHashImpl pbkd;
     CommonClient commonClient;
+    BusinessClient businessClient;
     Response res;
     
     GenericType<Collection<Businesscategorytb>> gBCategories;
@@ -358,7 +363,23 @@ public class BusinessBean implements Serializable {
         return user;
     }
     
+    public void getBusinessDetails() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String userId = request.getSession().getAttribute("userid").toString();
+//        System.out.println(request.getSession().getAttribute("role").toString());
+//        System.out.println(request.getSession().getAttribute("logged-group").toString());
+//        System.out.println(userId);
+        res = commonClient.getBusiness(Response.class, userId);
+        business = res.readEntity(gBusiness);
+    }
+    
     public String EditBusiness() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        String token="";
+        token = request.getSession().getAttribute("token").toString();
+        businessClient = new BusinessClient(token);
+        businessClient.editBusiness(business);
         return "/business/profile.jsf?faces-redirect=true";
     }
     
@@ -367,6 +388,7 @@ public class BusinessBean implements Serializable {
         gBTypes = new GenericType<Collection<Businesstypetb>>(){};
         gStates = new GenericType<Collection<Statetb>>(){};
         gCities = new GenericType<Collection<Citytb>>(){};
+        gBusiness = new GenericType<Businesstb>(){};
         
         pbkd = new Pbkdf2PasswordHashImpl();
         commonClient = new CommonClient();
