@@ -12,35 +12,32 @@
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="content">
+                ${businessBean.getAllAndBusinessInfos()}
                 <div class="content-wrapper" style="color:black !important;">
                     <div class="card card-default" id="cardDemo14">
                         <div class="card-header card-title">
-                            Manage Business Facilities
+                            Manage Business Information
                         </div>
                         <div class="card-body">
                             <h:form>
-                                <div class="row p-4">
-                                    <div class="col-6">
-                                        <div class="checkbox c-checkbox">
-                                            <label>
-                                                <input type="checkbox" />
-                                                <span class="fa fa-check" /> Option one
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="checkbox c-checkbox">
-                                            <label>
-                                                <input type="checkbox" checked="true" value="" />
-                                                <span class="fa fa-check" /> Option two checked
-                                            </label>
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label class="title">Available Informations</label>
+                                    <h:selectManyListbox class="form-control" value="${businessBean.selectedInfos}">
+                                        <f:selectItems value="#{businessBean.allInfos}" var="info" itemLabel="#{info.title}" itemValue="#{info.informationID}"/>
+                                        <f:ajax event="change" listener="${businessBean.testChanged()}" />
+                                    </h:selectManyListbox>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        <h:commandButton class="btn btn-primary" value="Update" action="${businessBean.updateBusinessInformations()}"></h:commandButton>  
                                     </div>
+                                </div>
+                                <div class="row p-4">
+                                    <ul>
+                                        <ui:repeat var="info" value="${businessBean.buInfos}">
+                                            <li>${info.title}</li>
+                                        </ui:repeat>
+                                    </ul>
                                 </div>
                             </h:form>
                         </div>

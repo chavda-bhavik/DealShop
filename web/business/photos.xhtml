@@ -6,12 +6,18 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
-
+    <style>
+        .photo {
+            width: 100px !important;
+/*            height: 100px !important;*/
+        }
+    </style>
     <h:body>
 
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="content">
+                ${businessBean.getBusinessPhotos()}
                 <div class="content-wrapper" style="color:black !important;">
                     <div class="card card-default" id="cardDemo14">
                         <div class="card-header card-title">
@@ -29,9 +35,11 @@
                                     </div>
                                 </div>
                                 <div class="row my-3">
-                                    <div class="col-3">
-                                        <img src="/DealShop/assets/images/business/product5.jpg" class="img-thumbnail" />
-                                    </div>
+                                    <ui:repeat var="photo" value="${businessBean.photos}">
+                                        <div class="col-3">
+                                            <img src="/DealShop/assets/images/business/${photo.photo}" class="img-thumbnail photo" />
+                                        </div>
+                                    </ui:repeat>
                                 </div>
                             </h:form>
                         </div>

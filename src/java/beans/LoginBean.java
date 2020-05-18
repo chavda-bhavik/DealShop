@@ -158,8 +158,8 @@ public class LoginBean {
                 context.responseComplete();
             }
 
-//            userCDIBean = new UserCDIBean();
-//            userCDIBean.getAndSetLoginCredentials(email);
+            userCDIBean = new UserCDIBean();
+            userCDIBean.getAndSetLoginCredentials(email);
             
             System.out.println("In bean");
             if(roles.contains("Admin"))

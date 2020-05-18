@@ -25,9 +25,7 @@ import entity.Usertb;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -263,28 +261,49 @@ public class BusinessBean implements BusinessBeanLocal {
     }
 
     @Override
-    public void setBusinessLinks(int BusinessID, HashMap<Integer, String> links) {
+    public void setBusinessLinks(int BusinessID, int LinkId, String Link) {
         
         Businesstb business = em.find(Businesstb.class, BusinessID);
-        Collection<Businesslinkstb> oldLinks = business.getBusinesslinkstbCollection();
-        Collection<Businesslinkstb> newLinks = new ArrayList<>();
+        Collection<Businesslinkstb> links = business.getBusinesslinkstbCollection();
         
-        for (Businesslinkstb bLink : oldLinks) {
-            em.remove(bLink);
+        Boolean linkExists = false;
+        for (Businesslinkstb link : links) {
+            if(link.getLinkID().getLinkID() == LinkId) {
+                link.setLink(Link);
+                linkExists = true;
+                break;
+            }
         }
         
-        for (Map.Entry next : links.entrySet()) {
-            Linkstb link = em.find(Linkstb.class, (Integer) next.getKey());
-            
+        if(!linkExists) {
+            Linkstb link = em.find(Linkstb.class, LinkId);
             Businesslinkstb bLink = new Businesslinkstb();
-            bLink.setBussinessID(business);
-            bLink.setLink((String) next.getValue());
             bLink.setLinkID(link);
+            bLink.setLink(Link);
+            bLink.setBussinessID(business);
             em.persist(bLink);
-            newLinks.add(bLink);
+            links.add(bLink);
         }
+        business.setBusinesslinkstbCollection(links);
+        em.merge(business);
+        //Collection<Businesslinkstb> newLinks = new ArrayList<>();
         
-        business.setBusinesslinkstbCollection(newLinks);
+//        for (Businesslinkstb bLink : oldLinks) {
+//            em.remove(bLink);
+//        }
+        
+//        for (Map.Entry next : links.entrySet()) {
+//            Linkstb link = em.find(Linkstb.class, (Integer) next.getKey());
+//            
+//            Businesslinkstb bLink = new Businesslinkstb();
+//            bLink.setBussinessID(business);
+//            bLink.setLink((String) next.getValue());
+//            bLink.setLinkID(link);
+//            em.persist(bLink);
+//            newLinks.add(bLink);
+//        }
+        
+        business.setBusinesslinkstbCollection(links);
         em.merge(business);
     }
 

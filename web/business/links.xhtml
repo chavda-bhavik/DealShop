@@ -12,6 +12,7 @@
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="content">
+                ${businessBean.getAllAndBusinessLinks()}
                 <div class="content-wrapper" style="color:black !important;">
                     <div class="card card-default" id="cardDemo14">
                         <div class="card-header card-title">
@@ -23,36 +24,33 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Link for</label>
-                                            <select class="form-control">
-                                                <option>Twitter</option>
-                                                <option>Facebook</option>
-                                                <option>Website</option>
-                                            </select>
+                                            <h:selectOneMenu class="form-control" value="${businessBean.linkId}">
+                                                <f:selectItems var="link" value="${businessBean.allLinks}" itemLabel="${link.name}" itemValue="${link.linkID}" />
+                                            </h:selectOneMenu>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Link Address</label>
-                                            <h:inputText class="form-control" />
+                                            <h:inputText class="form-control" id="linkAddr" value="${businessBean.linkAddress}" required="true" requiredMessage="Link Address is required" />
+                                            <h:message for="linkAddr" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-primary">Add</button>
+                                        <h:commandButton class="btn btn-primary" value="Submit" action="${businessBean.submitLink()}" />
                                     </div>
                                 </div>
 
                                 <dl class="my-3">
                                     <p class="h4">Links</p>
-                                    <div class="row">
-                                        <dt class="col-2 text-right">Facebook</dt>
-                                        <dd class="col">www.facebook.com</dd>
-                                    </div>
-                                    <div class="row">
-                                        <dt class="col-2 text-right">Website</dt>
-                                        <dd class="col">www.rajchineese.com</dd>
-                                    </div>
+                                    <ui:repeat var="link" value="${businessBean.buLinks}">
+                                        <div class="row">
+                                            <dt class="col-2 text-right">${link.linkID.name}</dt>
+                                            <dd class="col">${link.link}</dd>
+                                        </div>
+                                    </ui:repeat>
                                 </dl>
                             </h:form>
                         </div>

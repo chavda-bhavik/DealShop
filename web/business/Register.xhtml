@@ -30,7 +30,7 @@
                             <section>
                                 <div class="inner">
                                     <div class="wizard-header">
-                                        <h3 class="heading">Personal Infomation</h3>
+                                        <h3 class="heading">Personal Information</h3>
                                         <p>Please enter your information and proceed to the next step so we can build your account.</p>
                                     </div>
                                     <div class="form-row">
@@ -148,6 +148,7 @@
                                             <h:selectOneMenu id="city" value="${businessBean.selectedCity}" class="form-control" >
                                                 <f:selectItem itemLabel="City" itemDisabled="true" itemValue="0" />
                                                 <f:selectItems value="#{businessBean.cities}" var="city" itemLabel="#{city.name}" itemValue="#{city.cityID}"/>
+                                                <f:ajax event="change" listener="${businessBean.testChanged()}" />
                                             </h:selectOneMenu>
                                             
                                             <h:selectOneMenu id="category" value="${businessBean.selectedBusinessCategory}" class="form-control" >
@@ -159,6 +160,7 @@
                                             <h:selectOneMenu id="type" value="${businessBean.selectedBusinessType}" class="form-control" >
                                                 <f:selectItem itemLabel="Business Type" itemDisabled="true" itemValue="0" />
                                                 <f:selectItems value="#{businessBean.btypes}" var="tp" itemLabel="#{tp.name}" itemValue="#{tp.businessTypeID}"/>
+                                                <f:ajax event="change" listener="${businessBean.testChanged()}" />
                                             </h:selectOneMenu>
                                         </div>
                                     </div>

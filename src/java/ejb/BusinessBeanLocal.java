@@ -34,7 +34,7 @@ public interface BusinessBeanLocal {
     void removeBussinessPhotos(int BusinessID, Integer photos);
     
     //---Bussiness Links---
-    void setBusinessLinks(int BusinessID, HashMap<Integer, String> links);
+    void setBusinessLinks(int BusinessID, int LinkId, String Link);
 //    void addBussinessLinks(int BusinessID, HashMap<Integer, String> links);
 //    void editBussinessLinks(int BusinessID, HashMap<Integer, String> links);
 //    void removeBussinessLinks(int BusinessID, Collection<Integer> links);

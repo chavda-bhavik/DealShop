@@ -7,6 +7,7 @@ package ejb;
 
 import entity.Businesscategorytb;
 import entity.Businessinfotb;
+import entity.Businesslinkstb;
 import entity.Businessphotostb;
 import entity.Businesstb;
 import entity.Businesstypetb;
@@ -147,10 +148,9 @@ public class CommonBean implements CommonBeanLocal {
     }
 
     @Override
-    public Collection<Linkstb> getBussinessLinks(int BusinessID) {
-//        Businesstb business = em.find(Businesstb.class, BusinessID);
-//        return business.get
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Collection<Businesslinkstb> getBussinessLinks(int BusinessID) {
+        Businesstb business = em.find(Businesstb.class, BusinessID);
+        return business.getBusinesslinkstbCollection();
     }
 
     @Override

@@ -59,8 +59,8 @@ public class BusinessClient {
         webTarget.path(java.text.MessageFormat.format("deals/{0}", new Object[]{did})).request().delete();
     }
 
-    public void setBusinessLinks(Object requestEntity, String bid) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("links/{0}", new Object[]{bid})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    public void setBusinessLinks(Object requestEntity, String bid, String linkId) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("links/{0}/{1}", new Object[]{bid, linkId})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
     public void editBusiness(Object requestEntity) throws ClientErrorException {

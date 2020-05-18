@@ -8,9 +8,13 @@ package beans.business;
 import client.BusinessClient;
 import client.CommonClient;
 import entity.Businesscategorytb;
+import entity.Businesslinkstb;
+import entity.Businessphotostb;
 import entity.Businesstb;
 import entity.Businesstypetb;
 import entity.Citytb;
+import entity.Informationtb;
+import entity.Linkstb;
 import entity.Statetb;
 import entity.Usertb;
 import java.io.File;
@@ -23,7 +27,6 @@ import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
@@ -59,6 +62,21 @@ public class BusinessBean implements Serializable {
     Collection<Citytb> cities;
     GenericType<Businesstb> gBusiness;
     Businesstb business;
+    GenericType<Collection<Businessphotostb>> gBusinessPhotos;
+    Collection<Businessphotostb> photos;
+    GenericType<Collection<Informationtb>> gAllInfos;
+    Collection<Informationtb> allInfos;
+    GenericType<Collection<Informationtb>> gBuInfos;
+    Collection<Informationtb> buInfos;
+    private int[] selectedInfos;
+
+    GenericType<Collection<Linkstb>> gAllLinks;
+    Collection<Linkstb> allLinks;
+    GenericType<Collection<Businesslinkstb>> gBuLinks;
+    Collection<Businesslinkstb> buLinks;
+    
+    private int linkId;
+    private String linkAddress;
     
     private String UserName;
     private String UserEmail;
@@ -84,6 +102,56 @@ public class BusinessBean implements Serializable {
     private int State;
     private int City;
 
+    public int getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(int linkId) {
+        this.linkId = linkId;
+    }
+
+    public String getLinkAddress() {
+        return linkAddress;
+    }
+
+    public void setLinkAddress(String linkAddress) {
+        this.linkAddress = linkAddress;
+    }
+
+    public Collection<Businesslinkstb> getBuLinks() {
+        return buLinks;
+    }
+
+    public Collection<Linkstb> getAllLinks() {
+        return allLinks;
+    }
+
+    public int[] getSelectedInfos() {
+        return selectedInfos;
+    }
+
+    public void setSelectedInfos(int[] selectedInfos) {
+        this.selectedInfos = selectedInfos;
+    }
+
+    public Collection<Informationtb> getAllInfos() {
+        return allInfos;
+    }
+
+    public Collection<Informationtb> getBuInfos() {
+        return buInfos;
+    }
+
+    public Collection<Businessphotostb> getPhotos() {
+        return photos;
+    }
+
+    public void testChanged() {
+        for (int selectedInfo : selectedInfos) {
+            System.out.print(selectedInfo);
+        }
+    }
+    
     public Part getUploadedFile() {
         return uploadedFile;
     }
@@ -91,16 +159,7 @@ public class BusinessBean implements Serializable {
     public void setUploadedFile(Part uploadedFile) {
         this.uploadedFile = uploadedFile;
     }
-    
-    public void stateChanged() {
-        res = commonClient.getCitiesByState(Response.class, String.valueOf(selectedState));
-        cities = res.readEntity(gCities);
-    }
-    
-    public void categoryChanged() {
-        res = commonClient.getBussinessTypesByCategory(Response.class, String.valueOf(selectedBusinessCategory));
-        btypes = res.readEntity(gBTypes);
-    }
+        
     
     public int getSelectedState() {
         return selectedState;
@@ -334,10 +393,18 @@ public class BusinessBean implements Serializable {
         this.City = City;
     }
     
+    // Register
+    public void stateChanged() {
+        res = commonClient.getCitiesByState(Response.class, String.valueOf(selectedState));
+        cities = res.readEntity(gCities);
+    }
+    public void categoryChanged() {
+        res = commonClient.getBussinessTypesByCategory(Response.class, String.valueOf(selectedBusinessCategory));
+        btypes = res.readEntity(gBTypes);
+    }
     public String goToRegisterBusiness() {
         return "/business/Register.jsf";
     }
-    
     public String RegisterBusiness() {
         Statetb state = new Statetb();
         state.setStateID(selectedState);
@@ -370,7 +437,6 @@ public class BusinessBean implements Serializable {
         //commonClient.registerBusiness(bins);
         return "/business/Register.jsf?faces-redirect=true";
     }
-    
     public Usertb registerAndGetUser() {
         Usertb user = new Usertb();
         user.setEmail(UserEmail);
@@ -383,34 +449,42 @@ public class BusinessBean implements Serializable {
         user = res.readEntity(gUser);
         return user;
     }
+    // End of Register
     
-    public void getBusinessDetails() {
-        //HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        //String businessid = request.getSession().getAttribute("businessid").toString();
-        //res = commonClient.getBusiness(Response.class, businessid);
-        //business = res.readEntity(gBusiness);
+    // Home
+    public void getAndSetBusinessDetails() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpSession h = request.getSession();
+        if(h.getAttribute("businessid") == null) {
+            String email = h.getAttribute("useremail").toString();
+            System.out.println("setting bussiness session logged user email "+email);
+            res = commonClient.getBusinessByUserEmail(Response.class, email);
+            business = res.readEntity(gBusiness);
+            h.setAttribute("businessid", business.getBusinessID());   
+        }
     }
+    // End of Home
     
-    public void getAndSetBusinessDetails(String userEmailId) {
-//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//        HttpSession h = request.getSession();
-        //res = commonClient.getBusinessByUserEmail(Response.class, userEmailId);
-        //business = res.readEntity(gBusiness);
-        //h.setAttribute("businessid", business.getBusinessID());
+    // Photos
+    public void getBusinessPhotos() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String businessId = request.getSession().getAttribute("businessid").toString();
+        res = commonClient.getBusinessPhotos(Response.class, businessId);
+        photos = res.readEntity(gBusinessPhotos);
     }
-    
     public String uploadBusinessPhoto() {
         if(uploadedFile != null) {
             this.saveFile();
             Collection<String> photos = new ArrayList<>();
             photos.add(image);
-                HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-                String token = request.getSession().getAttribute("token").toString();
-                String businessId = request.getSession().getAttribute("businessid").toString();
-                businessClient = new BusinessClient(token);
-                businessClient.setBusinessPhotos(photos, businessId);
+            
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String token = request.getSession().getAttribute("token").toString();
+            String businessId = request.getSession().getAttribute("businessid").toString();
+            businessClient = new BusinessClient(token);
+            businessClient.setBusinessPhotos(photos, businessId);
         }
-        return "/business/profile.jsf?faces-redirect=true";
+        return "/business/photos.jsf?faces-redirect=true";
     }
     public void saveFile() {
         try (InputStream input = uploadedFile.getInputStream()) {
@@ -421,7 +495,15 @@ public class BusinessBean implements Serializable {
             e.printStackTrace();
         }
     }
+    // End of Photos
     
+    // Details
+    public void getBusinessDetails() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String businessid = request.getSession().getAttribute("businessid").toString();
+        res = commonClient.getBusiness(Response.class, businessid);
+        business = res.readEntity(gBusiness);
+    }
     public String editBusiness() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String token="";
@@ -430,6 +512,49 @@ public class BusinessBean implements Serializable {
         businessClient.editBusiness(business);
         return "/business/profile.jsf?faces-redirect=true";
     }
+    // End of Details
+    
+    // Facilities
+    public void getAllAndBusinessInfos() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String businessid = request.getSession().getAttribute("businessid").toString();
+        
+        res = commonClient.getBusinessInfoList(Response.class);
+        allInfos = res.readEntity(gAllInfos);
+        res = commonClient.getBusinessInfos(Response.class, businessid);
+        buInfos = res.readEntity(gBuInfos);
+    }
+    public String updateBusinessInformations() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String businessid = request.getSession().getAttribute("businessid").toString();
+        String token = request.getSession().getAttribute("token").toString();
+        businessClient = new BusinessClient(token);
+        businessClient.setBusinessInfo(selectedInfos, businessid);
+        return "/business/facilities.jsf?faces-redirect=true";
+    }
+    // End of Facilities
+    
+    // Links
+    public void getAllAndBusinessLinks() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String businessid = request.getSession().getAttribute("businessid").toString();
+        res = commonClient.getLinks(Response.class);
+        allLinks = res.readEntity(gAllLinks);
+        res = commonClient.getBusinessLinks(Response.class, businessid);
+        buLinks = res.readEntity(gBuLinks);
+    }
+    public String submitLink() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String businessid = request.getSession().getAttribute("businessid").toString();
+        String token = request.getSession().getAttribute("token").toString();
+        businessClient = new BusinessClient(token);
+        //System.out.println(businessid+" "+String.valueOf(linkId)+" "+linkAddress);
+        //businessClient.setBusinessLinks(businessid,  String.valueOf(linkId), linkAddress);
+        businessClient.setBusinessLinks(linkAddress, businessid, String.valueOf(linkId));
+        //businessClient.setBusinessLinks(Response.class, businessid, String.valueOf(linkId), linkAddress);
+        return "/business/links.jsf?faces-redirect=true";
+    }
+    // End of Links
     
     public BusinessBean() {
         gBCategories = new GenericType<Collection<Businesscategorytb>>(){};
@@ -437,6 +562,11 @@ public class BusinessBean implements Serializable {
         gStates = new GenericType<Collection<Statetb>>(){};
         gCities = new GenericType<Collection<Citytb>>(){};
         gBusiness = new GenericType<Businesstb>(){};
+        gBusinessPhotos = new GenericType<Collection<Businessphotostb>>(){};
+        gAllInfos = new GenericType<Collection<Informationtb>>(){};
+        gBuInfos = new GenericType<Collection<Informationtb>>(){};
+        gAllLinks = new GenericType<Collection<Linkstb>>(){};
+        gBuLinks = new GenericType<Collection<Businesslinkstb>>(){};
         
         pbkd = new Pbkdf2PasswordHashImpl();
         commonClient = new CommonClient();

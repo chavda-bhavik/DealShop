@@ -89,11 +89,11 @@ public class BusinessResource {
         bbl.removeBussinessPhotos(id, photoid);
     }
     @POST
-    @Path("/links/{bid}")
+    @Path("/links/{bid}/{linkId}")
     @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void setBusinessLinks(@PathParam("bid") int id, HashMap<Integer, String> links) {
-        bbl.setBusinessLinks(id, links);
+    public void setBusinessLinks(@PathParam("bid") int bid, @PathParam("linkId") int LinkId, String Link) {
+        bbl.setBusinessLinks(bid, LinkId, Link);
     }
     
     // Deals

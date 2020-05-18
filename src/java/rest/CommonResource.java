@@ -8,6 +8,7 @@ package rest;
 import ejb.BusinessBeanLocal;
 import ejb.CommonBeanLocal;
 import entity.Businesscategorytb;
+import entity.Businesslinkstb;
 import entity.Businessphotostb;
 import entity.Businesstb;
 import entity.Businesstypetb;
@@ -138,7 +139,7 @@ public class CommonResource {
     //  State & City
     @GET
     @Path("/state")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces(MediaType.APPLICATION_JSON)
     public Collection<Statetb> getAllStates() {
         return common.getAllState();
     }
@@ -167,7 +168,7 @@ public class CommonResource {
     @GET
     @Path("/businessLinks/{bid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Linkstb> getBusinessLinks(@PathParam("bid") int id) {
+    public Collection<Businesslinkstb> getBusinessLinks(@PathParam("bid") int id) {
         return common.getBussinessLinks(id);
     }
     

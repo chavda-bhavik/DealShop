@@ -6,6 +6,7 @@
 package ejb;
 
 import entity.Businesscategorytb;
+import entity.Businesslinkstb;
 import entity.Businessphotostb;
 import entity.Businesstb;
 import entity.Businesstypetb;
@@ -55,7 +56,7 @@ public interface CommonBeanLocal {
     
 //---Links
     Collection<Linkstb> getLinksList();
-    Collection<Linkstb> getBussinessLinks(int BusinessID);
+    Collection<Businesslinkstb> getBussinessLinks(int BusinessID);
     
     //---Deals---
     Dealstb getSingleDeal(int DealID);
