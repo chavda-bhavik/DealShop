@@ -12,9 +12,20 @@
                     <h:form>
                     <ul class="sidebar-nav">
                         <li class=" ">
-                            <h:commandLink action="/business/profile.jsf?faces-redirect=true" title="Manage State">
-                                <em class="icon-layers"></em> Profile
-                            </h:commandLink>
+                            <a href="#profile" title="Profile" data-toggle="collapse">
+                                <em class="icon-layers"></em>
+                                <span data-localize="sidebar.nav.DASHBOARD">Profile</span>
+                            </a>
+                            <ul class="sidebar-nav sidebar-subnav collapse" id="profile">
+                               <li class="sidebar-subnav-header">Profile</li>
+                               <li class=" "><h:commandLink action="/business/details.jsf?faces-redirect=true">Details</h:commandLink></li>
+                               <li class=" "><h:commandLink action="/business/photos.jsf?faces-redirect=true">Photos</h:commandLink></li>
+                               <li class=" "><h:commandLink action="/business/facilities.jsf?faces-redirect=true">Facilities</h:commandLink></li>
+                               <li class=" "><h:commandLink action="/business/links.jsf?faces-redirect=true">Links</h:commandLink></li>
+                            </ul>
+                        </li>
+                        <li class=" ">
+                            
                         </li>
                         <li class=" ">
                             <h:commandLink action="/business/addDeal.jsf?faces-redirect=true" title="Manage State">

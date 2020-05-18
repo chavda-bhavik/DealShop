@@ -5,6 +5,7 @@
  */
 package client;
 
+import static com.sun.xml.ws.developer.JAXWSProperties.CONNECT_TIMEOUT;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
@@ -13,7 +14,7 @@ import javax.ws.rs.client.WebTarget;
  * Jersey REST client generated for REST resource:CommonResource [common]<br>
  * USAGE:
  * <pre>
- *        CommonClient client = new CommonClient();
+ *        TestClient client = new TestClient();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
@@ -21,14 +22,17 @@ import javax.ws.rs.client.WebTarget;
  *
  * @author bhavik
  */
-public class CommonClient {
+public class TestClient {
 
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/DealShop/webresources";
 
-    public CommonClient() {
+    public TestClient() {
+        System.out.println("asljdfo");
         client = javax.ws.rs.client.ClientBuilder.newClient();
+        client.property(CONNECT_TIMEOUT, 1000);
+//        client.property(READ_TIMEOUT,    1000);
         webTarget = client.target(BASE_URI).path("common");
     }
 
@@ -228,7 +232,7 @@ public class CommonClient {
 
     public <T> T getBusinessByCity(Class<T> responseType, String cityId) throws ClientErrorException {
         WebTarget resource = webTarget;
-        resource = resource.path(java.text.MessageFormat.format("businesses/{0}", new Object[]{cityId}));
+        resource = resource.path(java.text.MessageFormat.format("businessByCity/{0}", new Object[]{cityId}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 

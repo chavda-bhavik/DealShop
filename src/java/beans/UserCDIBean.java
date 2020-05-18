@@ -107,7 +107,7 @@ public class UserCDIBean {
         HttpSession session = request.getSession(true);
         res = commonClient.getLoginUser(Response.class, email);
         loginUser = res.readEntity(gUser);
-
+        System.out.println(loginUser.getEmail());
         session.setAttribute("useremail", loginUser.getEmail());
         session.setAttribute("role", loginUser.getUserCategoryID().getName());
         session.setAttribute("userid", loginUser.getUserID());

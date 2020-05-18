@@ -5,8 +5,6 @@
  */
 package validators;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -18,23 +16,18 @@ import javax.faces.validator.ValidatorException;
  *
  * @author bhavik
  */
-@FacesValidator("emailAjaxValidator")
-public class emailAjaxValidator implements Validator  {
+@FacesValidator("phoneValidator")
+public class DaysValidator implements Validator {
     
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        String EMAIL_REGIX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-        
+        String regex = "\\d{3}-\\d{3}-\\d{4}";
+        System.out.println("phone vali called");
         String val = value.toString();
-        if (value == null) {
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                "Email input is required.", null));
-        } else {
-            Pattern pattern = Pattern.compile(EMAIL_REGIX);
-            Matcher matcher = pattern.matcher(val);
-            if(!matcher.matches()) {
+        if (value != null) {
+            if(!val.matches(regex)) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                "Email address is not valid.", null));
+                "Entered phone number is not valid.", null));
             }
         }
     }

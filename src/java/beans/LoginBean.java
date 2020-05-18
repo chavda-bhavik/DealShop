@@ -5,6 +5,7 @@
  */
 package beans;
 
+import beans.business.BusinessBean;
 import client.CommonClient;
 import entity.Usertb;
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class LoginBean {
     Pbkdf2PasswordHashImpl pbkd;
     CommonClient commonClient;
     
+//    BusinessBean businessBean;
     UserCDIBean userCDIBean;
     private String email;
     private String username;
@@ -113,6 +115,7 @@ public class LoginBean {
     public LoginBean() {
         pbkd = new Pbkdf2PasswordHashImpl();
         commonClient = new CommonClient();
+//        businessBean = new BusinessBean();
     }
     
     public void checkLoginAndRedirect() throws IOException {
@@ -155,8 +158,8 @@ public class LoginBean {
                 context.responseComplete();
             }
 
-            userCDIBean = new UserCDIBean();
-            userCDIBean.getAndSetLoginCredentials(email);
+//            userCDIBean = new UserCDIBean();
+//            userCDIBean.getAndSetLoginCredentials(email);
             
             System.out.println("In bean");
             if(roles.contains("Admin"))
@@ -174,6 +177,7 @@ public class LoginBean {
             else if(roles.contains("Business"))
             {
                 System.out.println("In Business");
+//                businessBean.getAndSetBusinessDetails(email);
                 request.getSession().setAttribute("logged-group", "Business");
                 return "/business/Home.jsf?faces-redirect=true";
             }

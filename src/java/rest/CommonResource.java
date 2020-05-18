@@ -79,7 +79,7 @@ public class CommonResource {
         return common.getAllBusiness();
     }
     @GET
-    @Path("/businessByCity/{cityId}")
+    @Path("/businesses/{cityId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Businesstb> getBusinessByCity(@PathParam("cityId") int cityId) {
         return common.getAllBusinessByCity(cityId);
@@ -101,6 +101,12 @@ public class CommonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Businesstb getBusiness(@PathParam("bId") int BusinessID) {
         return common.getBusiness(BusinessID);
+    }
+    @GET
+    @Path("/businessByEmail/{userEmail}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Businesstb getBusinessByUserEmail(@PathParam("userEmail") String UserEmailId) {
+        return common.getBusinessByUserEmail(UserEmailId);
     }
     @GET
     @Path("/businessPhotos/{bId}")
@@ -132,7 +138,7 @@ public class CommonResource {
     //  State & City
     @GET
     @Path("/state")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Collection<Statetb> getAllStates() {
         return common.getAllState();
     }

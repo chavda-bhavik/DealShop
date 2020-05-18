@@ -40,6 +40,7 @@ public interface CommonBeanLocal {
     Collection<Businesstb> getAllBusinessByState(int StateID);
     Collection<Businesstb> getAllBusinessByCategory(int CategoryID);
     Businesstb getBusiness(int BusinessID);
+    Businesstb getBusinessByUserEmail(String UserEmailId);
     Collection<Businessphotostb> getBusinessPhotos(int BusinessID);
     Collection<Reviewtb> getBusinessReviews(int BusinessID);
     

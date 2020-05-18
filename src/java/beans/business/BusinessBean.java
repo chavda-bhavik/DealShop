@@ -13,15 +13,23 @@ import entity.Businesstypetb;
 import entity.Citytb;
 import entity.Statetb;
 import entity.Usertb;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
+import static jwtrest.Constants.FILE_UPLOAD;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 /**
@@ -36,6 +44,10 @@ public class BusinessBean implements Serializable {
     CommonClient commonClient;
     BusinessClient businessClient;
     Response res;
+    
+    private Part uploadedFile;
+    private String image;
+    private String folder = FILE_UPLOAD+"business";
     
     GenericType<Collection<Businesscategorytb>> gBCategories;
     Collection<Businesscategorytb> bcategories;
@@ -71,6 +83,14 @@ public class BusinessBean implements Serializable {
     private int BusinessType;
     private int State;
     private int City;
+
+    public Part getUploadedFile() {
+        return uploadedFile;
+    }
+
+    public void setUploadedFile(Part uploadedFile) {
+        this.uploadedFile = uploadedFile;
+    }
     
     public void stateChanged() {
         res = commonClient.getCitiesByState(Response.class, String.valueOf(selectedState));
@@ -327,13 +347,13 @@ public class BusinessBean implements Serializable {
         bcateg.setCategoryID(selectedBusinessCategory);
         Businesstypetb btyp = new Businesstypetb();
         btyp.setBusinessTypeID(selectedBusinessType);
-        Usertb user = this.registerAndGetUser();
+        //Usertb user = this.registerAndGetUser();
         
         Businesstb bins = new Businesstb();
         bins.setAddress(Address);
         bins.setBusinessName(BusinessName);
         bins.setEmailID(BusinessEmailID);
-        bins.setUserID(user);
+        //bins.setUserID(user);
         bins.setStateID(state);
         bins.setCityID(city);
         bins.setBusinessCategoryID(bcateg);
@@ -346,7 +366,8 @@ public class BusinessBean implements Serializable {
         bins.setAwardsRecognition("");
         bins.setDaysOfOperation("");
         
-        commonClient.registerBusiness(bins);
+        System.out.println(selectedState+" "+selectedCity+" "+selectedBusinessCategory+" "+selectedBusinessType);
+        //commonClient.registerBusiness(bins);
         return "/business/Register.jsf?faces-redirect=true";
     }
     
@@ -364,18 +385,45 @@ public class BusinessBean implements Serializable {
     }
     
     public void getBusinessDetails() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String userId = request.getSession().getAttribute("userid").toString();
-//        System.out.println(request.getSession().getAttribute("role").toString());
-//        System.out.println(request.getSession().getAttribute("logged-group").toString());
-//        System.out.println(userId);
-        res = commonClient.getBusiness(Response.class, userId);
-        business = res.readEntity(gBusiness);
+        //HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        //String businessid = request.getSession().getAttribute("businessid").toString();
+        //res = commonClient.getBusiness(Response.class, businessid);
+        //business = res.readEntity(gBusiness);
     }
     
-    public String EditBusiness() {
+    public void getAndSetBusinessDetails(String userEmailId) {
+//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//        HttpSession h = request.getSession();
+        //res = commonClient.getBusinessByUserEmail(Response.class, userEmailId);
+        //business = res.readEntity(gBusiness);
+        //h.setAttribute("businessid", business.getBusinessID());
+    }
+    
+    public String uploadBusinessPhoto() {
+        if(uploadedFile != null) {
+            this.saveFile();
+            Collection<String> photos = new ArrayList<>();
+            photos.add(image);
+                HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                String token = request.getSession().getAttribute("token").toString();
+                String businessId = request.getSession().getAttribute("businessid").toString();
+                businessClient = new BusinessClient(token);
+                businessClient.setBusinessPhotos(photos, businessId);
+        }
+        return "/business/profile.jsf?faces-redirect=true";
+    }
+    public void saveFile() {
+        try (InputStream input = uploadedFile.getInputStream()) {
+            image = uploadedFile.getSubmittedFileName();
+            Files.copy(input, new File(folder, image).toPath());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public String editBusiness() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         String token="";
         token = request.getSession().getAttribute("token").toString();
         businessClient = new BusinessClient(token);

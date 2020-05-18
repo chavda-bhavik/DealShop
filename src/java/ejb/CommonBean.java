@@ -77,14 +77,19 @@ public class CommonBean implements CommonBeanLocal {
     }
 
     @Override
-    public Businesstb getBusiness(int UserID) {
-        Usertb user = em.find(Usertb.class, UserID);
+    public Businesstb getBusiness(int BusinessID) {
+        Businesstb business = em.find(Businesstb.class, BusinessID);
+        return business;
+    }
+
+    @Override
+    public Businesstb getBusinessByUserEmail(String UserEmailId) {
+        Usertb user = (Usertb) em.createNamedQuery("Usertb.findByEmail").setParameter("email", UserEmailId).getSingleResult();
         Collection<Businesstb> userBussinesses = user.getBusinesstbCollection();
         Businesstb business = new Businesstb();
         for (Businesstb userBussinesse : userBussinesses) {
             business = userBussinesse;
         }
-//        Businesstb business = em.find(Businesstb.class, BusinessID);
         return business;
     }
 

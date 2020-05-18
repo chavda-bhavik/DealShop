@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <body>
 
@@ -35,6 +37,7 @@
                                 </ul>
                                 <!-- Tab panes-->
                                 <div class="tab-content">
+                                    <!--Details-->
                                     <div class="tab-pane active" id="details" role="tabpanel">
                                         <h:form>
                                             <div class="row">
@@ -47,7 +50,11 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label>Email address</label>
-                                                        <h:inputText value="${businessBean.business.emailID}" pt:placeholder="Business Email" class="form-control" />
+                                                        <h:inputText value="${businessBean.business.emailID}" pt:placeholder="Business Email" class="form-control" id="bEmail">
+                                                            <f:validator validatorId="emailAjaxValidator" />
+                                                            <f:ajax event="change" render="bEmailMessage" />
+                                                        </h:inputText>
+                                                        <h:message for="bEmail" id="bEmailMessage" class="text-danger" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -55,13 +62,21 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label>Customer care no.</label>
-                                                        <h:inputText value="${businessBean.business.customerCarePhoneNo}" pt:placeholder="Customer care no." class="form-control" />
+                                                        <h:inputText value="${businessBean.business.customerCarePhoneNo}" pt:placeholder="999-999-9999" class="form-control" id="cutNo">
+                                                            <f:validator validatorId="phoneValidator" />
+                                                            <f:ajax event="change" render="cutNoMessage" />
+                                                        </h:inputText>
+                                                        <h:message for="cutNo" id="cutNoMessage" class="text-danger" />
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label>Reservation no.</label>
-                                                        <h:inputText value="${businessBean.business.reservationPhoneNo}" pt:placeholder="Reservation no." class="form-control" />
+                                                        <h:inputText value="${businessBean.business.reservationPhoneNo}" pt:placeholder="999-999-9999" class="form-control" id="resNo">
+                                                            <f:validator validatorId="phoneValidator"/>
+                                                            <f:ajax event="change" render="resNoMessage" />
+                                                        </h:inputText>
+                                                        <h:message for="resNo" id="resNoMessage" class="text-danger" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -69,13 +84,13 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label>Days of Operation</label>
-                                                        <h:inputText value="${businessBean.business.daysOfOperation}" pt:placeholder="Days of operation" class="form-control" />
+                                                        <h:inputText value="${businessBean.business.daysOfOperation}" pt:placeholder="Mon,Tue,Wed,Thus,Fri,Sat,Sun" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label>Hours of Operation</label>
-                                                        <h:inputText value="${businessBean.business.hoursOfOperation}" pt:placeholder="Hours of operation" class="form-control" />
+                                                        <h:inputText value="${businessBean.business.hoursOfOperation}" pt:placeholder="8:30 AM - 10:30 PM" class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -83,7 +98,7 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label>Address</label>
-                                                        <h:inputTextarea class="form-control" value="${businessBean.business.address}" pt:placeholder="Business Address" />
+                                                        <h:inputTextarea class="form-control" value="${businessBean.business.address}" pt:placeholder="305, nandan society, minibazar, Nr. petrol pump, surat" />
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
@@ -109,19 +124,22 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                    <h:commandButton action="${businessBean.editBusiness()}" class="btn btn-primary" value="Update" />
                                                 </div>
                                             </div>
                                         </h:form>
                                     </div>
+                                    
+                                    <!--Photos-->
                                     <div class="tab-pane" id="photos" role="tabpanel">
-                                        <h:form >
+                                        <h:form enctype="multipart/form-data" id="asdf">
                                             <div class="row">
                                                 <div class="col-10">
-                                                    <h:inputFile class="form-control" />
+                                                    <h:inputFile class="form-control" value="${businessBean.uploadedFile}" required="true" requiredMessage="Select atleast one image" id="image"/>
+                                                    <h:message class="text-danger" for="image" />
                                                 </div>
                                                 <div class="col-2">
-                                                    <h:commandButton class="btn btn-primary btn-block" value="Add"/>
+                                                    <h:commandButton class="btn btn-primary btn-block" value="Add" action="${businessBean.uploadBusinessPhoto()}" />
                                                 </div>
                                             </div>
                                             <div class="row my-3">
@@ -131,6 +149,8 @@
                                             </div>
                                         </h:form>
                                     </div>
+
+                                    <!--Facilities-->
                                     <div class="tab-pane" id="facilities" role="tabpanel">
                                         <h:form>
                                             <div class="row p-4">
@@ -158,6 +178,8 @@
                                             </div>
                                         </h:form>
                                     </div>
+                                    
+                                    <!--Links-->
                                     <div class="tab-pane" id="links" role="tabpanel">
                                         <h:form>
                                             <div class="row">
