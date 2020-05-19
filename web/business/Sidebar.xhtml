@@ -25,12 +25,19 @@
                             </ul>
                         </li>
                         <li class=" ">
-                            
+                            <a href="#deals" title="Deals" data-toggle="collapse">
+                                <em class="icon-chemistry"></em>
+                                <span data-localize="sidebar.nav.DASHBOARD">Deals</span>
+                            </a>
+                            <ul class="sidebar-nav sidebar-subnav collapse" id="deals">
+                               <li class="sidebar-subnav-header">Deals</li>
+                               <li class=" "><h:commandLink action="/business/adddeal.jsf?faces-redirect=true">Add Deal</h:commandLink></li>
+                               <li class=" "><h:commandLink action="/business/dealdetails.jsf?faces-redirect=true">Deal Details</h:commandLink></li>
+                               <li class=" "><h:commandLink action="/business/dealphotos.jsf?faces-redirect=true">Deal Photos</h:commandLink></li>
+                               <li class=" "><h:commandLink action="/business/deals.jsf?faces-redirect=true">Deals</h:commandLink></li>
+                            </ul>
                         </li>
                         <li class=" ">
-                            <h:commandLink action="/business/addDeal.jsf?faces-redirect=true" title="Manage State">
-                                <em class="icon-chemistry"></em> Add Deal
-                            </h:commandLink>
                         </li>
                         <li class=" ">
                             <h:commandLink action="/business/liveDeals.jsf?faces-redirect=true" title="Manage State">

@@ -21,9 +21,13 @@ public class RequiredAjaxValidator implements Validator {
     
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        if (value.toString().isEmpty()) {
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                "This field is required.", null));
+        try{
+            if (value.toString().isEmpty()) {
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "This field is required.", null));
+            }
+        }catch(Exception e) {
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "This field is required.", null));
         }
     }
 }

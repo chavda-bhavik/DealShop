@@ -321,7 +321,7 @@ public class BusinessBean implements BusinessBeanLocal {
         deal.setBannerImage(BannerImage);
         deal.setDealsCategoryID(dealCategory);
         deal.setBusinessID(business);
-        deal.setIsVerified(1);
+        deal.setIsVerified(0);
         categoryDeals.add(deal);
         
         em.persist(deal);

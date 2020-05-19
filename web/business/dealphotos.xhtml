@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                <div class="content-wrapper" style="color:black !important;">
+                    <div class="card card-default" id="cardDemo14">
+                        <div class="card-header card-title">
+                            Manage Deal Photos
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="form-label">Deal Name</label>
+                                        <select class="form-control">
+                                            <option>ABC</option>
+                                            <option>DEF</option>
+                                            <option>MNO</option>
+                                            <option>PQR</option>
+                                            <option>XYZ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="form-label">Photo</label>
+                                        <input type="file" class="form-control" name="photo" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+<!--                                    <ui:repeat var="photo" value="$businessBean.photos}">-->
+                                        <div class="col-3">
+                                            <img src="/DealShop/assets/images/deals/product5.jpg" class="img-thumbnail photo" />
+                                        </div>
+<!--                                    </ui:repeat>-->
+                            </div>
+                            <div class="form-group row mt-5">
+                                <div class="col-xl-10">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

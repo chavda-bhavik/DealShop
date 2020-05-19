@@ -188,7 +188,14 @@ public class CommonBean implements CommonBeanLocal {
     @Override
     public Dealsdetailstb getDealDetails(int DealID) {
         Dealstb deal = em.find(Dealstb.class, DealID);
-        return deal.getDealsdetailstbCollection().iterator().next();
+        Dealsdetailstb details = new Dealsdetailstb();
+        details.setDealDetailID(0);
+        try {
+            details = deal.getDealsdetailstbCollection().iterator().next();
+        }
+        catch(Exception e) {
+        }
+        return details;
     }
 
     @Override
