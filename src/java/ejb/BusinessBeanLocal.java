@@ -5,11 +5,11 @@
  */
 package ejb;
 
+import entity.Dealphotostb;
 import entity.Dealspaymenttb;
 import entity.Dealstb;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import javax.ejb.Local;
 
 /**
@@ -30,6 +30,10 @@ public interface BusinessBeanLocal {
 //    void removeBussinessInfo(int BussinessID, Collection<Integer> InfoIDs);
     
     //---Bussiness Photos---
+    void addDealPhotos(int DealID, Collection<String> photos);
+    void removeDealPhoto(int PhotoID);
+    Collection<Dealphotostb> getDealPhotos(int DealID);
+    
     void addBusinessPhotos(int BusinessID, Collection<String> photos);
     void removeBussinessPhotos(int BusinessID, Integer photos);
     

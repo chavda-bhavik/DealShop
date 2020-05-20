@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +44,7 @@ public class Linkstb implements Serializable {
     private String name;
     @Column(name = "Logo")
     private String logo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "linkID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "linkID")
     private Collection<Businesslinkstb> businesslinkstbCollection;
 
     public Linkstb() {

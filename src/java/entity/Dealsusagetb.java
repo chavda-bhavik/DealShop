@@ -10,7 +10,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,13 +54,13 @@ public class Dealsusagetb implements Serializable {
     @Column(name = "UserComment")
     private String userComment;
     @JoinColumn(name = "DealID", referencedColumnName = "DealID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Dealstb dealID;
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Usertb userID;
     @JoinColumn(name = "PaymentID", referencedColumnName = "PaymentID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Dealspaymenttb paymentID;
 
     public Dealsusagetb() {

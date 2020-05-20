@@ -23,13 +23,12 @@ import javax.persistence.Table;
  * @author bhavik
  */
 @Entity
-@Table(name = "businessphotostb")
+@Table(name = "dealphotostb")
 @NamedQueries({
-    @NamedQuery(name = "Businessphotostb.findAll", query = "SELECT b FROM Businessphotostb b"),
-    @NamedQuery(name = "Businessphotostb.findByPhotoID", query = "SELECT b FROM Businessphotostb b WHERE b.photoID = :photoID"),
-    @NamedQuery(name = "Businessphotostb.findByPhoto", query = "SELECT b FROM Businessphotostb b WHERE b.photo = :photo"),
-    @NamedQuery(name = "Businessphotostb.findByType", query = "SELECT b FROM Businessphotostb b WHERE b.type = :type")})
-public class Businessphotostb implements Serializable {
+    @NamedQuery(name = "Dealphotostb.findAll", query = "SELECT d FROM Dealphotostb d"),
+    @NamedQuery(name = "Dealphotostb.findByPhotoID", query = "SELECT d FROM Dealphotostb d WHERE d.photoID = :photoID"),
+    @NamedQuery(name = "Dealphotostb.findByPhoto", query = "SELECT d FROM Dealphotostb d WHERE d.photo = :photo")})
+public class Dealphotostb implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,24 +39,20 @@ public class Businessphotostb implements Serializable {
     @Basic(optional = false)
     @Column(name = "Photo")
     private String photo;
-    @Basic(optional = false)
-    @Column(name = "Type")
-    private int type;
-    @JoinColumn(name = "BusinessID", referencedColumnName = "BusinessID")
+    @JoinColumn(name = "DealID", referencedColumnName = "DealID")
     @ManyToOne(optional = false)
-    private Businesstb businessID;
+    private Dealstb dealID;
 
-    public Businessphotostb() {
+    public Dealphotostb() {
     }
 
-    public Businessphotostb(Integer photoID) {
+    public Dealphotostb(Integer photoID) {
         this.photoID = photoID;
     }
 
-    public Businessphotostb(Integer photoID, String photo, int type) {
+    public Dealphotostb(Integer photoID, String photo) {
         this.photoID = photoID;
         this.photo = photo;
-        this.type = type;
     }
 
     public Integer getPhotoID() {
@@ -76,20 +71,12 @@ public class Businessphotostb implements Serializable {
         this.photo = photo;
     }
 
-    public int getType() {
-        return type;
+    public Dealstb getDealID() {
+        return dealID;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public Businesstb getBusinessID() {
-        return businessID;
-    }
-
-    public void setBusinessID(Businesstb businessID) {
-        this.businessID = businessID;
+    public void setDealID(Dealstb dealID) {
+        this.dealID = dealID;
     }
 
     @Override
@@ -102,10 +89,10 @@ public class Businessphotostb implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Businessphotostb)) {
+        if (!(object instanceof Dealphotostb)) {
             return false;
         }
-        Businessphotostb other = (Businessphotostb) object;
+        Dealphotostb other = (Dealphotostb) object;
         if ((this.photoID == null && other.photoID != null) || (this.photoID != null && !this.photoID.equals(other.photoID))) {
             return false;
         }
@@ -114,7 +101,7 @@ public class Businessphotostb implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Businessphotostb[ photoID=" + photoID + " ]";
+        return "entity.Dealphotostb[ photoID=" + photoID + " ]";
     }
     
 }

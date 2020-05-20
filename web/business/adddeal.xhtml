@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
@@ -28,8 +29,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label">Deal Name</label>
                                             <b:inputText 
+                                                label="Deal Name"
                                                 class="form-control"
                                                 value="${bDealsBean.dealName}"
                                                 placeholder="Deal Name" id="name"
@@ -43,8 +44,8 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label class="form-label">Issue Date</label>
                                             <b:datepicker 
+                                                label="Issue Date"
                                                 value="${bDealsBean.issueDate}"
                                                 placeholder="Issue Date"
                                                 id="issueDate" required="true"
@@ -55,8 +56,8 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label class="form-label">Due Date</label>
                                             <b:datepicker 
+                                                label="Due Date"
                                                 value="${bDealsBean.dueDate}"
                                                 placeholder="Due Date"
                                                 id="dueDate" required="true"
@@ -70,8 +71,8 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label class="form-label">Average Cost</label>
                                             <b:inputText 
+                                                label="Average Cost"
                                                 value="${bDealsBean.averageCost}" type="number" 
                                                 required="true" requiredMessage="Average Cost is required"
                                                 placeholder="Average Cost"
@@ -85,8 +86,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label class="form-label">Deal Category</label>
-                                            <b:selectOneMenu id="category" value="${bDealsBean.dealsCategory}">
+                                            <b:selectOneMenu id="category" value="${bDealsBean.dealsCategory}" label="Deal Category">
                                                 <f:selectItem itemLabel="Deals Category" itemDisabled="true" itemValue="0" />
                                                 <f:selectItems value="#{bDealsBean.dcategories}" var="category" itemLabel="#{category.name}" itemValue="#{category.categoryID}"/>
                                             </b:selectOneMenu>
@@ -97,14 +97,13 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label">Banner Image</label>
 <!--                                            <p:fileUpload 
                                                 value="#bDealsBean.file}" mode="simple" 
                                                 skinSimple="true" id="bannerImage"
                                             >
                                                 <f:validator validatorId="requiredAjaxValidator" />
                                             </p:fileUpload>-->
-<h:inputFile class="form-control" value="${bDealsBean.uploadedFile}" required="true" id="bannerImage" requiredMessage="Banner Image is required" />
+<h:inputFile class="form-control" value="${bDealsBean.uploadedFile}" required="true" id="bannerImage" requiredMessage="Banner Image is required" label="Banner Image" />
                                             <h:message for="bannerImage" class="text-danger" id="imageError" />
                                         </div>
                                     </div>
@@ -112,7 +111,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-xl-10">
-                                        <h:commandButton class="btn btn-success" action="${bDealsBean.addDeal()}" value="Add" />
+                                        <b:commandButton look="success" action="${bDealsBean.addDeal()}" value="Add" />
                                     </div>
                                 </div>
                             </h:form>

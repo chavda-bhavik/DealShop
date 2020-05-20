@@ -79,6 +79,10 @@ public class BusinessClient {
         webTarget.path(java.text.MessageFormat.format("dealDetails/{0}", new Object[]{did})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
+    public void removeDealPhoto(String photoid) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("dealphotos/{0}", new Object[]{photoid})).request().delete();
+    }
+
     public void setBusinessInfo(Object requestEntity, String id) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("info/{0}", new Object[]{id})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
@@ -99,6 +103,10 @@ public class BusinessClient {
 
     public void removeBusinessPhoto(String bid) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("photos/{0}", new Object[]{bid})).request().delete();
+    }
+
+    public void setDealPhotos(Object requestEntity, String dealid) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("dealphotos/{0}", new Object[]{dealid})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
     public void addDealMenu(Object requestEntity, String dealid) throws ClientErrorException {

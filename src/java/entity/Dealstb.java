@@ -13,7 +13,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -73,19 +72,21 @@ public class Dealstb implements Serializable {
     @Basic(optional = false)
     @Column(name = "isVerified")
     private int isVerified;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
+    private Collection<Dealphotostb> dealphotostbCollection;
     @JoinColumn(name = "BusinessID", referencedColumnName = "BusinessID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Businesstb businessID;
     @JoinColumn(name = "DealsCategoryID", referencedColumnName = "CategoryID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Dealscategorytb dealsCategoryID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
     private Collection<Dealsdetailstb> dealsdetailstbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
     private Collection<Carttb> carttbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
     private Collection<Dealsmenutb> dealsmenutbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
     private Collection<Dealsusagetb> dealsusagetbCollection;
 
     public Dealstb() {
@@ -168,6 +169,15 @@ public class Dealstb implements Serializable {
 
     public void setIsVerified(int isVerified) {
         this.isVerified = isVerified;
+    }
+
+    @JsonbTransient
+    public Collection<Dealphotostb> getDealphotostbCollection() {
+        return dealphotostbCollection;
+    }
+
+    public void setDealphotostbCollection(Collection<Dealphotostb> dealphotostbCollection) {
+        this.dealphotostbCollection = dealphotostbCollection;
     }
 
     public Businesstb getBusinessID() {

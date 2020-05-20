@@ -88,6 +88,12 @@ public class CommonClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public <T> T getDealPhotos(Class<T> responseType, String dealId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("dealPhotos/{0}", new Object[]{dealId}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public <T> T getCitiesByState(Class<T> responseType, String stateId) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("cityByState/{0}", new Object[]{stateId}));

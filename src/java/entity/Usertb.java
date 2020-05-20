@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,18 +52,18 @@ public class Usertb implements Serializable {
     @Lob
     @Column(name = "Password")
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
     private Collection<Reviewtb> reviewtbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
     private Collection<Carttb> carttbCollection;
     @JoinColumn(name = "UserCategoryID", referencedColumnName = "CategoryID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Usercategorytb userCategoryID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
     private Collection<Dealspaymenttb> dealspaymenttbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
     private Collection<Businesstb> businesstbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
     private Collection<Dealsusagetb> dealsusagetbCollection;
 
     public Usertb() {

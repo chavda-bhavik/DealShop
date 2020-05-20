@@ -13,6 +13,7 @@ import entity.Businessphotostb;
 import entity.Businesstb;
 import entity.Businesstypetb;
 import entity.Citytb;
+import entity.Dealphotostb;
 import entity.Dealscategorytb;
 import entity.Dealsdetailstb;
 import entity.Dealsmenutb;
@@ -115,6 +116,13 @@ public class CommonResource {
     public Collection<Businessphotostb> getBusinessPhotos(@PathParam("bId") int BusinessID) {
         return common.getBusinessPhotos(BusinessID);
     }
+    @GET
+    @Path("/dealPhotos/{dealId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Dealphotostb> getDealPhotos(@PathParam("dealId") int DealID) {
+        return bbl.getDealPhotos(DealID);
+    }
+    
     @GET
     @Path("/businessReviews/{bId}")
     @Produces(MediaType.APPLICATION_JSON)

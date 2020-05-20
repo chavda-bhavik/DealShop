@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,9 +45,9 @@ public class Businesscategorytb implements Serializable {
     @Basic(optional = false)
     @Column(name = "Image")
     private String image;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessCategoryID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessCategoryID")
     private Collection<Businesstb> businesstbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessCategoryID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessCategoryID")
     private Collection<Businesstypetb> businesstypetbCollection;
 
     public Businesscategorytb() {

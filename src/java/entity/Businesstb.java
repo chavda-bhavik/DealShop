@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -85,30 +84,30 @@ public class Businesstb implements Serializable {
     @Basic(optional = false)
     @Column(name = "isVerified")
     private int isVerified;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bussinessID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bussinessID")
     private Collection<Businesslinkstb> businesslinkstbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessID")
     private Collection<Dealstb> dealstbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bussinessID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bussinessID")
     private Collection<Reviewtb> reviewtbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bussinessID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bussinessID")
     private Collection<Businessinfotb> businessinfotbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessID")
     private Collection<Businessphotostb> businessphotostbCollection;
     @JoinColumn(name = "CityID", referencedColumnName = "CityID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Citytb cityID;
     @JoinColumn(name = "StateID", referencedColumnName = "StateID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Statetb stateID;
     @JoinColumn(name = "BusinessCategoryID", referencedColumnName = "CategoryID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Businesscategorytb businessCategoryID;
     @JoinColumn(name = "BusinessTypeID", referencedColumnName = "BusinessTypeID")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Businesstypetb businessTypeID;
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Usertb userID;
 
     public Businesstb() {

@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,7 +45,7 @@ public class Dealscategorytb implements Serializable {
     @Basic(optional = false)
     @Column(name = "Image")
     private String image;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealsCategoryID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealsCategoryID")
     private Collection<Dealstb> dealstbCollection;
 
     public Dealscategorytb() {

@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,10 +49,10 @@ public class Reviewtb implements Serializable {
     @Column(name = "Review")
     private String review;
     @JoinColumn(name = "BussinessID", referencedColumnName = "BusinessID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Businesstb bussinessID;
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Usertb userID;
 
     public Reviewtb() {

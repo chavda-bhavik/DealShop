@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +41,7 @@ public class Dealsmenutb implements Serializable {
     @Column(name = "MenuData")
     private String menuData;
     @JoinColumn(name = "DealID", referencedColumnName = "DealID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Dealstb dealID;
 
     public Dealsmenutb() {

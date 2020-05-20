@@ -117,6 +117,21 @@ public class BusinessResource {
     public void removeDeal(@PathParam("did") int did) {
         bbl.removeDeal(did);
     }
+    
+    @POST
+    @Path("/dealphotos/{dealid}")
+    @RolesAllowed("Business")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void setDealPhotos(@PathParam("dealid") int id, Collection<String> photos) {
+        bbl.addDealPhotos(id, photos);
+    }
+    @DELETE
+    @Path("/dealphotos/{photoid}")
+    @RolesAllowed("Business")
+    public void removeDealPhoto(@PathParam("photoid") int id) {
+        bbl.removeDealPhoto(id);
+    }
+    
     @GET
     @Path("/deals/{businessid}")
     @RolesAllowed("Business")

@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,9 +44,9 @@ public class Citytb implements Serializable {
     @Column(name = "Name")
     private String name;
     @JoinColumn(name = "StateID", referencedColumnName = "StateID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Statetb stateID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityID")
     private Collection<Businesstb> businesstbCollection;
 
     public Citytb() {

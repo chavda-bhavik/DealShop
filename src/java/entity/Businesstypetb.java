@@ -11,7 +11,6 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,10 +46,10 @@ public class Businesstypetb implements Serializable {
     @Basic(optional = false)
     @Column(name = "Image")
     private String image;
-    @OneToMany(mappedBy = "businessTypeID", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "businessTypeID")
     private Collection<Businesstb> businesstbCollection;
     @JoinColumn(name = "BusinessCategoryID", referencedColumnName = "CategoryID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Businesscategorytb businessCategoryID;
 
     public Businesstypetb() {

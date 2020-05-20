@@ -12,6 +12,7 @@ import entity.Businessphotostb;
 import entity.Businesstb;
 import entity.Businesstypetb;
 import entity.Citytb;
+import entity.Dealphotostb;
 import entity.Dealscategorytb;
 import entity.Dealsdetailstb;
 import entity.Dealsmenutb;
@@ -222,6 +223,36 @@ public class BusinessBean implements BusinessBeanLocal {
         em.merge(business);
     }
 
+    @Override
+    public void addDealPhotos(int DealID, Collection<String> photos) {
+        Dealstb deal = em.find(Dealstb.class, DealID);
+        Collection<Dealphotostb> dphotos = deal.getDealphotostbCollection();
+        for (String photo : photos) {
+            Dealphotostb dphoto = new Dealphotostb();
+            dphoto.setPhoto(photo);
+            dphoto.setDealID(deal);
+            em.persist(dphoto);
+            dphotos.add(dphoto);
+        }
+        deal.setDealphotostbCollection(dphotos);
+        em.merge(deal);
+    }
+
+    @Override
+    public void removeDealPhoto(int PhotoID) {
+        Dealphotostb photo = em.find(Dealphotostb.class, PhotoID);
+        if(photo != null) {
+            em.remove(photo);   
+        }
+    }
+
+    @Override
+    public Collection<Dealphotostb> getDealPhotos(int DealID) {
+        Dealstb deal = em.find(Dealstb.class, DealID);
+        return deal.getDealphotostbCollection();
+    }
+
+    
     @Override
     public void addBusinessPhotos(int BusinessID, Collection<String> photos) {
         Businesstb business = em.find(Businesstb.class, BusinessID);

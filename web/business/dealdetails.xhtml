@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -19,83 +19,99 @@
                         </div>
                         <div class="card-body">
                             <b:form>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="form-label">Deal Name</label>
-                                        <b:selectOneMenu value="${bDealsBean.selectedDealId}" id="did">
-                                            <f:selectItem itemDisabled="true" itemLabel="Deal Name" itemValue="" />
-                                            <f:selectItems value="${bDealsBean.deals}" var="deal" itemLabel="${deal.name}" itemValue="${deal.dealID}" />
-                                            <f:ajax event="change" listener="${bDealsBean.dealChanged()}" />
-                                            <f:validator validatorId="requiredAjaxValidator" rendered="#form" />
-                                        </b:selectOneMenu>
-                                        <b:message for="did" errorClass="true" />
+                                <c:if test="${bDealsBean.message != ''}">
+                                    <b:alert severity="${bDealsBean.messageType}">
+                                        ${bDealsBean.message}
+                                    </b:alert>
+                                </c:if>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <b:selectOneMenu value="${bDealsBean.selectedDealId}" id="did" label="Deal Name">
+                                                <f:selectItem itemDisabled="true" itemLabel="Deal Name" itemValue="" />
+                                                <f:selectItems value="${bDealsBean.deals}" var="deal" itemLabel="${deal.name}" itemValue="${deal.dealID}" />
+                                                <f:ajax event="change" listener="${bDealsBean.dealChanged()}" render="@form" />
+    <!--                                            <f:validator validatorId="requiredAjaxValidator" rendered="#form" />-->
+                                            </b:selectOneMenu>
+                                            <b:message for="did" errorClass="true" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="form-label">How to use</label>
-                                        <b:inputTextarea id="htu" rows="5" required="true" requiredMessage="This section is required" value="${bDealsBean.howToUse}" />
-                                        <b:message for="htu" errorClass="true" />
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="form-label">Things to Remember</label>
-                                        <b:inputTextarea id="ttr" rows="5" required="true" requiredMessage="This section is required" value="${bDealsBean.thingsToRemember}" />
-                                        <b:message for="ttr" errorClass="true" />
-                                    </div>
-                                </div>
-                            </div>
-                                
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Valid For</label>
-                                        <b:selectOneMenu value="${bDealsBean.validFor}">
-                                            <f:selectItem itemValue="1" itemLabel="1" />
-                                            <f:selectItem itemValue="2" itemLabel="2" />
-                                            <f:selectItem itemValue="3" itemLabel="3" />
-                                            <f:selectItem itemValue="4" itemLabel="4" />
-                                            <f:selectItem itemValue="5" itemLabel="5" />
-                                            <f:selectItem itemValue="6" itemLabel="6" />
-                                            <f:selectItem itemValue="7" itemLabel="7" />
-                                            <f:selectItem itemValue="8" itemLabel="8" />
-                                            <f:selectItem itemValue="9" itemLabel="9" />
-                                            <f:selectItem itemValue="10" itemLabel="10" />
-                                            <f:selectItem itemValue="10+" itemLabel="10+" />
-                                        </b:selectOneMenu>
-                                    </div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="form-group">
-                                        <label class="form-label">Valid On</label>
-                                        <b:selectMultiMenu id="validOn" value="${bDealsBean.selectedDays}" required="true" requiredMessage="Please select valid days.">
-                                            <f:selectItem itemValue="Mon" itemLabel="Monday" />
-                                            <f:selectItem itemValue="Tue" itemLabel="Tuesday" />
-                                            <f:selectItem itemValue="Wed" itemLabel="Wednesday" />
-                                            <f:selectItem itemValue="Thu" itemLabel="Thursday" />
-                                            <f:selectItem itemValue="Fri" itemLabel="Friday" />
-                                            <f:selectItem itemValue="Sat" itemLabel="Saturday" />
-                                            <f:selectItem itemValue="Sun" itemLabel="Sunday" />
-                                        </b:selectMultiMenu>
-                                        <b:message for="validOn" errorClass="true" />
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <div class="col-xl-10">
-                                    <b:commandButton look="success" action="${bDealsBean.submitDealDetails()}" value="Submit" />
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <b:inputTextarea id="htu" rows="5" required="true" requiredMessage="This section is required" value="${bDealsBean.howToUse}" label="How to use" />
+                                            <b:message for="htu" errorClass="true" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <b:inputTextarea id="ttr" rows="5" required="true" requiredMessage="This section is required" value="${bDealsBean.thingsToRemember}" label="Things to Remember" />
+                                            <b:message for="ttr" errorClass="true" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <b:inputTextarea id="lncl" rows="5" required="true" requiredMessage="This section is required" value="${bDealsBean.inclusion}" label="Inclusion" />
+                                            <b:message for="incl" errorClass="true" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <b:selectOneMenu value="${bDealsBean.validFor}" label="Valid For">
+                                                <f:selectItem itemValue="1" itemLabel="1" />
+                                                <f:selectItem itemValue="2" itemLabel="2" />
+                                                <f:selectItem itemValue="3" itemLabel="3" />
+                                                <f:selectItem itemValue="4" itemLabel="4" />
+                                                <f:selectItem itemValue="5" itemLabel="5" />
+                                                <f:selectItem itemValue="6" itemLabel="6" />
+                                                <f:selectItem itemValue="7" itemLabel="7" />
+                                                <f:selectItem itemValue="8" itemLabel="8" />
+                                                <f:selectItem itemValue="9" itemLabel="9" />
+                                                <f:selectItem itemValue="10" itemLabel="10" />
+                                                <f:selectItem itemValue="10+" itemLabel="10+" />
+                                            </b:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <b:selectMultiMenu id="validOn" value="${bDealsBean.selectedDays}" required="true" requiredMessage="Please select valid days." label="Valid On">
+                                                <f:selectItem itemValue="Mon" itemLabel="Monday" />
+                                                <f:selectItem itemValue="Tue" itemLabel="Tuesday" />
+                                                <f:selectItem itemValue="Wed" itemLabel="Wednesday" />
+                                                <f:selectItem itemValue="Thu" itemLabel="Thursday" />
+                                                <f:selectItem itemValue="Fri" itemLabel="Friday" />
+                                                <f:selectItem itemValue="Sat" itemLabel="Saturday" />
+                                                <f:selectItem itemValue="Sun" itemLabel="Sunday" />
+                                            </b:selectMultiMenu>
+                                            <b:message for="validOn" errorClass="true" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-xl-10">
+                                        <b:selectBooleanCheckbox caption="Cancellation allowed?" label="Please decide" id="ca" value="${bDealsBean.cancellationAllowed}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-xl-10">
+                                        <b:commandButton look="success" action="${bDealsBean.submitDealDetails()}" value="Submit" />
+                                    </div>
+                                </div>
                                 
+                                ${bDealsBean.resetAlert()}
                             </b:form>
                         </div>
                     </div>

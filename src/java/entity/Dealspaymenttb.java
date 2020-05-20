@@ -13,7 +13,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,12 +60,12 @@ public class Dealspaymenttb implements Serializable {
     @Column(name = "isEntered")
     private int isEntered;
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Usertb userID;
     @JoinColumn(name = "OfferID", referencedColumnName = "OfferID")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Offertb offerID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentID", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentID")
     private Collection<Dealsusagetb> dealsusagetbCollection;
 
     public Dealspaymenttb() {
