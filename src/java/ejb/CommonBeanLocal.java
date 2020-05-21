@@ -11,6 +11,7 @@ import entity.Businessphotostb;
 import entity.Businesstb;
 import entity.Businesstypetb;
 import entity.Citytb;
+import entity.Dealphotostb;
 import entity.Dealscategorytb;
 import entity.Dealsdetailstb;
 import entity.Dealsmenutb;
@@ -65,6 +66,7 @@ public interface CommonBeanLocal {
     Collection<Dealstb> getDealsByCategory(int DealCategoryID);
     Collection<Dealstb> getDealsByMaxSoldNo(int limit);
     Collection<Dealstb> getDealsByRecentlyAdded();
+    Collection<Dealphotostb> getDealPhotos(int DealID);
     
     //---Deals Details---
     Dealsdetailstb getDealDetails(int DealID);

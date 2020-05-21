@@ -59,6 +59,7 @@ public class BDealsBean implements Serializable {
     Dealsdetailstb dealdetail;
     GenericType<Collection<Dealphotostb>> gdealphotos;
     Collection<Dealphotostb> dealphotos;
+    GenericType<Dealstb> gdeal;
     
     private String messageType;
     private String message;
@@ -68,6 +69,7 @@ public class BDealsBean implements Serializable {
     private Date DueDate;
     private int AverageCost;
     private int DealsCategory;
+    private int DealFormId;
     
     private int SelectedDealId;
     private String HowToUse;
@@ -81,6 +83,18 @@ public class BDealsBean implements Serializable {
     
     private int DealsShowType;
     private Collection<Dealstb> ShowDealsList;
+
+    public String getImage() {
+        return image;
+    }
+
+    public int getDealFormId() {
+        return DealFormId;
+    }
+
+    public void setDealFormId(int DealFormId) {
+        this.DealFormId = DealFormId;
+    }
 
     public Collection<Dealstb> getShowDealsList() {
         return ShowDealsList;
@@ -267,12 +281,24 @@ public class BDealsBean implements Serializable {
     }
     
     //Add Deal
+    public String gotoAddDeal() {
+        DealName = null;
+        IssueDate = null;
+        DueDate = null;
+        AverageCost = 0;
+        DealsCategory = 0;
+        image = null;
+        DealFormId = 0;
+        return "/business/adddeal.jsf/faces-redirect=true";
+    }
     public void fetchDealsData() {
         res = commonClient.getDealsCategory(Response.class);
         dcategories = res.readEntity(gdcategories);
     }
     public String addDeal() throws IOException {
-        this.saveImage();
+        if(UploadedFile != null) {
+            this.saveImage();   
+        }
         Dealscategorytb category = new Dealscategorytb();
         category.setCategoryID(DealsCategory);
         
@@ -283,10 +309,16 @@ public class BDealsBean implements Serializable {
         deal.setIssueDate(IssueDate);
         deal.setDueDate(DueDate);
         deal.setDealsCategoryID(category);
-        businessClient.addBusinessDeal(deal, BusinessId);
-
-        messageType = "success";
-        message = "Deal created Successfully";
+        if(DealFormId != 0) {
+            deal.setDealID(DealFormId);
+            businessClient.editDeal(deal);
+            messageType = "success";
+            message = "Deal edited Successfully";
+        } else {
+            businessClient.addBusinessDeal(deal, BusinessId);
+            messageType = "success";
+            message = "Deal created Successfully";
+        }
         
         return "/business/adddeal.jsf";
     }
@@ -306,7 +338,7 @@ public class BDealsBean implements Serializable {
     public void fetchBuDeals() {
         res = businessClient.getAllDeals(Response.class, BusinessId);
         deals = res.readEntity(gdeals);
-        System.out.println(deals.size());
+        System.out.println("deals fetched " + deals.size());
         ShowDealsList = deals;
         DealsShowType = 0;
     }
@@ -363,9 +395,10 @@ public class BDealsBean implements Serializable {
         businessClient.setDealPhotos(images, String.valueOf(SelectedDealId));
         return "/business/dealphotos.jsf?faces-redirect=true";
     }
-    public void removePhoto(int photoid) {
+    public String removePhoto(int photoid) {
         businessClient.removeDealPhoto(String.valueOf(photoid));
-        this.photoDealChanged();
+        //this.photoDealChanged();
+        return "/business/dealphotos.jsf?faces-redirect=true";
     }
     // End of Deal Photos
     
@@ -374,17 +407,26 @@ public class BDealsBean implements Serializable {
         if(DealsShowType == 1) this.showSubmitedDeals();
         else if(DealsShowType == 3) this.showExpiredDeals();
         else if(DealsShowType == 0) this.showAllDeals();
-        System.out.println("changed to "+DealsShowType);
     }
     public String removeDeal(int DealId) {
         businessClient.removeDeal(String.valueOf(DealId));
         return "/business/deals.jsf?faces-redirect=true";
     }
-    public void editDeal(int DealId) {
-        System.out.println("Request for Editing Deal Come"+DealId);
+    public String editDeal(int DealId) {
+        res = commonClient.getSingleDeal(Response.class, String.valueOf(DealId));
+        Dealstb deal = res.readEntity(gdeal);
+        DealName = deal.getName();
+        IssueDate = deal.getIssueDate();
+        DueDate = deal.getDueDate();
+        AverageCost = deal.getAverageCost();
+        DealsCategory = deal.getDealsCategoryID().getCategoryID();
+        image = deal.getBannerImage();
+        DealFormId = deal.getDealID();
+        return "/business/adddeal.jsf?faces-redirect=true";
     }
-    public void submitDeal(int DealId) {
-        System.out.println("Request for Submiting Deal Come"+DealId);
+    public String submitDeal(int DealId) {
+        businessClient.submitDeal(String.valueOf(DealId));
+        return "/business/deal.jsf?faces-redirect=true";
     }    
     public void showSubmitedDeals() {
         ShowDealsList = new ArrayList<>();
@@ -435,6 +477,7 @@ public class BDealsBean implements Serializable {
         gdeals = new GenericType<Collection<Dealstb>>(){};
         gdealdetail = new GenericType<Dealsdetailstb>(){};
         gdealphotos = new GenericType<Collection<Dealphotostb>>(){};
+        gdeal = new GenericType<Dealstb>(){};
     }
     
 }

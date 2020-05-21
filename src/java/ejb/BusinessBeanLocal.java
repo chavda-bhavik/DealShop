@@ -32,7 +32,7 @@ public interface BusinessBeanLocal {
     //---Bussiness Photos---
     void addDealPhotos(int DealID, Collection<String> photos);
     void removeDealPhoto(int PhotoID);
-    Collection<Dealphotostb> getDealPhotos(int DealID);
+//    Collection<Dealphotostb> getDealPhotos(int DealID);
     
     void addBusinessPhotos(int BusinessID, Collection<String> photos);
     void removeBussinessPhotos(int BusinessID, Integer photos);
@@ -53,6 +53,7 @@ public interface BusinessBeanLocal {
     Collection<Dealstb> getBusinessDeals(int BussinessID);
     Collection<Dealspaymenttb> getDealPayments(int DealID);
     void ChangeDealStatus(int DealDetailID, int Status, String UseDate);
+    void submitDeal(int DealID);
     
     //---Deals Details---
     void addDealDetails(int DealID, Boolean CancellationAllowed, String HowToUse, String ThingsToRemember, String Inclusion, int ValidFor, String ValidOn);

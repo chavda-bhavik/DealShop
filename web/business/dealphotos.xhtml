@@ -42,7 +42,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label>Select photos for deal</label>
+                                            <label>Select photos for deal &nbsp; &nbsp;</label>
                                             <p:fileUpload required="true" id="images"
                                                 requiredMessage="Please select file." multiple="true" 
                                                 value="${bDealsBean.files}"
@@ -54,19 +54,17 @@
                                 </div>
                                 
                                 <div class="row">
-                                    <label class="ml-4">Photos</label>
                                     <ui:repeat var="photo" value="${bDealsBean.dealphotos}" id="dealphotos">
                                         <div class="col-3">
                                             <div class="profile-pic">
                                                 <img src="/DealShop/assets/images/deals/${photo.photo}" />
                                                 <div class="edit">
                                                     <h:commandLink action="${bDealsBean.removePhoto(photo.photoID)}">
-                                                        <f:ajax render="@form" />
+<!--                                                        <f:ajax render="@form" />-->
                                                         <i class="icon-close"></i>
                                                     </h:commandLink>
                                                 </div>
                                             </div>
-                                            
                                         </div>
                                     </ui:repeat>
                                 </div>

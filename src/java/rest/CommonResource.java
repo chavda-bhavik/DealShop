@@ -120,7 +120,7 @@ public class CommonResource {
     @Path("/dealPhotos/{dealId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Dealphotostb> getDealPhotos(@PathParam("dealId") int DealID) {
-        return bbl.getDealPhotos(DealID);
+        return common.getDealPhotos(DealID);
     }
     
     @GET

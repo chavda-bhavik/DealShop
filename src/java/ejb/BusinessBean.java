@@ -245,13 +245,6 @@ public class BusinessBean implements BusinessBeanLocal {
             em.remove(photo);   
         }
     }
-
-    @Override
-    public Collection<Dealphotostb> getDealPhotos(int DealID) {
-        Dealstb deal = em.find(Dealstb.class, DealID);
-        return deal.getDealphotostbCollection();
-    }
-
     
     @Override
     public void addBusinessPhotos(int BusinessID, Collection<String> photos) {
@@ -394,6 +387,12 @@ public class BusinessBean implements BusinessBeanLocal {
         oldCategory.setDealstbCollection(oldCategoryDeals);
         em.merge(oldCategory);
         em.remove(deal);
+    }
+
+    @Override
+    public void submitDeal(int DealID) {
+        Dealstb deal = em.find(Dealstb.class, DealID);
+        deal.setIsVerified(1);
     }
 
     @Override

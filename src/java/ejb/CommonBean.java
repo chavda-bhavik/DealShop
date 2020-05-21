@@ -12,6 +12,7 @@ import entity.Businessphotostb;
 import entity.Businesstb;
 import entity.Businesstypetb;
 import entity.Citytb;
+import entity.Dealphotostb;
 import entity.Dealscategorytb;
 import entity.Dealsdetailstb;
 import entity.Dealsmenutb;
@@ -203,7 +204,13 @@ public class CommonBean implements CommonBeanLocal {
         Collection<Dealstb> deals = em.createQuery("select d from Dealstb d ORDER BY d.dueDate").getResultList();
         return deals;
     }
-
+    
+    @Override
+    public Collection<Dealphotostb> getDealPhotos(int DealID) {
+        Dealstb deal = em.find(Dealstb.class, DealID);
+        return deal.getDealphotostbCollection();
+    }
+    
     //---Deals Menu---
     @Override
     public Dealsmenutb getDealMenu(int DealID) {

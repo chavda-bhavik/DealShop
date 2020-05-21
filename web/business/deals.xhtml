@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
@@ -26,11 +27,23 @@
                                 </b:panelGrid>
                                 
                                 <b:dataTable value="${bDealsBean.showDealsList}" var="deal"  style="width:100%">
-                                    <b:dataTableColumn value="${deal.name}" label="Deal Name" />
-                                    <b:dataTableColumn value="${deal.issueDate}" label="Issue Date" />
-                                    <b:dataTableColumn value="${deal.dueDate}" label="Due Date" />
-                                    <b:dataTableColumn value="${deal.soldNo}" label="Total Sold" />
-                                    <b:dataTableColumn value="${deal.averageCost}" label="Average Cost" />
+                                    <b:dataTableColumn value="${deal.name}" label="Deal Name"  class="text-center" />
+                                    
+                                    <b:dataTableColumn label="Issue Date" class="text-center" >
+                                        <h:outputText value="${deal.issueDate}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </b:dataTableColumn>
+                                    
+                                    <b:dataTableColumn label="Due Date" class="text-center" >
+                                        <h:outputText value="${deal.dueDate}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </b:dataTableColumn>
+                                    
+                                    <b:dataTableColumn value="${deal.soldNo}" label="Total Sold" class="text-center" />
+                                    
+                                    <b:dataTableColumn value="${deal.averageCost}" label="Average Cost" class="text-center" />
 
                                     <b:dataTableColumn label="Edit">
                                         <b:commandButton 

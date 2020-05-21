@@ -75,6 +75,10 @@ public class BusinessClient {
         webTarget.path(java.text.MessageFormat.format("dealDetails/{0}", new Object[]{did})).request().delete();
     }
 
+    public void submitDeal(String dealId) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("submitdeal/{0}", new Object[]{dealId})).request().post(null);
+    }
+
     public void editDealDetails(Object requestEntity, String did) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("dealDetails/{0}", new Object[]{did})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }

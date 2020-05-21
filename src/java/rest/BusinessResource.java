@@ -119,6 +119,13 @@ public class BusinessResource {
     }
     
     @POST
+    @Path("/submitdeal/{dealId}")
+    @RolesAllowed("Business")
+    public void submitDeal(@PathParam("dealId") int dealId) {
+        bbl.submitDeal(dealId);
+    }
+    
+    @POST
     @Path("/dealphotos/{dealid}")
     @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)

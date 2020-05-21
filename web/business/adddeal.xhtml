@@ -103,8 +103,12 @@
                                             >
                                                 <f:validator validatorId="requiredAjaxValidator" />
                                             </p:fileUpload>-->
-<h:inputFile class="form-control" value="${bDealsBean.uploadedFile}" required="true" id="bannerImage" requiredMessage="Banner Image is required" label="Banner Image" />
-                                            <h:message for="bannerImage" class="text-danger" id="imageError" />
+                                            <h:inputFile class="form-control" value="${bDealsBean.uploadedFile}" id="bannerImage" label="Banner Image" />
+<!--                                            <h:message for="bannerImage" class="text-danger" id="imageError" />-->
+                                            
+                                            <c:if test="${bDealsBean.image != null}">
+                                                <img src="/DealShop/assets/images/deals/${bDealsBean.image}" style="width: 200px; height:150px;" class="img-thumbnail" />
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
