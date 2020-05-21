@@ -35,7 +35,7 @@ public interface BusinessBeanLocal {
 //    Collection<Dealphotostb> getDealPhotos(int DealID);
     
     void addBusinessPhotos(int BusinessID, Collection<String> photos);
-    void removeBussinessPhotos(int BusinessID, Integer photos);
+    void removeBussinessPhoto(int PhotoID);
     
     //---Bussiness Links---
     void setBusinessLinks(int BusinessID, int LinkId, String Link);

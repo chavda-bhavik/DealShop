@@ -268,20 +268,9 @@ public class BusinessBean implements BusinessBeanLocal {
     }
 
     @Override
-    public void removeBussinessPhotos(int BusinessID, Integer photoId) {
-        Businesstb business = em.find(Businesstb.class, BusinessID);
-        Collection<Businessphotostb> bphotos = business.getBusinessphotostbCollection();
-        
-        //Iterator iterator = photoIds.iterator();
-        //while(iterator.hasNext()) {
-            //Integer photoId = (Integer) iterator.next();
-            Businessphotostb photo = em.find(Businessphotostb.class, photoId);
-            bphotos.remove(photo);
-            em.remove(photo);
-        //}
-        
-        business.setBusinessphotostbCollection(bphotos);
-        em.merge(business);
+    public void removeBussinessPhoto(int PhotoID) {
+        Businessphotostb photo = em.find(Businessphotostb.class, PhotoID);
+        em.remove(photo);
     }
 
     @Override

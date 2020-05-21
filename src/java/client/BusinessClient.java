@@ -106,7 +106,7 @@ public class BusinessClient {
     }
 
     public void removeBusinessPhoto(String bid) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("photos/{0}", new Object[]{bid})).request().delete();
+        webTarget.path(java.text.MessageFormat.format("businessphotos/{0}", new Object[]{bid})).request().delete();
     }
 
     public void setDealPhotos(Object requestEntity, String dealid) throws ClientErrorException {

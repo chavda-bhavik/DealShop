@@ -27,17 +27,27 @@
                             <h:form enctype="multipart/form-data" id="asdf">
                                 <div class="row">
                                     <div class="col-10">
-                                        <h:inputFile class="form-control" value="${businessBean.uploadedFile}" required="true" requiredMessage="Select atleast one image" id="image"/>
+                                        <h:inputFile class="form-control" value="${businessBean.uploadedFile}" id="image"/>
                                         <h:message class="text-danger" for="image" />
+<!--                                         required="true" requiredMessage="Select image to upload"-->
                                     </div>
                                     <div class="col-2">
                                         <h:commandButton class="btn btn-primary btn-block" value="Add" action="${businessBean.uploadBusinessPhoto()}" />
                                     </div>
                                 </div>
+<!--                            </h:form>
+                            <h:form>-->
                                 <div class="row my-3">
-                                    <ui:repeat var="photo" value="${businessBean.photos}">
+                                    <ui:repeat var="photo" value="${businessBean.photos}" id="buphotos">
                                         <div class="col-3">
-                                            <img src="/DealShop/assets/images/business/${photo.photo}" class="img-thumbnail photo" />
+                                            <div class="profile-pic">
+                                                <img src="/DealShop/assets/images/business/${photo.photo}" />
+                                                <div class="edit">
+                                                    <h:commandLink action="${businessBean.removeBusinessPhoto(photo.photoID)}">
+                                                        <i class="icon-close"></i>
+                                                    </h:commandLink>
+                                                </div>
+                                            </div>
                                         </div>
                                     </ui:repeat>
                                 </div>

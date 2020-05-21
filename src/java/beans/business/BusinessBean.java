@@ -486,6 +486,11 @@ public class BusinessBean implements Serializable {
         }
         return "/business/photos.jsf?faces-redirect=true";
     }
+    public String removeBusinessPhoto(int BusinessPhotoId) {
+        System.out.println("Remove Business Photo for "+BusinessPhotoId);
+        businessClient.removeBusinessPhoto(String.valueOf(BusinessPhotoId));
+        return "/business/photos.jsf?faces-redirect=true";
+    }
     public void saveFile() {
         try (InputStream input = uploadedFile.getInputStream()) {
             image = uploadedFile.getSubmittedFileName();
@@ -510,7 +515,7 @@ public class BusinessBean implements Serializable {
         token = request.getSession().getAttribute("token").toString();
         businessClient = new BusinessClient(token);
         businessClient.editBusiness(business);
-        return "/business/profile.jsf?faces-redirect=true";
+        return "/business/details.jsf?faces-redirect=true";
     }
     // End of Details
     

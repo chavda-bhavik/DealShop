@@ -83,10 +83,11 @@ public class BusinessResource {
         bbl.addBusinessPhotos(id, photos);
     }
     @DELETE
-    @Path("/photos/{bid}")
+    @Path("/businessphotos/{bid}")
     @RolesAllowed("Business")
-    public void removeBusinessPhoto(@PathParam("bid") int id, int photoid) {
-        bbl.removeBussinessPhotos(id, photoid);
+    public void removeBusinessPhoto(@PathParam("bid") int id) {
+        System.out.println("Resource "+id);
+        //bbl.removeBussinessPhoto(id);
     }
     @POST
     @Path("/links/{bid}/{linkId}")

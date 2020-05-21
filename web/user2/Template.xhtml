@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="resources/img/favicon.ico" type="image/x-icon" />
+        <!-- Master Css -->
+        <link href="resources/css/style.css" rel="stylesheet" />
+        <link href="resources/css/color.css" rel="stylesheet" id="colors" />
+        <link href="resources/css/responsive.css" rel="stylesheet" />
+        <title>Deal Shop</title>
+    </h:head>
+
+    <h:body>
+
+        <div class='preloader'>
+            <div class='loader-center'>
+                <div class='loader'>
+                    <div class='circle circle-1'></div>
+                    <div class='circle circle-2'></div>
+                    <div class='circle circle-3'></div>
+                    <div class='circle circle-4'></div>
+                </div>
+            </div>
+        </div>
+        
+        <ui:include src="Topbar.xhtml" />
+
+        <ui:insert name="content">Content</ui:insert>
+
+        <ui:include src="Footer.xhtml" />
+
+        <script src="resources/js/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="resources/js/bootstrap.min.js"></script>
+        <script src="resources/plugins/owl-carousel/js/owl.carousel.min.js"></script>
+        <script src="resources/plugins/megamenu/js/hover-dropdown-menu.js"></script>
+        <script src="resources/plugins/megamenu/js/jquery.hover-dropdown-menu-addon.js"></script>
+        <script src="resources/plugins/preloader/js/anime.min.js"></script>
+        <script src="resources/js/main.js"></script>
+    </h:body>
+
+</html>

@@ -23,68 +23,103 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Business Name</label>
-                                            <h:inputText value="${businessBean.business.businessName}" pt:placeholder="Business Name" class="form-control" />
+                                            <b:inputText 
+                                                label="Business Name" 
+                                                required="true" requiredMessage="Business Name is required" 
+                                                placeholder="Business Name" value="${businessBean.business.businessName}" 
+                                            >
+                                                <f:ajax event="change" render="nmMessage" />
+                                            </b:inputText>
+                                            <b:message style="danger" id="nmMessage" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Email address</label>
-                                            <h:inputText value="${businessBean.business.emailID}" pt:placeholder="Business Email" class="form-control" id="bEmail">
-                                                <f:validator validatorId="emailAjaxValidator" />
+                                            <b:inputText 
+                                                value="${businessBean.business.emailID}" label="Email Address"
+                                                validator="emailAjaxValidator" validatorMessage="Email Address is not valid" 
+                                                required="true" requiredMessage="Email Address is valid"
+                                                placeholder="Business Email" id="bEmail" >
                                                 <f:ajax event="change" render="bEmailMessage" />
-                                            </h:inputText>
-                                            <h:message for="bEmail" id="bEmailMessage" class="text-danger" />
+                                            </b:inputText>
+                                            <b:message style="danger" id="bEmailMessage" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Customer care no.</label>
-                                            <h:inputText value="${businessBean.business.customerCarePhoneNo}" pt:placeholder="999-999-9999" class="form-control" id="cutNo">
-                                                <f:validator validatorId="phoneValidator" />
+                                            <b:inputText 
+                                                value="${businessBean.business.customerCarePhoneNo}"  label="Customer care no."
+                                                validatorMessage="Phone number is not valid" validator="phoneValidator"
+                                                placeholder="999-999-9999" id="cutNo" 
+                                            >
                                                 <f:ajax event="change" render="cutNoMessage" />
-                                            </h:inputText>
-                                            <h:message for="cutNo" id="cutNoMessage" class="text-danger" />
+                                            </b:inputText>
+                                            <b:message style="danger" id="cutNoMessage" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Reservation no.</label>
-                                            <h:inputText value="${businessBean.business.reservationPhoneNo}" pt:placeholder="999-999-9999" class="form-control" id="resNo">
-                                                <f:validator validatorId="phoneValidator"/>
+                                            <b:inputText 
+                                                value="${businessBean.business.reservationPhoneNo}"  label="Reservation no."
+                                                validatorMessage="Phone number is not valid" validator="phoneValidator"
+                                                placeholder="999-999-9999" id="resNo" 
+                                            >
                                                 <f:ajax event="change" render="resNoMessage" />
-                                            </h:inputText>
-                                            <h:message for="resNo" id="resNoMessage" class="text-danger" />
+                                            </b:inputText>
+                                            <b:message style="danger" id="resNoMessage" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
+                                            <b:selectMultiMenu id="validOn" label="Valid On"
+                                                value="${businessBean.business.daysOfOperation}" 
+                                                required="true" requiredMessage="Please select valid days.">
+                                                <f:selectItem itemValue="Mon" itemLabel="Monday" />
+                                                <f:selectItem itemValue="Tue" itemLabel="Tuesday" />
+                                                <f:selectItem itemValue="Wed" itemLabel="Wednesday" />
+                                                <f:selectItem itemValue="Thu" itemLabel="Thursday" />
+                                                <f:selectItem itemValue="Fri" itemLabel="Friday" />
+                                                <f:selectItem itemValue="Sat" itemLabel="Saturday" />
+                                                <f:selectItem itemValue="Sun" itemLabel="Sunday" />
+                                            </b:selectMultiMenu>
+                                            <b:message for="validOn" errorClass="true" />
+                                            <!-- 
+                                            update="@form"
+                                            value="#buttonGroupsBean.contentDisabled}"
+                                             onchange="ajax:buttonGroupsBean.onChange()"
                                             <label>Days of Operation</label>
-                                            <h:inputText value="${businessBean.business.daysOfOperation}" pt:placeholder="Mon,Tue,Wed,Thus,Fri,Sat,Sun" class="form-control" />
+                                            <h:inputText value="" pt:placeholder="Mon,Tue,Wed,Thus,Fri,Sat,Sun" class="form-control" />-->
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Hours of Operation</label>
-                                            <h:inputText value="${businessBean.business.hoursOfOperation}" pt:placeholder="8:30 AM - 10:30 PM" class="form-control" />
+                                            <b:inputText placeholder="8:30 AM - 10:30 PM" label="Hours of Operation"
+                                                value="${businessBean.business.hoursOfOperation}"
+                                            />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Address</label>
-                                            <h:inputTextarea class="form-control" value="${businessBean.business.address}" pt:placeholder="305, nandan society, minibazar, Nr. petrol pump, surat" />
+                                            <b:inputTextarea label="Address"
+                                             value="${businessBean.business.address}" placeholder="305, nandan society, minibazar, Nr. petrol pump, surat" 
+                                             required="true" requiredMessage="Address is required" id="addr"
+                                            >
+                                                <f:ajax event="change" render="addrMessage" />
+                                            </b:inputTextarea>
+                                            <b:message id="addrMessage" errorClass="true" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Awards &amp; Recognition</label>
-                                            <h:inputTextarea class="form-control" value="${businessBean.business.awardsRecognition}" pt:placeholder="Awards &amp; Recognitions" />
+                                            <b:inputTextarea label="Awards &amp; Recognition"
+                                                value="${businessBean.business.awardsRecognition}" placeholder="Awards &amp; Recognitions" 
+                                            />
                                         </div>
                                     </div>
                                 </div>
