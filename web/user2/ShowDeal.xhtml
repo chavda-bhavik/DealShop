@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                ${dealsDetailsBean.fetchAllData()}
+                
+                
+                <!-- //***Breadcrumb-section Start***// -->
+                <div class="breadcrumb-section">
+                    <div class="breadcrumb-text">
+                        <div class="container">
+                            <h:form>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="breadcrumb-text padTB100">
+                                        <h3><span>${dealsDetailsBean.deal.name}</span></h3>
+                                        <ul class="breadcrumb-list">
+                                            <li><h:commandLink action="/user2/Home.jsf?faces-redirect=true">home</h:commandLink></li>
+                                            <li><h:commandLink action="/user2/Deals.jsf?faces-redirect=true">deals</h:commandLink></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+                <!-- //***Breadcrumb-Section End***// -->
+                
+                <h:form>
+                <!-- //***Deals-Single Start***// -->
+                <div class="deals bg padT40">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-4 col-xs-12">
+                                <div class="awesome-spot">  
+                                    <h3 class="capital marB10 green">
+                                        <a href="#">${dealsDetailsBean.business.businessName}</a>
+                                    </h3>
+                                    <p>#{dealsDetailsBean.deal.businessID.address}</p>
+                                    <ul class="stars marB10">
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li class="grey-a"><i class="fa fa-star"></i></li>
+                                        <li>
+                                            <h5 class="capital">(500rates)</h5>
+                                        </li>
+                                    </ul>
+                                    
+                                    <div class="col-md-5 col-sm-5 col-xs-5 padL0">
+                                        <h4 class="capital">price</h4>
+                                        <p><i class="fa fa-usd" aria-hidden="true"></i> ${dealsDetailsBean.deal.averageCost}</p>
+                                    </div>
+                                    
+                                    <div class="col-md-7 col-sm-7 col-xs-7 padL0">
+                                        <h4 class="capital">Valid for</h4>
+                                        <p>${dealsDetailsBean.dealDetails.validFor} people</p>
+                                    </div>
+                                    
+                                    <h4 class="capital marT10">Valid on</h4>
+                                    <p>${dealsDetailsBean.dealDetails.validOn} </p>
+                                    
+                                    <h4 class="capital marT10">time left to buy</h4>
+<!--                                    <h:outputText value="$dealsDetailsBean.deal.dueDate}">
+                                        <f:convertDateTime pattern="MMM dd, yyyy hh:mm:ss" />
+                                    </h:outputText>-->
+                                    
+                                    <div class="demo1" data-expiry="jan 30, 2021 15:37:25"><div id="timer"></div></div>
+                                    
+                                    <div class="marT20 marB20">
+                                        <c:choose>
+                                            <c:when test="#{loginBean.isUserLoggedIn()}">
+                                                <c:choose>
+                                                    <c:when test="#{dealsDetailsBean.cartContainsDeal}">
+                                                        <h:link class="itg-btn subcribes" outcome="/user/UserDeals.jsf?dealid=#{dealsDetailsBean.deal.dealID}">Go to Checkout</h:link>
+                                                    </c:when>
+                                                    <c:otherwise>
+    <!--                                                    <h:link class="btn btn-primary btn-block" outcome="/user/UserDeals.jsf?dealid=#dealsDetailsBean.deal.dealID}">Add deal to Cart</h:link>-->
+                                                        <h:commandButton action="${dealsDetailsBean.addDealToCart()}" class="itg-btn subcribes" value="Add deal to cart"/>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <h:commandButton action="/user/Login.jsf" class="itg-btn subcribes" value="Login to continue" />
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    
+                                    <h4 class="capital marT10">Reservation no.</h4>
+                                    <p>${dealsDetailsBean.business.customerCarePhoneNo}</p>
+                                    
+                                    <h4 class="capital marT10">Customer care no.</h4>
+                                    <p>${dealsDetailsBean.business.customerCarePhoneNo}</p>
+                                    
+                                    <h4 class="capital marT10">Facilities</h4>
+                                    <ul class="stars marB10">
+                                        <ui:repeat var="info" value="#{dealsDetailsBean.informations}">
+                                            <li>#{info.title}</li>
+                                        </ui:repeat>
+                                    </ul>
+                                    
+<!--                                    <div class="col-md-12 col-sm-12 col-xs-12 marT10 marB10">
+                                        <div class="row">
+                                            <a href="#" class="itg-btn box-btn black">5566778<span>Get Code</span></a>
+                                        </div>
+                                    </div>-->
+                                    <p>Over ${dealsDetailsBean.deal.soldNo}+ Bought</p>
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-sm-8 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="blog marB30">
+                                            <div id="blog" class="owl-carousel owlCarousel">
+                                                <div class="item">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="row">
+                                                            <figure>
+                                                                <img src="resources/img/all/deals1.jpg" alt="" />
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="row">
+                                                            <figure>
+                                                                <img src="resources/img/all/image333.jpg" alt="" />
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 class="marT30">Deal Inlcusion</h4>
+                                        <p>#{dealsDetailsBean.dealDetails.inclusion}</p>
+                                        
+                                        <h4 class="marT30">How to Use?</h4>
+                                        <p>#{dealsDetailsBean.dealDetails.howToUse}</p>
+                                        
+                                        <h4 class="marT30">Things to Remember</h4>
+                                        <p>#{dealsDetailsBean.dealDetails.thingsToRemember}</p>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="comments-area">
+                                            <div class="row">
+                                                <h3 class="capital marT30 marB40">Reviews</h3>
+                                                <div class="col-md-2 col-sm-2">
+                                                    <figure>
+                                                        <img src="resources/img/all/comment1.jpg" class="img-circle" />
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10 marB30">
+                                                    <span class="green">jon doe</span> 4 Nov-2017
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and etting industry orem Ipsum has been the industry's standard my text ever since they 1500s. the printing and etting dustry orem Ipsum has been the standard my text ever the since they 1500s.</p>
+                                                </div>
+
+                                                <div class="col-md-2 col-sm-2">
+                                                    <figure>
+                                                        <img src="resources/img/all/comment2.jpg" class="img-circle" />
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10 marB30">
+                                                    <span class="green">jon doe</span> 4 Nov-2017
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and etting industry orem Ipsum has been the industry's standard my text ever since they 1500s. the printing and etting dustry orem Ipsum has been the standard my text ever the since they 1500s.</p>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2">
+                                                    <figure>
+                                                        <img src="resources/img/all/comment3.jpg" class="img-circle" />
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10 marB30">
+                                                    <span class="green">jon doe</span> 4 Nov-2017
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and etting industry orem Ipsum has been the industry's standard my text ever since they 1500s. the printing and etting dustry orem Ipsum has been the standard my text ever the since they 1500s.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <c:if test="${loginBean.isUserLoggedIn()}">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 marT30 marB30">
+                                            <div class="row">
+                                                <div class="comments-form">
+                                                    <div class="coments col-md-12 col-sm-12 col-xs-12 marB30">
+                                                        <h3>add comments</h3>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 marB30">
+                                                        <input type="text" name="name" value="" placeholder="Name" />
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 marB30">
+                                                        <input type="text" name="email" value="" placeholder="Email" />
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 marB30">
+                                                        <input type="text" name="Number" value="" placeholder="Number" />
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 marB30">
+                                                        <input type="text" name="Website Url" value="" placeholder="Website Url" />
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 marB30">
+                                                        <textarea placeholder="Message" rows="5"></textarea>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <button type="submit" class="itg-btn subcribes">Add review</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //***Deals-Single End***// -->
+                <div class="clear"></div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

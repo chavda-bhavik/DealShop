@@ -64,6 +64,12 @@ public class BusinessResource {
     public void removeBusiness(@PathParam("bid") int bid) {
         bbl.removeBusiness(bid);
     }
+    @POST
+    @Path("/submit/{bid}")
+    @RolesAllowed("Business")
+    public void submitBusiness(@PathParam("bid") int bid) {
+        bbl.submitBusiness(bid);
+    }
     
     // Business Information
     @POST

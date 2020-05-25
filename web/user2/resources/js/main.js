@@ -106,13 +106,12 @@ function collectionInt() {
 
             // Time calculations for days, hours, minutes and seconds
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+//            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Output the result in an element with class="demo"
-            counterThis.html("<div class='col-md-3 col-sm-3 col-xs-3'><div class='timer'>" + days + "<span>d.</span></div></div><div class='col-md-3 col-sm-3 col-xs-3'><div class='timer'>" + hours + "<span>h.</span></div></div><div class='col-md-3 col-sm-3 col-xs-3'><div class='timer'> " +
-                minutes + "<span>m.</span></div></div><div class='col-md-3 col-sm-3 col-xs-3'><div class='timer'>" + seconds + "<span>s.</span></div></div>");
+            counterThis.html("\n\<div class='timer'>" + days + "<span> days left</span></div>");
 
             // If the count down is over, write some text 
             if (distance < 0) {

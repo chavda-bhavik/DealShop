@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                ${adminBuBean.getAllBusinesses()}
+                <div class="content-wrapper" style="color:black !important;">
+                    <div class="card card-default" id="cardDemo14">
+                        <div class="card-header card-title">
+                            Businesses
+                        </div>
+                        <div class="card-body">
+                            <b:form>
+                                <b:dataTable value="${adminBuBean.businesses}" var="business">
+                                    
+                                    <b:dataTableColumn value="${business.businessName}" label="Name"  class="text-center" />
+                                    <b:dataTableColumn value="${business.emailID}" label="Email"  class="text-center" />
+                                    <b:dataTableColumn value="${business.customerCarePhoneNo}" label="Customer Care No." class="text-center" />
+                                    <b:dataTableColumn value="${business.reservationPhoneNo}" label="Reservation No." class="text-center" />
+                                    <b:dataTableColumn value="${business.businessCategoryID.name}" label="Category" class="text-center" />
+                                    <b:dataTableColumn value="${business.businessTypeID.name}" label="Type" class="text-center" />
+                                    <b:dataTableColumn value="${business.cityID.name}" label="City" class="text-center" />
+                                    <b:dataTableColumn value="${business.stateID.name}" label="State" class="text-center" />
+                                    
+                                    <b:dataTableColumn label="Verify" class="text-center">
+                                        <b:commandButton disabled="${business.isVerified != 1}"
+                                           value=" Verify" icon="check" action="#{adminBuBean.verifySuccessBusiness(business.businessID)}" />
+                                    </b:dataTableColumn>
+                                    
+                                    <b:dataTableColumn label="Show" class="text-center">
+                                       <b:commandButton 
+                                           value=" Show" iconAwesome="eye" action="#{adminBuBean.viewBusiness(business.businessID)}" />
+                                    </b:dataTableColumn>                                    
+                                
+                                </b:dataTable>
+                            </b:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

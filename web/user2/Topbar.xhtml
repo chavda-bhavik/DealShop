@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
     </h:head>
     <h:body>
@@ -11,7 +12,7 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="contact">
-                                <ul>
+<!--                                <ul>
                                     <li>
                                         <select name="language">
                                             <option value="a">English</option>
@@ -26,14 +27,30 @@
                                             <option value="INR">INR</option>
                                         </select>
                                     </li>
-                                </ul>
+                                </ul>-->
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 text-right">
                             <div class="contacts">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> login</a></li>
-                                    <li class="marL30"><a href="#"><i class="fa fa-lock" aria-hidden="true"></i> signup</a></li>
+                                    <h:form>
+                                        <c:choose>
+                                            <c:when test="${loginBean.isUserLoggedIn()}">
+                                                <li>
+                                                    <h:commandLink class="dropdown-item" action="${loginBean.logoutUser()}">
+                                                        <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+                                                    </h:commandLink>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li>
+                                                    <h:commandLink class="dropdown-item" action="${loginBean.goToLogin()}">
+                                                        <i class="fa fa-user" aria-hidden="true"></i> Login / Signup
+                                                    </h:commandLink>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </h:form>
                                 </ul>
                             </div>
                         </div>

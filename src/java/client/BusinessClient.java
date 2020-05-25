@@ -131,6 +131,10 @@ public class BusinessClient {
         webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
+    public void submitBusiness(String bid) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("submit/{0}", new Object[]{bid})).request().post(null);
+    }
+
     public void changeDealUsage(String dealid) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("dealUsage/{0}", new Object[]{dealid})).request().post(null);
     }

@@ -274,4 +274,12 @@ public class AdminResource {
     public void removeInformation(@PathParam("biId") int id) {
         admin.removeInformation(id);
     }
+    
+    // Business
+    @POST
+    @RolesAllowed("Admin")
+    @Path("/verifybusiness/{bId}")
+    public void verifyBusinessSuccess(@PathParam("bId") int bId) {
+        admin.verifyBusinessSuccess(bId);
+    }
 }

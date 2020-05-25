@@ -41,6 +41,7 @@ public class UserDealsBean {
     GenericType<Collection<Carttb>> gUserCart;
     Collection<Carttb> userCart;
 
+    private double cartPrice;
     private double totalPrice;
     
     private String offerCode;
@@ -109,17 +110,21 @@ public class UserDealsBean {
     }
     
     public void setTotalPrice() {
+        double price = 0;
         for (Carttb carttb : userCart) {
-            totalPrice += carttb.getDealID().getAverageCost();
+            price += carttb.getDealID().getAverageCost();
         }
+        cartPrice = price;
         if(offer != null) {
-            totalPrice = totalPrice - (totalPrice*offer.getPercentOff()) / 100;
-            totalPrice = totalPrice - offer.getDollarsOff();
+            System.out.println("Offer added to the counting "+offer.getPercentOff()+"  "+offer.getDollarsOff());
+            price = price - (price*offer.getPercentOff()) / 100;
+            price = price - offer.getDollarsOff();
             //totalPrice -= totalPrice*offer
         }
-        totalPrice = totalPrice + (totalPrice*10) / 100;
-        System.out.println("Setted totoal Price = "+totalPrice);
-        session.setAttribute("totalPrice", totalPrice);
+        price = price + ((price*10) / 100);
+        System.out.println("Setted totoal Price = "+price);
+        session.setAttribute("totalPrice", price);
+        session.setAttribute("cartPrice", cartPrice);
     }
     
     public void applyOfferCode() {

@@ -894,7 +894,7 @@ span {
     content: "";
     width: 1px;
     height: 20px;
-    background-color: #fff;
+/*    background-color: #fff;*/
     left: 87px;
     margin-left: -0.5px;
     top: 50%;
@@ -905,7 +905,7 @@ span {
     content: "";
     width: 1px;
     height: 20px;
-    background-color: #fff;
+/*    background-color: #fff;*/
     right: 80px;
     margin-right: -0.5px;
     top: 50%;

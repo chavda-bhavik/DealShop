@@ -52,9 +52,18 @@ public class LoginBean {
     private String email;
     private String username;
     private String password;
+    private String confirmpassword;
     private String message;
     private AuthenticationStatus status;
     private Set<String> roles;
+
+    public String getConfirmpassword() {
+        return confirmpassword;
+    }
+
+    public void setConfirmpassword(String confirmpassword) {
+        this.confirmpassword = confirmpassword;
+    }
 
     public String getEmail() {
         return email;
@@ -123,7 +132,7 @@ public class LoginBean {
         Object h = request.getSession().getAttribute("token");
         if(h==null) {
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect(context.getRequestContextPath() + "/user/Home.jsf");
+            context.redirect(context.getRequestContextPath() + "/user2/Home.jsf");
         }
     }
     
@@ -134,7 +143,7 @@ public class LoginBean {
     }
     
     public String goToLogin() {
-        return "/user/Login.jsf?faces-redirect=true";
+        return "/user2/Login.jsf?faces-redirect=true";
     }
     
     public String goToUserRegister() {
@@ -172,7 +181,7 @@ public class LoginBean {
             {
                 System.out.println("In User");
                 request.getSession().setAttribute("logged-group", "User");
-                return "/user/Home.jsf";
+                return "/user2/Home.jsf";
             }
             else if(roles.contains("Business"))
             {
@@ -187,7 +196,7 @@ public class LoginBean {
             message = "Email/password is wrong !!!";
             e.printStackTrace();
         }
-        return "/user/Login.jsf";
+        return "/user2/Login.jsf";
     }
    
     public String registerUser() {
@@ -196,7 +205,7 @@ public class LoginBean {
         ur.setName(username);
         ur.setPassword(pbkd.generate(password.toCharArray()));
         commonClient.registerCommonUser(ur);
-        return "/user/Login.jsf";
+        return "/user2/Login.jsf";
     }
     
     private static void addError(FacesContext context, String message) {
@@ -218,6 +227,6 @@ public class LoginBean {
         request.getSession().setAttribute("logged-group", "");
         request.logout();
         request.getSession().invalidate();
-        return "/user/Home.jsf";
+        return "/user2/Home.jsf";
     }
 }

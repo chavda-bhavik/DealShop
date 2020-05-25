@@ -6,6 +6,7 @@
 package ejb;
 
 import entity.Businesscategorytb;
+import entity.Businesstb;
 import entity.Businesstypetb;
 import entity.Citytb;
 import entity.Dealscategorytb;
@@ -139,8 +140,9 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public void changeBussinessStatus(int BussinessID, int Status) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void verifyBusinessSuccess(int BussinessID) {
+        Businesstb business = em.find(Businesstb.class, BussinessID);
+        business.setIsVerified(2);
     }
 
     @Override

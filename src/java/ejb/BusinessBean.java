@@ -198,6 +198,12 @@ public class BusinessBean implements BusinessBeanLocal {
     }
 
     @Override
+    public void submitBusiness(int BusinessID) {
+        Businesstb business = em.find(Businesstb.class, BusinessID);
+        business.setIsVerified(1);
+    }
+
+    @Override
     public void setBusinessInfo(int BusinessID, Collection<Integer> InfoIDs) {
         Businesstb business = em.find(Businesstb.class, BusinessID);
         Collection<Businessinfotb> oldInformations = business.getBusinessinfotbCollection();

@@ -463,6 +463,14 @@ public class BusinessBean implements Serializable {
             h.setAttribute("businessid", business.getBusinessID());   
         }
     }
+    public String submitBusiness() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String token = request.getSession().getAttribute("token").toString();
+        String businessId = request.getSession().getAttribute("businessid").toString();
+        businessClient = new BusinessClient(token);
+        businessClient.submitBusiness(businessId);
+        return "/business/details.jsf?faces-redirect=true";
+    }
     // End of Home
     
     // Photos

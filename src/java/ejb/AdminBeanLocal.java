@@ -37,7 +37,7 @@ public interface AdminBeanLocal {
     //--Bussiness--
     void removeBussiness(int BussinessID);
     void blockBussiness(int BussinessID);
-    void changeBussinessStatus(int BussinessID, int Status);
+    void verifyBusinessSuccess(int BussinessID);
     
     //---State---
     void addState(String Name);

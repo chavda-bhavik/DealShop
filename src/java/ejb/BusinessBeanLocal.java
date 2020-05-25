@@ -22,6 +22,7 @@ public interface BusinessBeanLocal {
     void registerBusiness(String Name, String EmailID, String Address, String CustomerCareNumber, String ReservationNumber, String DaysOfOperation, String HoursOfOperation, String Location, String NeedToKnow, String AwardsRecognition, int CategoryID, int TypeID, int StateID, int CityID, int UserID);
     void editBusinessProfile(int BusinessID, String Name, String EmailID, String Address, String CustomerCareNumber, String ReservationNumber, String DaysOfOperation, String HoursOfOperation, String Location, String NeedToKnow, String AwardsRecognition, int CategoryID, int TypeID, int StateID, int CityID);
     void removeBusiness(int BusinessID);
+    void submitBusiness(int BusinessID);
     
     //---Bussiness Information---
     void setBusinessInfo(int BusinessID, Collection<Integer> InfoIDs);

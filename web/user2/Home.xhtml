@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cjsp="http://bootsfaces.net/ui">
 
     <body>
 
@@ -107,9 +109,24 @@
                 <!-- //***categories Start***// -->
                 <div class="bg our-categorie">
                     <div class="container-fluid">
+                        <h:form>
                         <div class="row">
                             <div id="categories" class="owl-carousel owlCarousel slidercategorie">
-                                <div class="item">
+                                
+                                <ui:repeat value="#{dealsCategoryBean.categories}" var="category">
+                                    <div class="item">
+                                        <div class="categorie">
+                                            <figure>
+                                                <h:commandLink action="#{dealsBean.showDealsByCategory(category.categoryID)}">
+                                                    <img src="/DealShop/user/resources/images/dealscategory/#{category.image}" alt="" />
+                                                </h:commandLink>
+                                            </figure>
+                                            <h5><a href="categories.html">#{category.name}</a></h5>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                                
+<!--                                <div class="item">
                                     <div class="categorie">
                                         <figure>
                                             <a href="categories.html"><i class="flaticon-armchair-silhouette green1"></i></a>
@@ -124,8 +141,8 @@
                                         </figure>
                                         <h5><a href="categories.html">fashion</a></h5>
                                     </div>
-                                </div>
-                                <div class="item">
+                                </div>-->
+<!--                                <div class="item">
                                     <div class="categorie">
                                         <figure>
                                             <a href="categories.html"><i class="flaticon-paintbrush orangered"></i></a>
@@ -180,9 +197,10 @@
                                         </figure>
                                         <h5><a href="categories.html">food</a></h5>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
+                        </h:form>
                     </div>
                 </div>
                 <!-- //***categories End***// -->
@@ -275,15 +293,17 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <ui:repeat value="#{dealsBean.maxSoldDeals}" var="deal">
                             <div class="col-md-4 col-sm-4 col-xs-12 marB30">
                                 <div class="box-a">
                                     <figure>
-                                        <img src="resources/img/all/image1.jpg" alt="" />
+                                        <img src="/DealShop/user/resources/images/deals/#{deal.bannerImage}" alt="" style="width:360px;height:238px;" />
                                     </figure>
                                     <div class="box-detail">
                                         <div class="col-md-8 col-sm-8 col-xs-7">
                                             <div class="row">
-                                                <h4 class="hover marB20"><a href="deals-single.html">title goes here</a></h4>
+                                                <h4 class="hover marB20"><a href="deals-single.html">#{deal.name}</a></h4>
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-5 text-right">
@@ -299,8 +319,12 @@
                                         </div>
                                         <div class="col-md-8 col-sm-12 col-xs-12">
                                             <div class="row">
-                                                <p>Find Latest Collections Of All Brands at Shop</p>
-                                                <h4 class="marT20"><span class="red"><i class="fa fa-usd" aria-hidden="true"></i>190</span>  <del><span class="grey"><i class="fa fa-usd" aria-hidden="true"></i>250</span></del></h4>
+                                                <p> at ${deal.businessID.address}</p>
+                                                <h4 class="marT20">
+                                                    <span class="red">
+                                                        <i class="fa fa-usd" aria-hidden="true"></i>${deal.averageCost}
+                                                    </span>  
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -334,6 +358,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            </ui:repeat>                            
                             <div class="col-md-4 col-sm-4 col-xs-12 marB30">
                                 <div class="box-a">
                                     <figure>

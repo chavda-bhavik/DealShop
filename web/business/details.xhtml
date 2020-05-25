@@ -5,7 +5,8 @@
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:body>
 
@@ -19,6 +20,23 @@
                             Manage Business Details
                         </div>
                         <div class="card-body">
+                            
+                            
+                            <c:if test="${businessBean.business.isVerified == 0}">
+                                <b:row>
+                                    <b:column>
+                                        <b:alert severity="danger" title="Be sure!" value="You need to verify your business before you able to add your outlet." />
+                                    </b:column>
+                                </b:row>
+                            </c:if>
+                            <c:if test="${businessBean.business.isVerified == 1}">
+                                <b:row>
+                                    <b:column>
+                                        <b:alert severity="info" title="Little patience!" value="We are verifying your business, be patience, keep checking your emails for updated." />
+                                    </b:column>
+                                </b:row>
+                            </c:if>
+                            
                             <h:form>
                                 <div class="row">
                                     <div class="col-6">
@@ -139,7 +157,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <h:commandButton action="${businessBean.editBusiness()}" class="btn btn-primary" value="Update" />
+                                        <b:commandButton actionListener="${businessBean.editBusiness()}" look="primary" value="Update" />
+                                        <b:commandButton actionListener="${businessBean.submitBusiness()}" look="success" value="Submit" class="ml-3" />
                                     </div>
                                 </div>
                             </h:form>

@@ -163,7 +163,7 @@ public class DealsDetailsBean {
         if(dealId != null) {
             userClient.addDealToCart(userId, dealId);
         }
-        return "/user/UserDeals.jsf?faces-redirect=true";
+        return "/user2/UserDeals.jsf?faces-redirect=true";
     }
     
     public DealsDetailsBean() {

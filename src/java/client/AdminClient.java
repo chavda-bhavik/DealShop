@@ -46,6 +46,10 @@ public class AdminClient {
         );
     }
 
+    public void verifyBusinessSuccess(String bId) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("verifybusiness/{0}", new Object[]{bId})).request().post(null);
+    }
+
     public void removeDealsCategory(String dcId) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("dealsCategory/{0}", new Object[]{dcId})).request().delete();
     }

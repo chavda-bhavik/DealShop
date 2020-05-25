@@ -31,7 +31,7 @@ public class DealsBean {
     public String showDealsByCategory(int cid) {
         res = common.getDealsByCategory(Response.class, String.valueOf(cid));
         showingDeals = res.readEntity(gDeals);
-        return "/user/Deals";
+        return "/user2/Deals";
     }
     
     public Collection<Dealstb> getShowingDeals() {
