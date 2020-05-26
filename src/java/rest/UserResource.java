@@ -107,9 +107,16 @@ public class UserResource {
     @POST
     @Path("/payment")
     @RolesAllowed("User")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public void createPayment(Dealspaymenttb payment) {
         ubl.makePayment(payment.getUserID().getUserID(), payment.getOfferID().getOfferID(), payment.getPaymentMode(), payment.getStatus());
+        //ubl.addDealsUsage(payment.getUserID().getUserID());
+    }
+    @POST
+    @Path("/dealusage/{userid}")
+    @RolesAllowed("User")
+    public void addDealUsage(@PathParam("userid") int userid) {
+        ubl.addDealsUsage(userid);
     }
     @GET
     @RolesAllowed("User")

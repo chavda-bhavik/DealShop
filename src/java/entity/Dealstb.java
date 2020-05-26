@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -72,21 +73,21 @@ public class Dealstb implements Serializable {
     @Basic(optional = false)
     @Column(name = "isVerified")
     private int isVerified;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID", fetch = FetchType.EAGER)
     private Collection<Dealphotostb> dealphotostbCollection;
     @JoinColumn(name = "BusinessID", referencedColumnName = "BusinessID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Businesstb businessID;
     @JoinColumn(name = "DealsCategoryID", referencedColumnName = "CategoryID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Dealscategorytb dealsCategoryID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID", fetch = FetchType.EAGER)
     private Collection<Dealsdetailstb> dealsdetailstbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID", fetch = FetchType.EAGER)
     private Collection<Carttb> carttbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID", fetch = FetchType.EAGER)
     private Collection<Dealsmenutb> dealsmenutbCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealID", fetch = FetchType.EAGER)
     private Collection<Dealsusagetb> dealsusagetbCollection;
 
     public Dealstb() {

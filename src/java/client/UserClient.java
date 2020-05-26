@@ -60,8 +60,8 @@ public class UserClient {
         webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
-    public void createPayment() throws ClientErrorException {
-        webTarget.path("payment").request().post(null);
+    public void createPayment(Object requestEntity) throws ClientErrorException {
+        webTarget.path("payment").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
     public void deleteReview(String reviewId) throws ClientErrorException {
@@ -70,6 +70,10 @@ public class UserClient {
 
     public void addDealToCart(String userId, String dealId) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("cart/{0}/{1}", new Object[]{userId, dealId})).request().post(null);
+    }
+
+    public void addDealUsage(String userid) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("dealusage/{0}", new Object[]{userid})).request().post(null);
     }
 
     public <T> T ifCartContainsDeal(Class<T> responseType, String userId, String dealId) throws ClientErrorException {

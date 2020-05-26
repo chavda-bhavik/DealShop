@@ -109,6 +109,19 @@ public class DealsDetailsBean {
         return DealDetails;
     }
     
+    public void doCartCheck() {
+        String dealId = params.get("dealid");
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        String token="";
+        token = request.getSession().getAttribute("token").toString();
+        userClient = new UserClient(token);
+        String userId = session.getAttribute("userid").toString();
+        res = userClient.ifCartContainsDeal(Response.class, userId, dealId);
+        CartContainsDeal = Boolean.valueOf(res.readEntity(String.class));
+        System.out.println(CartContainsDeal);
+    }
+    
     public void fetchAllData() {
         String dealId = params.get("dealid");
 
@@ -116,10 +129,12 @@ public class DealsDetailsBean {
         res = common.getSingleDeal(Response.class, dealId);
         Deal = res.readEntity(gDeal);
 
-        Object userId = session.getAttribute("userid");
-        CartContainsDeal = false;
+//        Object userId = session.getAttribute("userid");
+//        CartContainsDeal = false;
+//        System.out.println("User id in fetch all data "+userId.toString());
+//        //String userId = userId.toString();
 //        if(userId != null) {
-//            res = userClient.ifCartContainsDeal(Response.class, userId.toString(), Deal.getDealID().toString());
+//            res = userClient.ifCartContainsDeal(Response.class, "13", dealId);
 //            CartContainsDeal = Boolean.valueOf(res.readEntity(String.class));
 //        }
         
@@ -154,7 +169,7 @@ public class DealsDetailsBean {
     public String addDealToCart() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        String token="";
+        String token = "";
         token = request.getSession().getAttribute("token").toString();
         userClient = new UserClient(token);
         
@@ -162,16 +177,12 @@ public class DealsDetailsBean {
         String dealId = session.getAttribute("dealId").toString();
         if(dealId != null) {
             userClient.addDealToCart(userId, dealId);
+            System.out.println("Deal added to cart");
         }
         return "/user2/UserDeals.jsf?faces-redirect=true";
     }
     
     public DealsDetailsBean() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        String token="";
-        //token = request.getSession().getAttribute("token").toString();
-        
         common = new CommonClient();
 
         gDealDetails = new GenericType<Dealsdetailstb>(){};
@@ -186,6 +197,4 @@ public class DealsDetailsBean {
         BusinessReviews = new ArrayList<Reviewtb>();
         gCartContainsDeal = new GenericType<Boolean>(){};
     }
-    
-    
 }

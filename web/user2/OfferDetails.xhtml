@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                ${offersBean.redirectIfIdNotPresent()}
+                ${offersBean.getOfferDetails()}
+                
+                <h:form>
+                <!-- //***Breadcrumb-section Start***// -->
+                <div class="breadcrumb-section">
+                    <div class="breadcrumb-text">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="breadcrumb-text padTB100">
+                                        <h3><span>${offersBean.offer.name}</span></h3>
+                                        <ul class="breadcrumb-list">
+                                            <li><h:commandLink action="/user2/Home.jsf?faces-redirect=true">Home</h:commandLink></li>
+                                            <li><h:commandLink action="/user2/Offers.jsf?faces-redirect=true">Offers</h:commandLink></li>
+                                            <li>${offersBean.offer.name}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //***Breadcrumb-Section End***// -->
+                <!-- //***coupons-details Start***// -->
+                <div class="deals bg padB100 padT15">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3 col-xs-12"></div>
+                            <div class="col-md-10 col-sm-9 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="blog marB30">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="row">
+                                                    <figure>
+                                                        <img src="/DealShop/assets/images/offers/${offersBean.offer.bannerImage}" alt="${offersBean.offer.name}" style="width:847px;height:525px;" />
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4>Terms &amp; Conditions</h4>
+                                        <p>${offersBean.offer.termsConditions}</p>
+                                        
+                                        <h4 class="marT30">Percentage off on amount</h4>
+                                        <p>${offersBean.offer.percentOff}</p>
+                                        
+                                        <h4 class="marT30">Dollars off on amount</h4>
+                                        <p>${offersBean.offer.dollarsOff}</p>
+                                        
+                                        <h4 class="marT30">Issue Date</h4>
+                                        <p>
+                                            <h:outputText value="${offersBean.offer.issueDate}" >
+                                                <f:convertDateTime pattern="dd-mm-yyyy" />
+                                            </h:outputText>
+                                        </p>
+                                        
+                                        <h4 class="marT30">Issue Date</h4>
+                                        <p>
+                                            <h:outputText value="${offersBean.offer.dueDate}" >
+                                                <f:convertDateTime pattern="dd-mm-yyyy" />
+                                            </h:outputText>
+                                        </p>
+                                        
+                                        
+                                        <div class="col-md-12 col-sm-12 col-xs-12 marT20">
+                                            <div class="ask-btn">
+                                                <div class="row">
+                                                    <c:choose>
+                                                        <c:when test="${loginBean.isUserLoggedIn()}">
+                                                            <h:commandButton class="itg-btn cart-btn" value="${offersBean.offerBtnText}" id="offerBtn">
+                                                                <f:ajax event="click" listener="${offersBean.applyOfferCode()}" render="offerBtn" />
+                                                            </h:commandButton>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <h:commandButton class="itg-btn cart-btn" value="Login to use offer" action="${loginBean.goToLogin()}" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //***coupons-details End***// -->
+                <div class="clear"></div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

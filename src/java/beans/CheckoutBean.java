@@ -7,12 +7,15 @@ package beans;
 
 import client.CommonClient;
 import client.UserClient;
+import entity.Carttb;
+import entity.Dealspaymenttb;
+import static entity.Dealspaymenttb_.userID;
 import entity.Offertb;
+import entity.Usertb;
+import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
@@ -30,8 +33,23 @@ public class CheckoutBean {
     CommonClient common;
     UserClient userClient;
     Response res;
+    
     GenericType<Offertb> gOffer;
     Offertb offer;
+    GenericType<Collection<Carttb>> gCart;
+    Collection<Carttb> cart;
+    
+    private int cartTotal;
+    private int totalPrice;
+    private String userId;
+
+    public int getCartTotal() {
+        return cartTotal;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
 
     public Offertb getOffer() {
         return offer;
@@ -44,25 +62,53 @@ public class CheckoutBean {
             offer = res.readEntity(gOffer);
         }
     }
-    public void placeOrder() {
-        String userId = session.getAttribute("userid").toString();
-        Object offer = session.getAttribute("offerid");
-        String offerId = "";
-        if(offer == null) {
-            offerId = "0";
+    
+    public void countTotal() {
+        cartTotal = 0;
+        res = userClient.getUserCartDeals(Response.class, userId);
+        cart = res.readEntity(gCart);
+        for (Carttb carttb : cart) {
+            cartTotal += carttb.getDealID().getAverageCost();
         }
-        System.out.println("Place order for userId "+userId+" and for offerId "+offerId);
-        session.setAttribute("offerid", null);
+        totalPrice = cartTotal;
+        if(session.getAttribute("offerid") != null) {
+            totalPrice -= (totalPrice * Integer.parseInt(session.getAttribute("percentoff").toString())) / 100;
+            totalPrice -= Integer.parseInt(session.getAttribute("dollarsoff").toString());
+        }
+        totalPrice += (cartTotal * 10) / 100;
+        System.out.println("Carttotal = "+cartTotal+" and totalprice = "+totalPrice);
     }
-    public CheckoutBean() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        String token="";
-        token = request.getSession().getAttribute("token").toString();
+    
+    public void placeOrder() {
+        Dealspaymenttb payment = new Dealspaymenttb();
+        Usertb user = new Usertb();
+        user.setUserID(Integer.parseInt(userId));
+        payment.setUserID(user);
+        Offertb offer = new Offertb();
+        String offerId = "0";
+        if(session.getAttribute("offerid") != null) {
+            offerId =  session.getAttribute("offerid").toString();
+        }
+        offer.setOfferID(Integer.parseInt(offerId));
+        payment.setOfferID(offer);
         
+        System.out.println("Place order for userId "+userId+" and for offerId "+offerId);
+        userClient.createPayment(payment);
+        //userClient.addDealUsage(userId);
+        //session.setAttribute("offerid", null);
+    }
+    
+    public CheckoutBean() {
+//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        String token="";
+        token = session.getAttribute("token").toString();
+        
+        userId = session.getAttribute("userid").toString();
         common = new CommonClient();
         userClient = new UserClient(token);
         gOffer = new GenericType<Offertb>(){};
+        gCart = new GenericType<Collection<Carttb>>(){};
     }
     
 }

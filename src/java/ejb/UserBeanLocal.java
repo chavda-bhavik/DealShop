@@ -9,6 +9,7 @@ import entity.Carttb;
 import entity.Dealspaymenttb;
 import entity.Dealsusagetb;
 import entity.Reviewtb;
+import entity.Usertb;
 import java.util.Collection;
 import javax.ejb.Local;
 
@@ -37,6 +38,7 @@ public interface UserBeanLocal {
     
     //---Payment---
     void makePayment(int UserID, int OfferID, int PaymentMode, int Stauts);
+    void addDealsUsage(int userid);
     Collection<Dealspaymenttb> getPaymentDetails(int UserID);
     Collection<Dealsusagetb> getPurchasedDeals(int UserID);
     

@@ -81,18 +81,21 @@
                                     <div class="marT20 marB20">
                                         <c:choose>
                                             <c:when test="#{loginBean.isUserLoggedIn()}">
+                                                ${dealsDetailsBean.doCartCheck()}
                                                 <c:choose>
-                                                    <c:when test="#{dealsDetailsBean.cartContainsDeal}">
+                                                    <c:when test="${dealsDetailsBean.cartContainsDeal}">
                                                         <h:link class="itg-btn subcribes" outcome="/user/UserDeals.jsf?dealid=#{dealsDetailsBean.deal.dealID}">Go to Checkout</h:link>
                                                     </c:when>
                                                     <c:otherwise>
     <!--                                                    <h:link class="btn btn-primary btn-block" outcome="/user/UserDeals.jsf?dealid=#dealsDetailsBean.deal.dealID}">Add deal to Cart</h:link>-->
-                                                        <h:commandButton action="${dealsDetailsBean.addDealToCart()}" class="itg-btn subcribes" value="Add deal to cart"/>
+                                                        <h:commandButton action="${dealsDetailsBean.addDealToCart()}" class="itg-btn subcribes" value="Add deal to cart" id="adtc">
+                                                            <f:ajax event="click" render="adtc" />
+                                                        </h:commandButton>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:when>
                                             <c:otherwise>
-                                                <h:commandButton action="/user/Login.jsf" class="itg-btn subcribes" value="Login to continue" />
+                                                <h:commandButton action="/user2/Login.jsf" class="itg-btn subcribes" value="Login to continue" />
                                             </c:otherwise>
                                         </c:choose>
                                     </div>

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +45,7 @@ public class Businessphotostb implements Serializable {
     @Column(name = "Type")
     private int type;
     @JoinColumn(name = "BusinessID", referencedColumnName = "BusinessID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Businesstb businessID;
 
     public Businessphotostb() {

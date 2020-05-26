@@ -12,8 +12,8 @@ import entity.Offertb;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
-import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +33,7 @@ public class UserDealsBean {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
     HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-    
+//    Session h;
     UserClient userClient;
     CommonClient commonClient;
     
@@ -44,6 +44,7 @@ public class UserDealsBean {
     private double cartPrice;
     private double totalPrice;
     
+    private String userId;
     private String offerCode;
     private String OfferButtonText = "Apply Offer";
     private String OfferMessage = "";
@@ -79,9 +80,10 @@ public class UserDealsBean {
     }
     
     public Collection<Carttb> getUserCart() {
-        String userId = session.getAttribute("userid").toString();
+//        String userId = session.getAttribute("userid").toString();
         res = userClient.getUserCartDeals(Response.class, userId);
         userCart = res.readEntity(gUserCart);
+        System.out.println("Get user Cart "+userCart.size());
         this.setTotalPrice();
         return userCart;
     }
@@ -93,20 +95,6 @@ public class UserDealsBean {
     public void removeDealFromCart(int cartId) {
         userClient.removeDealFromCart(String.valueOf(cartId));
         //this.fetchUserDeals();
-    }
-    
-    public void checkLoginAndRedirect() throws IOException {
-        Object h = session.getAttribute("userid");
-        if(h==null) {
-            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect(context.getRequestContextPath() + "/user/Home.jsf");
-        }
-    }
-    
-    public void fetchUserDeals() {
-        String userId = session.getAttribute("userid").toString();
-        res = userClient.getUserCartDeals(Response.class, userId);
-        userCart = res.readEntity(gUserCart);
     }
     
     public void setTotalPrice() {
@@ -150,6 +138,7 @@ public class UserDealsBean {
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         String token="";
         token = request.getSession().getAttribute("token").toString();
+        userId = request.getSession().getAttribute("userid").toString();
         
         userClient = new UserClient(token);
         commonClient = new CommonClient();

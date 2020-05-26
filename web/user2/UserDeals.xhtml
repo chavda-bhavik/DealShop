@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -13,6 +14,7 @@
             <ui:define name="content">
                 #{loginBean.checkLoginAndRedirect()}
                 
+                <h:form>
                 <!-- //***breadcrumb-section Start***// -->
                 <div class="breadcrumb-section">
                     <div class="breadcrumb-text">
@@ -22,8 +24,9 @@
                                     <div class="breadcrumb-text padTB100">
                                         <h3><span>shop cart</span></h3>
                                         <ul class="breadcrumb-list">
-                                            <li><a href="index-2.html">home</a></li>
-                                            <li><a href="#">shop cart</a></li>
+                                            <li><h:commandLink action="/user2/Home.jsf?faces-redirect=true">home</h:commandLink></li>
+                                            <li><h:commandLink action="/user2/Deals.jsf?faces-redirect=true">Deals</h:commandLink></li>
+                                            <li>Cart</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -33,11 +36,10 @@
                 </div>
                 <!-- //***breadcrumb-section End***// -->
                 
-                <div class="shopcart-section bg padTB100">
+                <div class="shopcart-section bg padT20 padB40">
                     <div class="container">
                         <div class="row">
-                            <h:form>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
+<!--                            <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="section-box cart-box">
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <p>
@@ -48,99 +50,111 @@
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             
                             
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="shopcart-box marT50 marB20">
-                                    <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <h4>product</h4>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class="row">
-                                                <h4 class="text-right">quantity</h4>
+                            <c:choose>
+                                <c:when test="${userDealsBean.userCart.size() == 0}">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="section-box cart-box">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <p>
+                                                    <a href="#">
+                                                        <i class="flaticon-blogger-logotype"></i>
+                                                    </a> 
+                                                    Your cart is empty! you can browse latest deals from <h:commandLink action="/user2/Deals.jsf?faces-redirect=true" value="here" class="green" />.
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <h4>total</h4>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <h4 class="text-right">status</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <ui:repeat var="cart" value="${userDealsBean.userCart}">
-                            
-                            <div class="cart-details marT30 marB30">
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="cart-detail marB30">
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <figure>
-                                                    <img src="/DealShop/assets/images/deals/#{cart.dealID.bannerImage}" />
-                                                </figure>
+                                </c:when>
+                                
+                                <c:otherwise>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="shopcart-box marT50 marB20">
+                                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <h4>product</h4>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="row">
+                                                        <h4 class="text-right">quantity</h4>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <div class="row">
-                                                    <h4 class="capital">
-                                                        <a href="#">
-                                                            <h:outputText value="#{cart.dealID.name}" />
-                                                        </a>
-                                                    </h4>
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <h4>total</h4>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <h4 class="text-right">status</h4>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="cart-input text-right">
-                                            <h3>1</h3>
+
+                                    <ui:repeat var="cart" value="${userDealsBean.userCart}">
+
+                                    <div class="cart-details marT30 marB30">
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="cart-detail marB30">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <figure>
+                                                            <img src="/DealShop/assets/images/deals/#{cart.dealID.bannerImage}" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="row">
+                                                            <h4 class="capital">
+                                                                <a href="#">
+                                                                    <h:outputText value="#{cart.dealID.name}" />
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="cart-input text-right">
+                                                    <h3>1</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <h3 class="cart-price">
+                                                    <h:outputText value="$#{cart.dealID.averageCost}" />
+                                                </h3>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 text-right">
+                                                <div class="status">
+                                                    <h3 class="cart-price">
+                                                        <h:commandLink style="padding:5px;" action="#{userDealsBean.removeDealFromCart(cart.cartID)}" value="X" />
+                                                    </h3>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <h3 class="cart-price">
-                                            <h:outputText value="$#{cart.dealID.averageCost}" />
-                                        </h3>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 text-right">
-                                        <div class="status">
-                                            <h3 class="cart-price">
-                                                <h:commandLink style="padding:5px;">
-                                                    <f:ajax render="@form" listener="#{userDealsBean.removeDealFromCart(cart.cartID)}" /> X
-                                                </h:commandLink>
-                                            </h3>
+
+                                    </ui:repeat>
+                                    
+                                    <div class="cart-border">
+                                        <div class="col-md-8 col-sm-8 col-xs-12"></div>
+                                        <div class="col-md-4 col-sm-4 col-xs-12 text-right marB30">
+                                            <h:commandLink action="/user2/Checkout.jsf?faces-redirect=true" class="itg-btn cart-btn" value="Checkout" immediate="true"></h:commandLink>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            
-                            </ui:repeat>
-                            
-                            <div class="cart-border">
-                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                    <div class="searchbar marB30">
-                                        <h:inputText class="theme-input-style" required="true" value="#{userDealsBean.offerCode}" pt:placeholder="Enter offer code..." />
-                                        <h:commandButton class="itg-btn cart-btn" value="#{userDealsBean.offerButtonText}" action="#{userDealsBean.applyOfferCode()}" />
-                                        <span class="text-danger">#{userDealsBean.offerMessage}</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 text-right marB30">
-                                    <h:commandLink action="/user2/Checkout.jsf?faces-redirect=true" class="itg-btn cart-btn" value="continue" immediate="true"></h:commandLink>
-                                </div>
-                            </div>
-                            
-                            </h:form>
+                                </c:otherwise>
+                            </c:choose>                            
                         </div>
                     </div>
                 </div>
+                
                 <!-- //***Shopcart-Section End***// -->
                 <div class="clear"></div>
+                
+                </h:form>
             </ui:define>
 
         </ui:composition>
