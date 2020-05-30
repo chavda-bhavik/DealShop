@@ -39,6 +39,7 @@ public class CommonBean implements CommonBeanLocal {
     @PersistenceContext(unitName="DealShopPU")
     EntityManager em;
     
+    //---Information---
     @Override
     public Collection<Businesscategorytb> getAllBusinessCategories() {
         return em.createNamedQuery("Businesscategorytb.findAll").getResultList();
@@ -59,6 +60,64 @@ public class CommonBean implements CommonBeanLocal {
     public Collection<Businesstb> getAllBusiness() {
         return em.createNamedQuery("Businesstb.findAll").getResultList();
     }
+    
+    // Restricted unverified Businesses and Deals for user
+    @Override
+    public Collection<Businesstb> getAllBusinessByCityUser(int CityID) {
+        Citytb city = em.find(Citytb.class, CityID);
+        Collection<Businesstb> busines = new ArrayList<>();
+        try {
+            Collection<Businesstb> businesses = city.getBusinesstbCollection();
+            for (Businesstb businesse : businesses) {
+                if(businesse.getIsVerified() == 2) busines.add(businesse);
+            }
+        }
+        catch(Exception e) {}
+        return busines;
+    }
+
+    @Override
+    public Collection<Dealstb> getAllDealsOfBusinessUser(int BusinessID) {
+        Businesstb business = em.find(Businesstb.class, BusinessID);
+        Collection<Dealstb> deals = new ArrayList<>();
+        try {
+            Collection<Dealstb> buDeals = business.getDealstbCollection();
+            for (Dealstb buDeal : buDeals) {
+                if(buDeal.getIsVerified() == 2) {
+                    deals.add(buDeal);
+                }
+            }
+        } catch(Exception e) { System.out.println("askldf"); }
+        return deals;
+    }
+
+    @Override
+    public Collection<Dealstb> getLatestDealsUser(int Start, int Limit) {
+        Collection<Dealstb> deals = em.createQuery("SELECT d FROM Dealstb d WHERE d.isVerified = 2 AND d.dueDate > CURRENT_DATE").getResultList();
+        return deals;
+    }
+
+    @Override
+    public Collection<Dealstb> getDealsByCategoryUser(int CategoryID) {
+        Dealscategorytb category = em.find(Dealscategorytb.class, CategoryID);
+        Collection<Dealstb> deals = new ArrayList<>();
+        
+        Collection<Dealstb> caDeals = category.getDealstbCollection();
+        for (Dealstb caDeal : caDeals) {
+            if(caDeal.getIsVerified() == 2) {
+                deals.add(caDeal);
+            }
+        }
+        return deals;
+    }
+
+    @Override
+    public Collection<Dealstb> getTrandingDealsUser(int Limit) {
+        Collection<Dealstb> deals = em.createQuery("SELECT d FROM Dealstb d WHERE d.isVerified=2 ORDER BY d.soldNo DESC").setMaxResults(Limit).getResultList();
+        return deals;
+    }
+    
+    // End of Restricted Businesses and Deals
 
     @Override
     public Collection<Businesstb> getAllBusinessByCity(int CityID) {
@@ -165,6 +224,12 @@ public class CommonBean implements CommonBeanLocal {
     public Dealstb getSingleDeal(int DealID) {
         Dealstb deal = (Dealstb) em.createNamedQuery("Dealstb.findByDealID").setParameter("dealID", DealID).getSingleResult();
         return deal;
+    }
+
+    @Override
+    public Collection<Dealstb> getAllDeals() {
+        Collection<Dealstb> deals = em.createNamedQuery("Dealstb.findAll").getResultList();
+        return deals;
     }
 
     @Override

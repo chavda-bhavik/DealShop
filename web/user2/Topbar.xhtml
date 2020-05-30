@@ -6,6 +6,7 @@
     <h:head>
     </h:head>
     <h:body>
+        <h:form>
         <div class="main-header">
             <div class="top-bar" id="top-bar-sec">
                 <div class="container">
@@ -33,24 +34,22 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 text-right">
                             <div class="contacts">
                                 <ul>
-                                    <h:form>
-                                        <c:choose>
-                                            <c:when test="${loginBean.isUserLoggedIn()}">
-                                                <li>
-                                                    <h:commandLink class="dropdown-item" action="${loginBean.logoutUser()}">
-                                                        <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-                                                    </h:commandLink>
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li>
-                                                    <h:commandLink class="dropdown-item" action="${loginBean.goToLogin()}">
-                                                        <i class="fa fa-user" aria-hidden="true"></i> Login / Signup
-                                                    </h:commandLink>
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </h:form>
+                                    <c:choose>
+                                        <c:when test="${loginBean.isUserLoggedIn()}">
+                                            <li>
+                                                <h:commandLink class="dropdown-item" action="${loginBean.logoutUser()}">
+                                                    <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+                                                </h:commandLink>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li>
+                                                <h:commandLink class="dropdown-item" action="${loginBean.goToLogin()}">
+                                                    <i class="fa fa-user" aria-hidden="true"></i> Login / Signup
+                                                </h:commandLink>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </ul>
                             </div>
                         </div>
@@ -82,8 +81,13 @@
                                     <div class="navbar-collapse collapse">
                                         <!-- nav -->
                                         <ul class="nav navbar-nav">
-                                            <li><a href="index-2.html">home</a></li>
                                             <li>
+                                                <h:commandLink action="/user2/Home.jsf?faces-redirect=true" value="Home" />
+                                            </li>
+                                            <li>
+                                                <h:commandLink action="/user2/Deals.jsf?faces-redirect=true" value="Deals" />
+                                            </li>
+<!--                                            <li>
                                                 <a href="#">deals <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="deals-grid.html">deals grid</a></li>
@@ -92,38 +96,15 @@
                                                     <li><a href="deals-list-sidebar.html">deals list sidebar</a></li>
                                                     <li><a href="deals-single.html">deals single</a></li>
                                                 </ul>
-                                            </li>
+                                            </li>-->
                                             <li>
-                                                <a href="#">coupons <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="coupon-grid.html">coupon grid</a></li>
-                                                    <li><a href="coupan-grid-sidebar.html">coupan grid sidebar</a></li>
-                                                    <li><a href="coupon-list.html">coupon list</a></li>
-                                                    <li><a href="coupon-list-sidebar.html">coupon list sidebar</a></li>
-                                                    <li><a href="coupons-details.html">coupon details</a></li>
-                                                </ul>
+                                                <h:commandLink action="/user2/Storelist.jsf?faces-redirect=true" value="Stores" />
                                             </li>
-                                            <li>
-                                                <a href="#">blog <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="blog-grid.html">blog grid</a></li>
-                                                    <li><a href="blog-grid-sidebar.html">blog grid sidebar</a></li>
-                                                    <li><a href="blog-list.html">blog list</a></li>
-                                                    <li><a href="blog-list-sidebar.html">blog list sidebar</a></li>
-                                                    <li><a href="blog-details.html">blog details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#">pages <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="categories.html">categories</a></li>
-                                                    <li><a href="shopcart.html">shopcart</a></li>
-                                                    <li><a href="wishlist.html">wishlist</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="store-search.html">stores</a>
-                                            </li>
+                                            <c:if test="${loginBean.isUserLoggedIn()}">
+                                                <li>
+                                                    <h:commandLink class="search-click" action="/user2/PurchasedDeals.jsf?faces-redirect=true" />
+                                                </li>
+                                            </c:if>
                                             <li>
                                                 <a href="contact.html">contact us</a>
                                             </li>
@@ -135,8 +116,13 @@
                                                         <a href="#" class="search-click"><i class="fa fa-search" aria-hidden="true"></i></a>
                                                     </div>
                                                 </li>
-                                                <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="flaticon-shopping-cart nav-icon" aria-hidden="true"></i><sup>2</sup></a></li>
+                                                <c:if test="${loginBean.isUserLoggedIn()}">
+                                                    <li>
+                                                        <h:commandLink class="search-click" action="/user2/UserDeals.jsf?faces-redirect=true">
+                                                            <i class="flaticon-shopping-cart nav-icon" aria-hidden="true"></i>
+                                                        </h:commandLink>
+                                                    </li>
+                                                </c:if>
                                             </ul>
                                             <div class="head-search hidden-lg hidden-md hidden-sm"><a href="#" class="search-click"><i class="fa fa-search" aria-hidden="true"></i></a></div>
                                         </div>
@@ -164,6 +150,8 @@
                 </div>
             </div>
         </div>
+        
+        </h:form>
     </h:body>
 </html>
 

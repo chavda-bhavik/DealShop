@@ -27,6 +27,7 @@ public class AdminClient {
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/DealShop/webresources";
 
+    
     public AdminClient(String token) {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         client.register(new RestFilter(token));

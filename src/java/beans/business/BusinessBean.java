@@ -460,7 +460,8 @@ public class BusinessBean implements Serializable {
             System.out.println("setting bussiness session logged user email "+email);
             res = commonClient.getBusinessByUserEmail(Response.class, email);
             business = res.readEntity(gBusiness);
-            h.setAttribute("businessid", business.getBusinessID());   
+            h.setAttribute("businessid", business.getBusinessID());
+            h.setAttribute("businessstatus", business.getIsVerified());
         }
     }
     public String submitBusiness() {
@@ -469,6 +470,7 @@ public class BusinessBean implements Serializable {
         String businessId = request.getSession().getAttribute("businessid").toString();
         businessClient = new BusinessClient(token);
         businessClient.submitBusiness(businessId);
+        FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("businessBean");
         return "/business/details.jsf?faces-redirect=true";
     }
     // End of Home

@@ -32,6 +32,18 @@ public class CommonClient {
         webTarget = client.target(BASE_URI).path("common");
     }
 
+    public <T> T getDealsByBusinessUser(Class<T> responseType, String businessId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("userDealsByBusiness/{0}", new Object[]{businessId}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T getDealsByCategoryUser(Class<T> responseType, String categoryId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("userDealsByCategory/{0}", new Object[]{categoryId}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public <T> T getLinks(Class<T> responseType) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path("businessLinks");
@@ -52,6 +64,12 @@ public class CommonClient {
 
     public void registerBusinessUser(Object requestEntity) throws ClientErrorException {
         webTarget.path("registerBusinessUser").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public <T> T getLatestDealsUser(Class<T> responseType, String start, String limit) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("userLatestDeals/{0}/{1}", new Object[]{start, limit}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public <T> T getDealsBySoldNo(Class<T> responseType, String limit) throws ClientErrorException {
@@ -124,6 +142,12 @@ public class CommonClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public <T> T getAllDeals(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("deals");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public <T> T getBusinessDeals(Class<T> responseType, String bid) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("businessDeals/{0}", new Object[]{bid}));
@@ -171,6 +195,12 @@ public class CommonClient {
     public <T> T getDealDetails(Class<T> responseType, String did) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("dealDetail/{0}", new Object[]{did}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T getTrandingDealsByLimitUser(Class<T> responseType, String limit) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("userTrandingDeals/{0}", new Object[]{limit}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
@@ -229,6 +259,12 @@ public class CommonClient {
     public <T> T getAllBusinessTypes(Class<T> responseType) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path("businessType");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T getBusinessesUser(Class<T> responseType, String cityId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("userBusinessesByCity/{0}", new Object[]{cityId}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 

@@ -97,6 +97,8 @@ public class BDealsBean implements Serializable {
     }
 
     public Collection<Dealstb> getShowDealsList() {
+        res = businessClient.getAllDeals(Response.class, BusinessId);
+        ShowDealsList = res.readEntity(gdeals);
         return ShowDealsList;
     }
 
@@ -315,9 +317,11 @@ public class BDealsBean implements Serializable {
             messageType = "success";
             message = "Deal edited Successfully";
         } else {
+            System.out.println("deal added");
             businessClient.addBusinessDeal(deal, BusinessId);
             messageType = "success";
             message = "Deal created Successfully";
+            this.clearAddDealData();
         }
         
         return "/business/adddeal.jsf";
@@ -332,6 +336,13 @@ public class BDealsBean implements Serializable {
             e.printStackTrace();
         }
     }
+    public void clearAddDealData() {
+        this.setAverageCost(0);
+        this.setIssueDate(null);
+        this.setDueDate(null);
+        this.setDealName(null);
+        this.setUploadedFile(null);
+    }
     //End of Add Deal
     
     //Deal Details
@@ -341,6 +352,7 @@ public class BDealsBean implements Serializable {
         System.out.println("deals fetched " + deals.size());
         ShowDealsList = deals;
         DealsShowType = 0;
+        this.reset();
     }
     public String editDetails() {
         return "/business/dealdetails.jsf";
@@ -397,7 +409,7 @@ public class BDealsBean implements Serializable {
     }
     public String removePhoto(int photoid) {
         businessClient.removeDealPhoto(String.valueOf(photoid));
-        //this.photoDealChanged();
+        this.reset();
         return "/business/dealphotos.jsf?faces-redirect=true";
     }
     // End of Deal Photos
@@ -426,6 +438,7 @@ public class BDealsBean implements Serializable {
     }
     public String submitDeal(int DealId) {
         businessClient.submitDeal(String.valueOf(DealId));
+        FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("bDealsBean");
         return "/business/deal.jsf?faces-redirect=true";
     }    
     public void showSubmitedDeals() {
@@ -458,6 +471,11 @@ public class BDealsBean implements Serializable {
         }        
     }
     // End of Deals
+    
+    public void reset() {
+        //FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("bDealsBean");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("bDealsBean");
+    }
     
     public void resetAlert() {
         message = "";

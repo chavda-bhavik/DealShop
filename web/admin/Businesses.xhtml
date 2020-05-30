@@ -12,6 +12,7 @@
 
             <ui:define name="content">
                 ${adminBuBean.getAllBusinesses()}
+                
                 <div class="content-wrapper" style="color:black !important;">
                     <div class="card card-default" id="cardDemo14">
                         <div class="card-header card-title">
@@ -27,21 +28,21 @@
                                     <b:dataTableColumn value="${business.reservationPhoneNo}" label="Reservation No." class="text-center" />
                                     <b:dataTableColumn value="${business.businessCategoryID.name}" label="Category" class="text-center" />
                                     <b:dataTableColumn value="${business.businessTypeID.name}" label="Type" class="text-center" />
-                                    <b:dataTableColumn value="${business.cityID.name}" label="City" class="text-center" />
-                                    <b:dataTableColumn value="${business.stateID.name}" label="State" class="text-center" />
+                                    <b:dataTableColumn label="Location" class="text-center" >
+                                        ${business.cityID.name}, ${business.stateID.name}
+                                    </b:dataTableColumn>
                                     
                                     <b:dataTableColumn label="Verify" class="text-center">
                                         <b:commandButton disabled="${business.isVerified != 1}"
-                                           value=" Verify" icon="check" action="#{adminBuBean.verifySuccessBusiness(business.businessID)}" />
+                                             icon="check" actionListener="#{adminBuBean.verifySuccessBusiness(business.businessID)}" />
                                     </b:dataTableColumn>
-                                    
-                                    <b:dataTableColumn label="Show" class="text-center">
-                                       <b:commandButton 
-                                           value=" Show" iconAwesome="eye" action="#{adminBuBean.viewBusiness(business.businessID)}" />
-                                    </b:dataTableColumn>                                    
                                 
                                 </b:dataTable>
                             </b:form>
+                            <!--                                    <b:dataTableColumn label="Show" class="text-center">
+                                       <b:commandButton 
+                                            iconAwesome="eye" action="{adminBuBean.viewBusiness(business.businessID)}" />
+                                    </b:dataTableColumn>-->
                         </div>
                     </div>
                 </div>

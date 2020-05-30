@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -18,36 +20,35 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                               <table class="table" id="datatable1">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Offer Name</th>
-                                            <th>Code</th>
-                                            <th>Issue Date</th>
-                                            <th>Due Date</th>
-                                            <th>Percent Off</th>
-                                            <th>Dollars Off</th>
-                                            <th>Edit</th>
-                                            <th>Remove</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <ui:repeat var="offer" value="${offersAdminBean.offers}" varStatus="status">
-                                            <tr>
-                                                <td>${status.index + 1}</td>
-                                                <td>${offer.name}</td>
-                                                <td>${offer.code}</td>
-                                                <td>${offer.issueDate}</td>
-                                                <td>${offer.dueDate}</td>
-                                                <td>${offer.percentOff}</td>
-                                                <td>${offer.dollarsOff}</td>
-                                                <td><h:commandButton class="btn btn-info" value="Edit" action="${offersAdminBean.editOffer(offer.offerID)}" /></td>
-                                                <td><h:commandButton class="btn btn-danger" value="Remove" action="${offersAdminBean.removeOffer(offer.offerID)}" /></td>
-                                            </tr>
-                                        </ui:repeat>
-                                    </tbody>
-                               </table>
+                                <b:dataTable value="${offersAdminBean.offers}" var="offer">
+                                    <b:dataTableColumn label="Offer Name" value="${offer.name}" class="text-center" />
+                                    <b:dataTableColumn label="Code" value="${offer.code}" class="text-center" />
+                                    <b:dataTableColumn label="Issue Date" class="text-center" >
+                                        <h:outputText value="${offer.issueDate}" >
+                                            <f:convertDateTime pattern="dd-mm-yyyy" />
+                                        </h:outputText>
+                                    </b:dataTableColumn>
+                                    
+                                    <b:dataTableColumn label="Due Date" class="text-center" >
+                                        <h:outputText value="${offer.dueDate}" >
+                                            <f:convertDateTime pattern="dd-mm-yyyy" />
+                                        </h:outputText>
+                                    </b:dataTableColumn>
+                                    
+                                    <b:dataTableColumn label="Percent Off" value="${offer.percentOff}" class="text-center" />
+                                    <b:dataTableColumn label="Dollars Off" value="${offer.dollarsOff}" class="text-center" />
+                                    
+                                    <b:dataTableColumn label="Edit" class="text-center" >
+                                        <b:commandButton icon="edit"
+                                            action="${offersAdminBean.editOffer(offer.offerID)}" />
+                                    </b:dataTableColumn>
+                                    
+                                    <b:dataTableColumn label="Remove" class="text-center" >
+                                        <b:commandButton icon="remove"
+                                            action="${offersAdminBean.removeOffer(offer.offerID)}" />
+                                    </b:dataTableColumn>
+                                </b:dataTable>
+                                
                             </div>
                         </div>
                     </div>

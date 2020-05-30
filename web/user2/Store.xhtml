@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                ${businessUserBean.checkStoreAndRedirect()}
+                
+                <!-- //***Breadcrumb-section Start***// -->
+                <div class="breadcrumb-section">
+                    <div class="breadcrumb-text">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="breadcrumb-text padTB100">
+                                        <h3><span>${businessUserBean.business.businessName}</span></h3>
+                                        <ul class="breadcrumb-list">
+                                            <li><h:commandLink action="/user2/Home.jsf?faces-redirect=true" value="Home" /></li>
+                                            <li><h:commandLink action="/user2/Storelist.jsf?faces-redirect=true" value="Stores" /></li>
+                                            <li>${businessUserBean.business.businessName}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //***Breadcrumb-Section End***// -->
+                
+                <!-- //***Deals-Single Start***// -->
+                <div class="deals bg padTB100">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-4 col-xs-12">
+                                <div class="awesome-spot">
+                                    <h3 class="capital marB10">${businessUserBean.business.businessName}</h3>
+                                    <p>${businessUserBean.business.address}</p>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 padL0">
+                                        <h4 class="capital">City</h4>
+                                        <p>${businessUserBean.business.cityID.name}</p>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 padL0">
+                                        <h4 class="capital">State</h4>
+                                        <p>${businessUserBean.business.stateID.name}</p>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 padL0">
+                                        <h4 class="capital">Deals</h4>
+                                        <p>${businessUserBean.business.dealstbCollection.size() == null ? "0" : businessUserBean.business.dealstbCollection.size()}</p>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 padL0">
+                                        <h4 class="capital">Reviews</h4>
+                                        <p>${businessUserBean.business.reviewtbCollection.size() == null ? "0" : businessUserBean.business.reviewtbCollection.size()}</p>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 padL0">
+                                        <h4 class="capital">Reservation No.</h4>
+                                        <p>${businessUserBean.business.reservationPhoneNo}</p>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 padL0">
+                                        <h4 class="capital">Customer Care No.</h4>
+                                        <p>${businessUserBean.business.customerCarePhoneNo}</p>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 marT10 marB10 padL0">
+                                        <div class="ask-btn">
+                                            <h:link outcome="/user2/Deals.jsf?faces-redirect=true" value="View Deals">
+                                                <f:param name="store" value="${businessUserBean.business.businessID}" />
+                                            </h:link>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 padL0">
+                                        <h4 class="capital">Hours of Operation</h4>
+                                        <p>${businessUserBean.business.hoursOfOperation}</p>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 padL0">
+                                        <h4 class="capital">Days of Operation</h4>
+                                        <p>${businessUserBean.business.daysOfOperation}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-sm-8 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+<!--                                        <div class="blog marB30">
+                                            <div id="blog" class="owl-carousel owlCarousel">
+                                                <div class="item">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">-->
+                                                        <div class="row">
+                                                            <figure>
+                                                                <img src="/DealShop/assets/images/business/product1.jpg" alt="" style="width: 100%;height:400px;" />
+                                                            </figure>
+                                                        </div>
+<!--                                                    </div>
+                                                </div>
+                                            </div>-->
+<!--                                        </div>-->
+                                        <h4 class="marT30">About ${businessUserBean.business.businessName}</h4>
+                                        <p>${businessUserBean.business.needToKnow}</p>
+                                        
+                                        <h4 class="marT30">Awards &amp; Recognition</h4>
+                                        <p>${businessUserBean.business.awardsRecognition}</p>
+                                        
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="comments-area">
+                                            <div class="row">
+                                                <h3 class="capital marT30 marB40">Reviews</h3>
+                                                <ui:repeat var="review" value="${businessUserBean.reviews}">
+                                                    <div class="col-md-2 col-sm-2">
+                                                        <figure>
+                                                            <img src="/DealShop/assets/images/others/comment1.jpg" alt="Review Image" class="img-circle" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-10 col-sm-10 marB30">
+                                                        <span class="green">${review.userID.name}</span> ${review.rate} Stars
+                                                        <p>${review.review}</p>
+                                                    </div>
+                                                </ui:repeat>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //***Deals-Single End***// -->
+                
+                <div class="clear"></div>
+                
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

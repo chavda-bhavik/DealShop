@@ -4,14 +4,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <body>
 
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="content">
-                <h:form enctype="multipart/form-data" prependId="false">
+                <h:form enctype="multipart/form-data" id="frm">
                     <div class="content-wrapper">
                         <div class="card card-default">
                             <div class="card-header">
@@ -19,82 +20,102 @@
                                 <h:commandButton immediate="true" class="btn btn-primary float-right" value="Show Offers" action="${offersAdminBean.showOffers()}" />
                             </div>
                             <div class="card-body">
-                                <div class="form-horizontal">
-                                    <h:messages id="messages" class="text-danger" />
-                                    <div class="form-group row">
-                                        <label class="col-xl-2 col-form-label">Name</label>
-                                        <div class="col-xl-10">
-                                            <h:inputText value="${offersAdminBean.name}" class="form-control" />
-                                        </div>
+                                    
+                                    <div class="form-group">
+                                        <b:inputText 
+                                            label="Name"
+                                            class="form-control"
+                                            value="${offersAdminBean.name}"
+                                            placeholder="Offer Name" id="name"
+                                            required="true" requiredMessage="Offer name is required"
+                                        />
+                                        <h:message for="name" class="text-danger" />
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-2 col-form-label">Code</label>
-                                        <div class="col-xl-10">
-                                            <h:inputText value="${offersAdminBean.code}" class="form-control" />
-                                        </div>
+                                    
+                                    <div class="form-group">
+                                        <b:inputText 
+                                            label="Code"
+                                            class="form-control"
+                                            value="${offersAdminBean.code}"
+                                            placeholder="Offer code" id="code"
+                                            required="true" requiredMessage="Offer code is required"
+                                        />
+                                        <h:message for="code" class="text-danger" />
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-2 col-form-label">Terms &amp; Conditions</label>
-                                        <div class="col-xl-10">
-                                            <h:inputTextarea value="${offersAdminBean.terms_conditions}" class="form-control" />
-                                        </div>
+                                    
+                                    <div class="form-group">
+                                        <b:inputTextarea id="tc" rows="5" required="true" requiredMessage="Terms &amp; Conditions required" value="${offersAdminBean.terms_conditions}" label="Terms &amp; Conditions" />
+                                        <b:message for="tc" errorClass="true" />
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-2 col-form-label">Issue Date</label>
-                                        <div class="col-xl-10">
-                                            <h:inputText value="${offersAdminBean.issueDate}" class="form-control" id="issuedate" >
-                                                <f:convertDateTime pattern="yyyy-mm-dd" for="issuedate" />
-                                            </h:inputText>
-                                        </div>
+                                    
+                                    <div class="form-group">
+                                        <b:datepicker 
+                                            label="Issue Date"
+                                            value="${offersAdminBean.issueDate}"
+                                            placeholder="Issue Date"
+                                            id="issueDate" required="true"
+                                            requiredMessage="Issue Date are required" 
+                                        />
+                                        <b:message for="issueDate" errorClass="true" />
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-2 col-form-label">Due Date</label>
-                                        <div class="col-xl-10">
-                                            <h:inputText value="${offersAdminBean.dueDate}" id="duedate" class="form-control" >
-                                                <f:convertDateTime pattern="yyyy-mm-dd" for="duedate" />
-                                            </h:inputText>
-                                        </div>
+                                    
+                                    <div class="form-group">
+                                        <b:datepicker 
+                                            label="Due Date"
+                                            value="${offersAdminBean.dueDate}"
+                                            placeholder="Due Date"
+                                            id="dueDate" required="true"
+                                            requiredMessage="Due Date are required" 
+                                        />
+                                        <b:message for="dueDate" errorClass="true" />
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-2 col-form-label">Percentage Off</label>
-                                        <div class="col-xl-10">
-                                            <h:inputText value="${offersAdminBean.percentOff}" class="form-control" />
-                                        </div>
+                                    
+                                    <div class="form-group">
+                                        <b:inputText label="Percentage Off" placeholder="Percentage Off"
+                                                     value="${offersAdminBean.percentOff}" required="true"
+                                                     requiredMessage="Percentage to cut are required" id="perctOff"/>
+                                        <b:message for="perctOff" errorClass="true" />
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-2 col-form-label">Dollars Date</label>
-                                        <div class="col-xl-10">
-                                            <h:inputText value="${offersAdminBean.dollarsOff}" class="form-control" />
-                                        </div>
+                                    
+                                    <div class="form-group">
+                                        <b:inputText label="Dollars Off" placeholder="Dollars Off"
+                                                     value="${offersAdminBean.dollarsOff}" required="true"
+                                                     requiredMessage="Dollars to cut are required" id="dlsOff"/>
+                                        <b:message for="dlsOff" errorClass="true" />
                                     </div>
+                                    
                                     <div class="form-group row">
                                         <label class="col-xl-2 col-form-label">Banner Image</label>
                                         <div class="col-xl-10">
-                                            <h:inputFile value="#{offersAdminBean.uploadedBannerFile}" class="form-control">
-                                                <f:validator validatorId="imageUploadValidator" />
+                                            <h:inputFile value="#{offersAdminBean.uploadedBannerFile}" class="form-control" id="bnrImg">
+<!--                                                <f:validator validatorId="imageUploadValidator" />-->
                                             </h:inputFile>
                                             <c:if test="#{offersAdminBean.bannerImage != ''}">
                                                 <img src="/DealShop/assets/images/offers/${offersAdminBean.bannerImage}" class="img-fluid" />
                                             </c:if>
+                                            <h:message for="bnrImg" class="text-danger" />
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group row">
                                         <label class="col-xl-2 col-form-label">Offer Image</label>
                                         <div class="col-xl-10">
-                                            <h:inputFile value="#{offersAdminBean.uploadedOfferFile}" class="form-control">
-                                                <f:validator validatorId="imageUploadValidator" />
+                                            <h:inputFile value="#{offersAdminBean.uploadedOfferFile}" class="form-control" id="ofrImg">
+<!--                                                <f:validator validatorId="imageUploadValidator" />-->
                                             </h:inputFile>
                                             <c:if test="#{offersAdminBean.offerImage != ''}">
                                                 <img src="/DealShop/assets/images/offers/${offersAdminBean.offerImage}" class="img-thumbnail" />
                                             </c:if>
+                                            <h:message for="ofrImg" class="text-danger" />
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group row">
                                         <div class="col-xl-10">
-                                            <h:commandButton class="btn btn-info" value="Submit" action="${offersAdminBean.submit()}" />
+                                            <b:commandButton look="info" value="Submit" action="${offersAdminBean.submit()}" />
                                         </div>
                                     </div>
-                                </div>
+                                <b:message for="frm" errorClass="true" />
                             </div>
                         </div>
                     </div>

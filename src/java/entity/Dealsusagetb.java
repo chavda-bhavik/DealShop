@@ -60,6 +60,9 @@ public class Dealsusagetb implements Serializable {
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Usertb userID;
+    @JoinColumn(name = "PaymentID", referencedColumnName = "PaymentID")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Dealspaymenttb paymentID;
 
     public Dealsusagetb() {
     }
@@ -127,6 +130,14 @@ public class Dealsusagetb implements Serializable {
 
     public void setUserID(Usertb userID) {
         this.userID = userID;
+    }
+
+    public Dealspaymenttb getPaymentID() {
+        return paymentID;
+    }
+
+    public void setPaymentID(Dealspaymenttb paymentID) {
+        this.paymentID = paymentID;
     }
 
     @Override

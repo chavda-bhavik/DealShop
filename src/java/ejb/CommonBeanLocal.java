@@ -37,6 +37,13 @@ public interface CommonBeanLocal {
     Collection<Businesstypetb> getBussinessTypesByCategory(int CategoryId);
     Collection<Businesstb> getAllBusiness();
     
+    // Restricted unverified Businesses and Deals for user
+    Collection<Businesstb> getAllBusinessByCityUser(int CityID);
+    Collection<Dealstb> getAllDealsOfBusinessUser(int BusinessID);
+    Collection<Dealstb> getLatestDealsUser(int Start, int Limit);
+    Collection<Dealstb> getDealsByCategoryUser(int CategoryID);
+    Collection<Dealstb> getTrandingDealsUser(int Limit);
+    
 //    Collection<Businesstb> getAllBusinessByLocation();
     Collection<Businesstb> getAllBusinessByCity(int CityID);
     Collection<Businesstb> getAllBusinessByState(int StateID);
@@ -61,6 +68,7 @@ public interface CommonBeanLocal {
     
     //---Deals---
     Dealstb getSingleDeal(int DealID);
+    Collection<Dealstb> getAllDeals();
     Collection<Dealscategorytb> getDealsCategoryList();
     Collection<Dealstb> getBusinessDeals(int BussinessID);
     Collection<Dealstb> getDealsByCategory(int DealCategoryID);

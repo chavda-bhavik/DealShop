@@ -5,7 +5,6 @@
  */
 package beans;
 
-import beans.business.BusinessBean;
 import client.CommonClient;
 import entity.Usertb;
 import java.io.IOException;
@@ -27,6 +26,7 @@ import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 /**
@@ -216,7 +216,9 @@ public class LoginBean {
     public void logout() throws ServletException {
         System.out.println("In Log out");
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        request.getSession().setAttribute("logged-group", "");
+        request.getSession().removeAttribute("logged-group");
+        request.getSession().removeAttribute("businessid");
+        
         request.logout();
         request.getSession().invalidate();  
         //return "/user/Home.jsf";
@@ -224,7 +226,13 @@ public class LoginBean {
     public String logoutUser() throws ServletException {
         System.out.println("In Log out");
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        request.getSession().setAttribute("logged-group", "");
+        HttpSession session = request.getSession();
+        session.removeAttribute("logged-group");
+        session.removeAttribute("useremail");
+        session.removeAttribute("role");
+        session.removeAttribute("userid");
+        session.removeAttribute("username");
+        
         request.logout();
         request.getSession().invalidate();
         return "/user2/Home.jsf";

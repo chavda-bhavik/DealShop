@@ -144,6 +144,20 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
+                                            <label>Store Category</label>
+                                            <h:inputText value="${businessBean.business.businessCategoryID.name}" disabled="true" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Store Type</label>
+                                            <h:inputText value="${businessBean.business.businessTypeID.name}" disabled="true" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
                                             <label>State</label>
                                             <h:inputText value="${businessBean.business.stateID.name}" disabled="true" class="form-control" />
                                         </div>
@@ -158,7 +172,10 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <b:commandButton actionListener="${businessBean.editBusiness()}" look="primary" value="Update" />
-                                        <b:commandButton actionListener="${businessBean.submitBusiness()}" look="success" value="Submit" class="ml-3" />
+                                        <b:commandButton actionListener="${businessBean.submitBusiness()}" 
+                                                         look="success" value="Submit" class="ml-3" 
+                                                         disabled="${businessBean.business.isVerified == 2}"
+                                                         />
                                     </div>
                                 </div>
                             </h:form>

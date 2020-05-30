@@ -14,8 +14,10 @@ import entity.Offertb;
 import entity.Reviewtb;
 import entity.Usercategorytb;
 import entity.Usertb;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -201,54 +203,39 @@ public class UserBean implements UserBeanLocal {
         user.setDealspaymenttbCollection(userPayments);
         //offer.setDealspaymenttbCollection(offerPayments);
         
-//        em.persist(payment);
-
-        Collection<Carttb> userCartCollection = user.getCarttbCollection();
-        Collection<Dealsusagetb> userDealsCollection = user.getDealsusagetbCollection();
-        for(Carttb cart : userCartCollection) {
-            Dealsusagetb dUsage = new Dealsusagetb();
-            dUsage.setDealID(cart.getDealID());
-            dUsage.setUserID(user);
-            dUsage.setStatus(1);
-            userDealsCollection.add(dUsage);
-            em.persist(dUsage);
-            
-            userCartCollection.remove(cart);
-            em.remove(cart);
-        }
-        user.setDealsusagetbCollection(userDealsCollection);
-        user.setCarttbCollection(userCartCollection);
-        em.merge(user);
         em.persist(payment);
     }
     
     @Override
     public void addDealsUsage(int userid) {
         Usertb user = em.find(Usertb.class, userid);
-        //Dealspaymenttb payment = (Dealspaymenttb) em.createNamedQuery("Dealspaymenttb.findByIsEnteredUserID").setParameter("isEntered", 1).setParameter("userID", user).getResultList().get(0);
+        Dealspaymenttb payment = (Dealspaymenttb) em.createNamedQuery("Dealspaymenttb.findByIsEnteredUserID").setParameter("isEntered", 1).setParameter("userID", user).getResultList().get(0);
+//        Dealspaymenttb payment = (Dealspaymenttb) em.createQuery("SELECT dp FROM Dealspaymenttb dp WHERE dp.isEntered=1 and dp.userID="+userid).getSingleResult();
         Collection<Carttb> userCartCollection = user.getCarttbCollection();
         Collection<Dealsusagetb> userDealsCollection = user.getDealsusagetbCollection();
-        //Collection<Dealsusagetb> paymentDealsUsage = payment.getDealsusagetbCollection();
-        for(Carttb cart : userCartCollection) {
+        Collection<Dealsusagetb> paymentDealsUsage = payment.getDealsusagetbCollection();
+        
+        for (Iterator<Carttb> iterator = userCartCollection.iterator(); iterator.hasNext();) {
+            Carttb cart = iterator.next();
+            
             Dealsusagetb dUsage = new Dealsusagetb();
             dUsage.setDealID(cart.getDealID());
-            //dUsage.setPaymentID(payment);
             dUsage.setUserID(user);
             dUsage.setStatus(1);
-            //cart.setIsPaid(2);
-            //paymentDealsUsage.add(dUsage);
-            userDealsCollection.add(dUsage);
+            dUsage.setPaymentID(payment);
             em.persist(dUsage);
-            //em.merge(cart);
-            userCartCollection.remove(cart);
+            
+            userDealsCollection.add(dUsage);
+            paymentDealsUsage.add(dUsage);
             em.remove(cart);
+            iterator.remove();
         }
-        //payment.setIsEntered(2);
-        //payment.setDealsusagetbCollection(paymentDealsUsage);
+        payment.setDealsusagetbCollection(paymentDealsUsage);
+        payment.setIsEntered(2);
+        em.merge(payment);
         user.setDealsusagetbCollection(userDealsCollection);
-        user.setCarttbCollection(userCartCollection);
-        em.merge(user);
-        //em.merge(payment);
+        user.getCarttbCollection().clear();
+//        em.merge(user);
     }
 
     @Override

@@ -38,6 +38,7 @@ public interface AdminBeanLocal {
     void removeBussiness(int BussinessID);
     void blockBussiness(int BussinessID);
     void verifyBusinessSuccess(int BussinessID);
+    void verifyDealSuccess(int DealID);
     
     //---State---
     void addState(String Name);
@@ -60,8 +61,8 @@ public interface AdminBeanLocal {
     void changeDealStatus(int DealID, int Status);
     
     //---Offer---
-    void addOffer(String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage);
-    void editOffer(int OfferID, String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage);
+    void addOffer(String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage, int PercentOff, int DollarsOff);
+    void editOffer(int OfferID, String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage, int PercentOff, int DollarsOff);
     void removeOffer(int OfferID);
     
     //--Payment---   

@@ -182,6 +182,13 @@ public class CommonResource {
     
     //  Deal
     @GET
+    @Path("/deals")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Dealstb> getAllDeals() {
+        return common.getAllDeals();
+    }
+    
+    @GET
     @Path("/deal/{dealId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Dealstb getSingleDeal(@PathParam("dealId") int DealId) {
@@ -313,4 +320,36 @@ public class CommonResource {
         return common.checkEmailExists(email);
     }
     
+    
+    // Restricted deals and Businesses
+    @GET
+    @Path("/userBusinessesByCity/{cityId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Businesstb> getBusinessesUser(@PathParam("cityId") int CityID) {
+        return common.getAllBusinessByCityUser(CityID);
+    }
+    @GET
+    @Path("/userDealsByBusiness/{businessId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Dealstb> getDealsByBusinessUser(@PathParam("businessId") int businessId) {
+        return common.getAllDealsOfBusinessUser(businessId);
+    }
+    @GET
+    @Path("/userLatestDeals/{start}/{limit}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Dealstb> getLatestDealsUser(@PathParam("start") int start, @PathParam("limit") int limit) {
+        return common.getLatestDealsUser(start, limit);
+    }
+    @GET
+    @Path("/userDealsByCategory/{categoryId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Dealstb> getDealsByCategoryUser(@PathParam("categoryId") int categoryId) {
+        return common.getDealsByCategoryUser(categoryId);
+    }
+    @GET
+    @Path("/userTrandingDeals/{limit}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Dealstb> getTrandingDealsByLimitUser(@PathParam("limit") int limit) {
+        return common.getTrandingDealsUser(limit);
+    }
 }

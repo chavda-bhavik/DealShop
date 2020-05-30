@@ -7,12 +7,11 @@ package beans.admin;
 
 import client.AdminClient;
 import client.CommonClient;
-import entity.Businesstb;
+import entity.Dealstb;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Collection;
-import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,38 +22,27 @@ import javax.ws.rs.core.Response;
  *
  * @author bhavik
  */
-@Named(value = "adminBuBean")
+@Named(value = "adminDealsBean")
 @SessionScoped
-public class AdminBuBean implements Serializable{
+public class AdminDealsBean implements Serializable {
     AdminClient adminClient;
     CommonClient commonClient;
     Response res;
-    GenericType<Collection<Businesstb>> gBusinesses;
-    Collection<Businesstb> businesses;
     
-    public Collection<Businesstb> getBusinesses() {
-        return businesses;
-    }
+    GenericType<Collection<Dealstb>> gDeals;
+    Collection<Dealstb> deals;
 
-    public void setBusinesses(Collection<Businesstb> businesses) {
-        this.businesses = businesses;
+    public Collection<Dealstb> getDeals() {
+        res = commonClient.getAllDeals(Response.class);
+        deals = res.readEntity(gDeals);
+        return deals;
     }
     
-    public void getAllBusinesses() {
-        res = commonClient.getAllBusiness(Response.class);
-        businesses = res.readEntity(gBusinesses);
+    public void verifyDeal(int DealID) {
+        System.out.println("Deal Verified");
     }
     
-    public void verifySuccessBusiness(int BusinessId) {
-        adminClient.verifyBusinessSuccess(String.valueOf(BusinessId));
-    }
-    
-    public String viewBusiness(int BusinessId) {
-        System.out.println("Show business for "+BusinessId);
-        return "/admin/businessView.jsf?faces-redirect=true";
-    }
-
-    public AdminBuBean() {
+    public AdminDealsBean() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         String token="";
@@ -63,7 +51,7 @@ public class AdminBuBean implements Serializable{
         adminClient = new AdminClient(token);
         commonClient = new CommonClient();
         
-        gBusinesses = new GenericType<Collection<Businesstb>>(){};
+        gDeals = new GenericType<Collection<Dealstb>>(){};
     }
     
 }

@@ -10,6 +10,7 @@ import entity.Businesstb;
 import entity.Businesstypetb;
 import entity.Citytb;
 import entity.Dealscategorytb;
+import entity.Dealstb;
 import entity.Informationtb;
 import entity.Linkstb;
 import entity.Offertb;
@@ -143,6 +144,14 @@ public class AdminBean implements AdminBeanLocal {
     public void verifyBusinessSuccess(int BussinessID) {
         Businesstb business = em.find(Businesstb.class, BussinessID);
         business.setIsVerified(2);
+        em.merge(business);
+    }
+
+    @Override
+    public void verifyDealSuccess(int DealID) {
+        Dealstb deal = em.find(Dealstb.class, DealID);
+        deal.setIsVerified(2);
+        em.merge(deal);
     }
 
     @Override
@@ -233,11 +242,13 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public void addOffer(String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage) {
+    public void addOffer(String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage, int PercentOff, int DollarsOff) {
         Offertb offer = new Offertb();
         offer.setName(Name);
         offer.setCode(Code);
-        offer.setTermsConditions(TermsConditions);        
+        offer.setTermsConditions(TermsConditions);
+        offer.setPercentOff(PercentOff);
+        offer.setDollarsOff(DollarsOff);
         offer.setDueDate(DueDate);
         offer.setIssueDate(IssueDate);
         offer.setOfferImage(OfferImage);
@@ -246,10 +257,12 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public void editOffer(int OfferID, String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage) {
+    public void editOffer(int OfferID, String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage, int PercentOff, int DollarsOff) {
         Offertb offer = em.find(Offertb.class, OfferID);
         offer.setName(Name);
         offer.setCode(Code);
+        offer.setPercentOff(PercentOff);
+        offer.setDollarsOff(DollarsOff);
         offer.setTermsConditions(TermsConditions);        
         offer.setDueDate(DueDate);
         offer.setIssueDate(IssueDate);

@@ -180,7 +180,7 @@ public class OffersAdminBean implements Serializable {
         this.setOfferImage("");
         return "/admin/OffersForm.jsf";
     }
-    public String editOffer(int id) {
+    public void editOffer(int id) throws IOException {
         this.setId(id);
         this.setFormMessage("Edit Offer");
         for (Offertb offer : offers) {
@@ -196,10 +196,11 @@ public class OffersAdminBean implements Serializable {
                 this.setOfferImage(offer.getOfferImage());
             }
         }
-        return "/admin/OffersForm.jsf";
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/DealShop/admin/OffersForm.jsf");
+//        return "admin/OffersForm.jsf?faces-redirect=true";
     }
     public String removeOffer(int id) {
-        adminClient.removeOffer(String.valueOf(id));
+        adminClient.removeOffer(String.valueOf(id));        
         return "/admin/OffersList.jsf";
     }
     public String submit() {
@@ -225,8 +226,10 @@ public class OffersAdminBean implements Serializable {
         offer.setOfferImage(offerImage);
         if(id == 0)
             adminClient.addOffer(offer);
-        else
+        else {
+            System.out.println("Edit bean method called"+offer.getPercentOff());
             adminClient.editOffer(offer, String.valueOf(id));
+        }
         return "/admin/OffersList.jsf";
     }
     public void uploadImage(Part uploadedFile) {

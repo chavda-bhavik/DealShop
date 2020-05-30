@@ -147,14 +147,14 @@ public class AdminResource {
     @RolesAllowed("Admin")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addOffer(Offertb offer) {
-        admin.addOffer(offer.getName(), offer.getCode(), offer.getTermsConditions(), offer.getIssueDate(), offer.getDueDate(), offer.getBannerImage(), offer.getOfferImage());
+        admin.addOffer(offer.getName(), offer.getCode(), offer.getTermsConditions(), offer.getIssueDate(), offer.getDueDate(), offer.getBannerImage(), offer.getOfferImage(), offer.getPercentOff(), offer.getDollarsOff());
     }
     @PUT
     @RolesAllowed("Admin")
     @Path("/offer/{oId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void editOffer(@PathParam("oId") int id, Offertb offer) {
-        admin.editOffer(id, offer.getName(), offer.getCode(), offer.getTermsConditions(), offer.getIssueDate(), offer.getDueDate(), offer.getBannerImage(), offer.getOfferImage());
+        admin.editOffer(id, offer.getName(), offer.getCode(), offer.getTermsConditions(), offer.getIssueDate(), offer.getDueDate(), offer.getBannerImage(), offer.getOfferImage(), offer.getPercentOff(), offer.getDollarsOff());
     }
     @DELETE
     @RolesAllowed("Admin")

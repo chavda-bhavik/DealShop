@@ -43,6 +43,10 @@ public class CheckoutBean {
     private int totalPrice;
     private String userId;
 
+    public Collection<Carttb> getCart() {
+        return cart;
+    }
+
     public int getCartTotal() {
         return cartTotal;
     }
@@ -79,7 +83,7 @@ public class CheckoutBean {
         System.out.println("Carttotal = "+cartTotal+" and totalprice = "+totalPrice);
     }
     
-    public void placeOrder() {
+    public String placeOrder() {
         Dealspaymenttb payment = new Dealspaymenttb();
         Usertb user = new Usertb();
         user.setUserID(Integer.parseInt(userId));
@@ -95,7 +99,15 @@ public class CheckoutBean {
         System.out.println("Place order for userId "+userId+" and for offerId "+offerId);
         userClient.createPayment(payment);
         //userClient.addDealUsage(userId);
-        //session.setAttribute("offerid", null);
+        session.removeAttribute("offerid");
+        session.setAttribute("addusage", "true");
+        
+        return "/user2/Checkout.jsf?faces-redirect=true";
+    }
+    
+    public void addUsage() {
+        userClient.addDealUsage(userId);
+        session.removeAttribute("addusage");
     }
     
     public CheckoutBean() {

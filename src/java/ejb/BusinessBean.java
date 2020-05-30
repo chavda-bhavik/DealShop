@@ -74,7 +74,7 @@ public class BusinessBean implements BusinessBeanLocal {
         business.setCityID(city);
         business.setStateID(state);
         business.setUserID(user);
-        business.setIsVerified(1);
+        business.setIsVerified(0);
         
         categories.add(business);
         types.add(business);
