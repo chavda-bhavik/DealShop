@@ -147,8 +147,8 @@ public class DealsDetailsBean {
         DealDetails = res.readEntity(gDealDetails);
         
         // Get Deal Menu
-        res = common.getDealMenu(Response.class, dealId);
-        DealMenu = res.readEntity(gDealMenu);
+//      res = common.getDealMenu(Response.class, dealId);
+//      DealMenu = res.readEntity(gDealMenu);
         
         // Get Recommanded Deals
         // Get Business Information

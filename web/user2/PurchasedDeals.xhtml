@@ -1,14 +1,99 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="content">
-                content
+                <div class="breadcrumb-section">
+                    <div class="breadcrumb-text">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="breadcrumb-text padTB100">
+                                        <h3>Purchased Deals</h3>
+                                        <ul class="breadcrumb-list">
+                                            <li><h:commandLink action="/user2/Home.jsf?faces-redirect=true">home</h:commandLink></li>
+                                            <li><h:commandLink action="/user2/UserDeals.jsf?faces-redirect=true">Cart</h:commandLink></li>
+                                            <li>Purchased Deals</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //***breadcrumb-section End***// -->
+                
+                <div class="shopcart-section bg padT20 padB20">
+                    <div class="container">
+                        <div class="row">
+                            <div class="shopcart-box marT10 marB10">
+                                <div class="col-sm-5">
+                                    <h4>Deal Name</h4>
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <h4>Purchase Date</h4>
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <h4>Payment Mode</h4>
+                                </div>
+                                <div class="col-sm-1 text-center">
+                                    <h4>Status</h4>
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <h4>Code/Use Date</h4>
+                                </div>
+                            </div>
+
+                            <ui:repeat var="usage" value="${purchasedDealsBean.dusages}">
+
+                                <div class="cart-details" style="padding: 10px;">
+                                    <div class="col-sm-5">
+                                        <h5>${usage.dealID.name}</h5>
+                                    </div>
+                                    <div class="col-sm-2 text-center">
+                                        <h5>
+                                            <h:outputText value="${usage.paymentID.paymentDate}">
+                                                <f:convertDateTime pattern="dd/mm/yyyy" />
+                                            </h:outputText>
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-2 text-center">
+                                        <h5>
+                                            <h:outputText 
+                                                value=" ${usage.paymentID.paymentMode == 5 ? 'Cash' : 
+                                                          usage.paymentID.paymentMode == 6 ? 'Pay At Shop' :
+                                                          'Netbanking'
+                                                        } "
+                                            />
+                                                
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <h5>
+                                            <h:outputText value="${ usage.status == 1 ? 'Pending' : 'Used' }" />
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-2 text-center">
+                                        <h5>
+                                            <h:outputText value="${usage.secretCode}" />
+                                        </h5>
+                                    </div>
+                                </div>
+                            
+                             
+                            </ui:repeat>
+                        </div>
+                    </div>
+                </div>
+            
+                
             </ui:define>
 
         </ui:composition>

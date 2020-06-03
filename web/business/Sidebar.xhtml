@@ -12,6 +12,11 @@
                     <h:form>
                     <ul class="sidebar-nav">
                         <li class=" ">
+                            <h:commandLink action="/business/Home.jsf?faces-redirect=true" title="Use Deals">
+                                <em class="icon-home"></em> Home
+                            </h:commandLink>
+                        </li>
+                        <li class=" ">
                             <a href="#profile" title="Profile" data-toggle="collapse">
                                 <em class="icon-layers"></em>
                                 <span data-localize="sidebar.nav.DASHBOARD">Profile</span>
@@ -43,8 +48,18 @@
                             </h:commandLink>
                         </li>-->
                         <li class=" ">
-                            <h:commandLink action="/business/reedem.jsf?faces-redirect=true" title="Manage State">
-                                <em class="icon-grid"></em> Reedem
+                            <h:commandLink action="/business/UseDeals.jsf?faces-redirect=true" title="Use Deals">
+                                <em class="icon-grid"></em> Use Deals
+                            </h:commandLink>
+                        </li>
+                        <li class=" ">
+                            <h:commandLink action="/business/SoldDeals.jsf?faces-redirect=true" title="Sold Deals">
+                                <em class="icon-check"></em> Sold Deals
+                            </h:commandLink>
+                        </li>
+                        <li class=" ">
+                            <h:commandLink action="/business/Reviews.jsf?faces-redirect=true" title="Reviews">
+                                <em class="icon-bubbles"></em> Reviews
                             </h:commandLink>
                         </li>
                     </ul>

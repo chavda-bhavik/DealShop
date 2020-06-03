@@ -83,7 +83,7 @@ public class UserDealsBean {
 //        String userId = session.getAttribute("userid").toString();
         res = userClient.getUserCartDeals(Response.class, userId);
         userCart = res.readEntity(gUserCart);
-        System.out.println("Get user Cart "+userCart.size());
+//        System.out.println("Get user Cart "+userCart.size());
         this.setTotalPrice();
         return userCart;
     }
@@ -104,7 +104,7 @@ public class UserDealsBean {
         }
         cartPrice = price;
         if(offer != null) {
-            System.out.println("Offer added to the counting "+offer.getPercentOff()+"  "+offer.getDollarsOff());
+//            System.out.println("Offer added to the counting "+offer.getPercentOff()+"  "+offer.getDollarsOff());
             price = price - (price*offer.getPercentOff()) / 100;
             price = price - offer.getDollarsOff();
             //totalPrice -= totalPrice*offer

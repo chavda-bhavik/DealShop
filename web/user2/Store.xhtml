@@ -3,15 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="content">
+                <f:event type="preRenderView" listener="#{businessUserBean.checkStoreAndRedirect()}" />
+                
                 <h:form>
-                ${businessUserBean.checkStoreAndRedirect()}
                 
                 <!-- //***Breadcrumb-section Start***// -->
                 <div class="breadcrumb-section">
@@ -22,8 +25,8 @@
                                     <div class="breadcrumb-text padTB100">
                                         <h3><span>${businessUserBean.business.businessName}</span></h3>
                                         <ul class="breadcrumb-list">
-                                            <li><h:commandLink action="/user2/Home.jsf?faces-redirect=true" value="Home" /></li>
-                                            <li><h:commandLink action="/user2/Storelist.jsf?faces-redirect=true" value="Stores" /></li>
+                                            <li><h:commandLink action="/user2/Home.jsf?faces-redirect=true" value="Home" immediate="true" /></li>
+                                            <li><h:commandLink action="/user2/Storelist.jsf?faces-redirect=true" value="Stores" immediate="true" /></li>
                                             <li>${businessUserBean.business.businessName}</li>
                                         </ul>
                                     </div>
@@ -33,6 +36,7 @@
                     </div>
                 </div>
                 <!-- //***Breadcrumb-Section End***// -->
+                </h:form>
                 
                 <!-- //***Deals-Single Start***// -->
                 <div class="deals bg padTB100">
@@ -108,22 +112,83 @@
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="comments-area">
-                                            <div class="row">
-                                                <h3 class="capital marT30 marB40">Reviews</h3>
-                                                <ui:repeat var="review" value="${businessUserBean.reviews}">
+                                            <h3 class="capital marT30 marB40">Reviews</h3>
+                                            <ui:repeat var="review" value="${businessUserBean.reviews}">
+                                                <div class="row">
                                                     <div class="col-md-2 col-sm-2">
                                                         <figure>
                                                             <img src="/DealShop/assets/images/others/comment1.jpg" alt="Review Image" class="img-circle" />
                                                         </figure>
                                                     </div>
                                                     <div class="col-md-10 col-sm-10 marB30">
-                                                        <span class="green">${review.userID.name}</span> ${review.rate} Stars
+                                                        <span class="green">${review.userID.name}:</span> &nbsp; ${review.review}
+                                                        <p>${review.rate} Stars</p>
                                                         <p>${review.review}</p>
                                                     </div>
-                                                </ui:repeat>
-                                            </div>
+                                                </div>
+                                            </ui:repeat>
                                         </div>
                                     </div>
+                                    
+                                    <c:choose>
+                                        <c:when test="${loginBean.isUserLoggedIn()}">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 marT30">
+                                                <h:form id="reviewForm">
+                                                
+                                                    <div class="row">
+                                                    <div class="comments-form">
+                                                        <div class="coments col-md-12 col-sm-12 col-xs-12 marB30">
+                                                            <h3>add Review</h3>
+                                                        </div>
+
+                                                        <input type="hidden" name="businessId" value="${businessUserBean.business.businessID}" />
+
+                                                        <div class="col-md-9 col-sm-12 col-xs-12 marB30">
+                                                            <h:inputText 
+                                                                id="title" required="true"
+                                                                pt:placeholder="Title" value="${reviewBean.title}" 
+                                                                requiredMessage="Review title is required"
+                                                                />
+                                                            <h:message for="title" class="text-danger" />
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-12 col-xs-12 marB30">
+                                                            <h:selectOneMenu class="input-textarea" value="${reviewBean.rate}">
+                                                                <f:selectItem itemValue="1" itemLabel="1" />
+                                                                <f:selectItem itemValue="2" itemLabel="2" />
+                                                                <f:selectItem itemValue="3" itemLabel="3" />
+                                                                <f:selectItem itemValue="4" itemLabel="4" />
+                                                                <f:selectItem itemValue="5" itemLabel="5" />
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 marB30">
+                                                            <h:inputTextarea pt:placeholder="Review" rows="3" value="${reviewBean.review}" />
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <h:commandButton class="itg-btn subcribes" value="Give Review" action="${reviewBean.giveReview()}"  />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                </h:form>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 marT10">
+                                                <div class="section-box cart-box">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <p>
+                                                            <i class="flaticon-blogger-logotype"></i>
+                                                            Login to give review
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 text-right marT5">
+                                                        <h:commandButton class="itg-btn cart-btn" action="${loginBean.goToLogin}" value="login" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -133,7 +198,7 @@
                 
                 <div class="clear"></div>
                 
-                </h:form>
+                
             </ui:define>
 
         </ui:composition>

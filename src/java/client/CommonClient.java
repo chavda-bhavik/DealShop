@@ -130,6 +130,12 @@ public class CommonClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public <T> T getBusinessTrandingDeals(Class<T> responseType, String businessId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("trandingDeals/{0}", new Object[]{businessId}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public <T> T getBusinessInfos(Class<T> responseType, String bid) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("businessInfo/{0}", new Object[]{bid}));

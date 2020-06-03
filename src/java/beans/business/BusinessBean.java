@@ -195,7 +195,6 @@ public class BusinessBean implements Serializable {
     }
 
     public void confirmPassword() {
-        System.out.println("Confirm Password called");
         try{
             if(this.getConfirmUserPassword() == "" || ConfirmUserPassword == null) {
                 this.setPasswordError("Confirm Password is required");

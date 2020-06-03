@@ -51,36 +51,18 @@ public class BusinessClient {
         webTarget.path(java.text.MessageFormat.format("dealDetails/{0}", new Object[]{did})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
-    public void editDeal(Object requestEntity) throws ClientErrorException {
-        webTarget.path("deals").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    public <T> T getSoldDealsUsages(Class<T> responseType, String businessId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("dealUsage/{0}", new Object[]{businessId}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
-    public void removeDeal(String did) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("deals/{0}", new Object[]{did})).request().delete();
-    }
-
-    public void setBusinessLinks(Object requestEntity, String bid, String linkId) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("links/{0}/{1}", new Object[]{bid, linkId})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
-    }
-
-    public void editBusiness(Object requestEntity) throws ClientErrorException {
-        webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
-    }
-
-    public void setBusinessPhotos(Object requestEntity, String bid) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("photos/{0}", new Object[]{bid})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
-    }
-
-    public void removeDealDetails(String did) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("dealDetails/{0}", new Object[]{did})).request().delete();
+    public <T> T addUsage(Class<T> responseType, String usageId, String secretCode) throws ClientErrorException {
+        return webTarget.path(java.text.MessageFormat.format("addUsage/{0}/{1}", new Object[]{usageId, secretCode})).request().post(null, responseType);
     }
 
     public void submitDeal(String dealId) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("submitdeal/{0}", new Object[]{dealId})).request().post(null);
-    }
-
-    public void editDealDetails(Object requestEntity, String did) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("dealDetails/{0}", new Object[]{did})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
     public void removeDealPhoto(String photoid) throws ClientErrorException {
@@ -109,14 +91,6 @@ public class BusinessClient {
         webTarget.path(java.text.MessageFormat.format("businessphotos/{0}", new Object[]{bid})).request().delete();
     }
 
-    public void setDealPhotos(Object requestEntity, String dealid) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("dealphotos/{0}", new Object[]{dealid})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
-    }
-
-    public void addDealMenu(Object requestEntity, String dealid) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("dealMenu/{0}", new Object[]{dealid})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
-    }
-
     public <T> T getAllDeals(Class<T> responseType, String businessid) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("deals/{0}", new Object[]{businessid}));
@@ -131,12 +105,48 @@ public class BusinessClient {
         webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
-    public void submitBusiness(String bid) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("submit/{0}", new Object[]{bid})).request().post(null);
-    }
-
     public void changeDealUsage(String dealid) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("dealUsage/{0}", new Object[]{dealid})).request().post(null);
+    }
+
+    public void editDeal(Object requestEntity) throws ClientErrorException {
+        webTarget.path("deals").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public void removeDeal(String did) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("deals/{0}", new Object[]{did})).request().delete();
+    }
+
+    public void setBusinessLinks(Object requestEntity, String bid, String linkId) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("links/{0}/{1}", new Object[]{bid, linkId})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public void editBusiness(Object requestEntity) throws ClientErrorException {
+        webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public void setBusinessPhotos(Object requestEntity, String bid) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("photos/{0}", new Object[]{bid})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public void removeDealDetails(String did) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("dealDetails/{0}", new Object[]{did})).request().delete();
+    }
+
+    public void editDealDetails(Object requestEntity, String did) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("dealDetails/{0}", new Object[]{did})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public void setDealPhotos(Object requestEntity, String dealid) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("dealphotos/{0}", new Object[]{dealid})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public void addDealMenu(Object requestEntity, String dealid) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("dealMenu/{0}", new Object[]{dealid})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public void submitBusiness(String bid) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("submit/{0}", new Object[]{bid})).request().post(null);
     }
 
     public void removeBusiness(String bid) throws ClientErrorException {

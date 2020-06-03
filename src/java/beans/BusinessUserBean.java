@@ -38,11 +38,18 @@ public class BusinessUserBean {
     Collection<Reviewtb> reviews;
     GenericType<Businesstb> gBusiness;
     Businesstb business;
+    String businessId;
 
     public void checkStoreAndRedirect() throws IOException {
-        if(business==null) {
+        businessId = params.get("store");
+        if(businessId == null) {
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect(context.getRequestContextPath() + "/user2/Storelist.jsf");
+            context.redirect(context.getRequestContextPath() + "/user2/Storelist.jsf?faces-redirect=true");
+        } else {
+            res = common.getBusiness(Response.class, String.valueOf(businessId));
+            business = res.readEntity(gBusiness);
+            res = common.getBusinessReviews(Response.class, String.valueOf(businessId));
+            reviews = res.readEntity(gReviews);   
         }
     }
     public Collection<Reviewtb> getReviews() {
@@ -65,13 +72,12 @@ public class BusinessUserBean {
     }
     
     public String getSingleBusiness(int BusinessId) {
-        res = common.getBusiness(Response.class, String.valueOf(BusinessId));
-        business = res.readEntity(gBusiness);
-        res = common.getBusinessReviews(Response.class, String.valueOf(BusinessId));
-        reviews = res.readEntity(gReviews);
         return "/user2/Store.jsf";
     }
     
+    public void giveReview() {
+        System.out.println("Business User Bean "+business.getBusinessID());
+    }
     
     public BusinessUserBean() {
         common = new CommonClient();

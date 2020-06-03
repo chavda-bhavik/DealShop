@@ -100,9 +100,15 @@
                                             <li>
                                                 <h:commandLink action="/user2/Storelist.jsf?faces-redirect=true" value="Stores" />
                                             </li>
+                                            <li>
+                                                <h:commandLink action="/user2/Offers.jsf?faces-redirect=true" value="Offers" />
+                                            </li>
                                             <c:if test="${loginBean.isUserLoggedIn()}">
                                                 <li>
-                                                    <h:commandLink class="search-click" action="/user2/PurchasedDeals.jsf?faces-redirect=true" />
+                                                    <h:commandLink value="My Deals" action="/user2/PurchasedDeals.jsf?faces-redirect=true" />
+                                                </li>
+                                                <li>
+                                                    <h:commandLink value="Checkout" action="/user2/Checkout.jsf?faces-redirect=true" />
                                                 </li>
                                             </c:if>
                                             <li>
@@ -118,7 +124,7 @@
                                                 </li>
                                                 <c:if test="${loginBean.isUserLoggedIn()}">
                                                     <li>
-                                                        <h:commandLink class="search-click" action="/user2/UserDeals.jsf?faces-redirect=true">
+                                                        <h:commandLink action="/user2/UserDeals.jsf?faces-redirect=true">
                                                             <i class="flaticon-shopping-cart nav-icon" aria-hidden="true"></i>
                                                         </h:commandLink>
                                                     </li>

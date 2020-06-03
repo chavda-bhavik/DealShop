@@ -18,6 +18,7 @@ import entity.Dealscategorytb;
 import entity.Dealsdetailstb;
 import entity.Dealsmenutb;
 import entity.Dealstb;
+import entity.Dealsusagetb;
 import entity.Informationtb;
 import entity.Linkstb;
 import entity.Offertb;
@@ -25,6 +26,7 @@ import entity.Reviewtb;
 import entity.Statetb;
 import entity.Usertb;
 import java.util.Collection;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -351,5 +353,11 @@ public class CommonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Dealstb> getTrandingDealsByLimitUser(@PathParam("limit") int limit) {
         return common.getTrandingDealsUser(limit);
+    }
+    @GET
+    @Path("/trandingDeals/{businessId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Dealsusagetb> getBusinessTrandingDeals(@PathParam("businessId") int BusinessId) {
+        return bbl.getTrandingDeals(BusinessId);
     }
 }

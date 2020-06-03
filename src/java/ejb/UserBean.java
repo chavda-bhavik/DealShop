@@ -14,10 +14,10 @@ import entity.Offertb;
 import entity.Reviewtb;
 import entity.Usercategorytb;
 import entity.Usertb;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Random;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -81,9 +81,9 @@ public class UserBean implements UserBeanLocal {
         business.setReviewtbCollection(businessReviews);
         user.setReviewtbCollection(userReviews);
         
+        em.persist(review);
         em.merge(user);
         em.merge(business);
-        em.persist(review);
     }
 
     @Override
@@ -209,7 +209,8 @@ public class UserBean implements UserBeanLocal {
     @Override
     public void addDealsUsage(int userid) {
         Usertb user = em.find(Usertb.class, userid);
-        Dealspaymenttb payment = (Dealspaymenttb) em.createNamedQuery("Dealspaymenttb.findByIsEnteredUserID").setParameter("isEntered", 1).setParameter("userID", user).getResultList().get(0);
+        //Dealspaymenttb payment = (Dealspaymenttb) em.createNamedQuery("Dealspaymenttb.findByIsEnteredUserID").setParameter("isEntered", 1).setParameter("userID", user).getResultList().get(0);
+        Dealspaymenttb payment = (Dealspaymenttb) em.createQuery("SELECT p FROM Dealspaymenttb p WHERE p.isEntered=1 AND p.userID.userID="+userid).getSingleResult();
 //        Dealspaymenttb payment = (Dealspaymenttb) em.createQuery("SELECT dp FROM Dealspaymenttb dp WHERE dp.isEntered=1 and dp.userID="+userid).getSingleResult();
         Collection<Carttb> userCartCollection = user.getCarttbCollection();
         Collection<Dealsusagetb> userDealsCollection = user.getDealsusagetbCollection();
@@ -222,6 +223,7 @@ public class UserBean implements UserBeanLocal {
             dUsage.setDealID(cart.getDealID());
             dUsage.setUserID(user);
             dUsage.setStatus(1);
+            dUsage.setSecretCode(this.createRandomNumber(100, 999));
             dUsage.setPaymentID(payment);
             em.persist(dUsage);
             
@@ -253,8 +255,15 @@ public class UserBean implements UserBeanLocal {
     @Override
     public void giveRating(int UsageID, int Rating, String Comment) {
         Dealsusagetb dUsage = em.find(Dealsusagetb.class, UsageID);
-        dUsage.setUserRating(Rating);
-        dUsage.setUserComment(Comment);
+//        dUsage.setUserRating(Rating);
+//        dUsage.setUserComment(Comment);
         em.merge(dUsage);
+    }
+    
+    public int createRandomNumber(int start, int stop) {
+        Random rn = new Random();
+        int range = stop - start + 1;
+        int randomNum =  rn.nextInt(range) + start;
+        return randomNum;
     }
 }

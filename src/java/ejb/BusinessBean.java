@@ -487,4 +487,36 @@ public class BusinessBean implements BusinessBeanLocal {
         dUsage.setUsageDate(new Date());
         em.persist(dUsage);
     }
+
+    @Override
+    public Collection<Dealsusagetb> getTrandingDeals(int BusinessId) {
+        Collection<Dealsusagetb> usages = em.createQuery("SELECT u FROM Dealsusagetb u where u.dealID.businessID.businessID="+BusinessId+" AND u.status=2 GROUP BY u.dealID ORDER BY COUNT(u)").setMaxResults(5).getResultList();
+        return usages;
+    }
+    
+    //---Deals Payment
+    @Override
+    public Collection<Dealsusagetb> getSoldDealsUsages(int BusinessId) {
+//        SELECT d.* FROM `dealsusagetb` d WHERE d.Status = 2 GROUP by d.DealID ORDER by COUNT(d.DealID) ASC
+        Collection<Dealsusagetb> usages = em.createQuery("SELECT u FROM Dealsusagetb u where u.dealID.businessID.businessID="+BusinessId).getResultList();
+        return usages;
+    }
+
+    @Override
+    public Boolean addDealUsage(int UsageID, int SecretCode) {
+        Boolean result = false;
+        Dealsusagetb usage = em.find(Dealsusagetb.class, UsageID);
+        
+        String usageCode = String.valueOf(usage.getSecretCode());
+        if(usageCode.equals(String.valueOf(SecretCode))) {
+            result = true;
+            Date usageDate = new Date();
+            usage.setUsageDate(usageDate);
+            usage.setStatus(2);
+            em.merge(usage);
+        }
+        return result;
+    }
+    
+    
 }

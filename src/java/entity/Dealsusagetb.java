@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,7 +33,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Dealsusagetb.findByUsageID", query = "SELECT d FROM Dealsusagetb d WHERE d.usageID = :usageID"),
     @NamedQuery(name = "Dealsusagetb.findByStatus", query = "SELECT d FROM Dealsusagetb d WHERE d.status = :status"),
     @NamedQuery(name = "Dealsusagetb.findByUsageDate", query = "SELECT d FROM Dealsusagetb d WHERE d.usageDate = :usageDate"),
-    @NamedQuery(name = "Dealsusagetb.findByUserRating", query = "SELECT d FROM Dealsusagetb d WHERE d.userRating = :userRating")})
+    @NamedQuery(name = "Dealsusagetb.findBySecretCode", query = "SELECT d FROM Dealsusagetb d WHERE d.secretCode = :secretCode")})
 public class Dealsusagetb implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,11 +48,9 @@ public class Dealsusagetb implements Serializable {
     @Column(name = "UsageDate")
     @Temporal(TemporalType.DATE)
     private Date usageDate;
-    @Column(name = "UserRating")
-    private Integer userRating;
-    @Lob
-    @Column(name = "UserComment")
-    private String userComment;
+    @Basic(optional = false)
+    @Column(name = "SecretCode")
+    private int secretCode;
     @JoinColumn(name = "DealID", referencedColumnName = "DealID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Dealstb dealID;
@@ -71,9 +68,10 @@ public class Dealsusagetb implements Serializable {
         this.usageID = usageID;
     }
 
-    public Dealsusagetb(Integer usageID, int status) {
+    public Dealsusagetb(Integer usageID, int status, int secretCode) {
         this.usageID = usageID;
         this.status = status;
+        this.secretCode = secretCode;
     }
 
     public Integer getUsageID() {
@@ -100,20 +98,12 @@ public class Dealsusagetb implements Serializable {
         this.usageDate = usageDate;
     }
 
-    public Integer getUserRating() {
-        return userRating;
+    public int getSecretCode() {
+        return secretCode;
     }
 
-    public void setUserRating(Integer userRating) {
-        this.userRating = userRating;
-    }
-
-    public String getUserComment() {
-        return userComment;
-    }
-
-    public void setUserComment(String userComment) {
-        this.userComment = userComment;
+    public void setSecretCode(int secretCode) {
+        this.secretCode = secretCode;
     }
 
     public Dealstb getDealID() {

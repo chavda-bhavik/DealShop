@@ -9,13 +9,16 @@ import client.CommonClient;
 import client.UserClient;
 import entity.Carttb;
 import entity.Dealspaymenttb;
-import static entity.Dealspaymenttb_.userID;
 import entity.Offertb;
 import entity.Usertb;
+import java.io.IOException;
 import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
@@ -110,17 +113,22 @@ public class CheckoutBean {
         session.removeAttribute("addusage");
     }
     
-    public CheckoutBean() {
-//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        String token="";
-        token = session.getAttribute("token").toString();
-        
-        userId = session.getAttribute("userid").toString();
-        common = new CommonClient();
-        userClient = new UserClient(token);
-        gOffer = new GenericType<Offertb>(){};
-        gCart = new GenericType<Collection<Carttb>>(){};
+    public CheckoutBean() throws IOException {
+        try {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            String token="";
+            token = request.getSession().getAttribute("token").toString();
+
+            userId = session.getAttribute("userid").toString();
+            common = new CommonClient();
+            userClient = new UserClient(token);
+            gOffer = new GenericType<Offertb>(){};
+            gCart = new GenericType<Collection<Carttb>>(){};
+        } catch(Exception e) {
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + "/user2/Home.jsf");
+        }
     }
     
 }

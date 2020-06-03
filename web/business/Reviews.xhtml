@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                <div class="content-wrapper" style="color:black !important;">
+                    <div class="card card-default" id="cardDemo14">
+                        <div class="card-header card-title">
+                            Reviews
+                        </div>
+                        <div class="card-body">
+
+                            <b:dataTable value="${bReviewBean.breviews}" border="1" striped="true" var="review"  style="width:100%">
+                                
+                                <b:dataTableColumn value="${review.rate}" label="Review Rate"  class="text-center" />
+
+                                <b:dataTableColumn value="${review.title}" label="Review Title" class="text-center" />
+
+                                <b:dataTableColumn value="${review.review}" label="Review" class="text-center" />
+
+                                <b:dataTableColumn value="${review.userID.name}" label="Reviewer" class="text-center" />
+                            </b:dataTable>
+                            
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

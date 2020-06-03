@@ -125,6 +125,13 @@ public class UserResource {
     public Collection<Dealspaymenttb> getUserPayments(@PathParam("paymentId") int paymentId) {
         return ubl.getPaymentDetails(paymentId);
     }
+    @GET
+    @RolesAllowed("User")
+    @Path("/dealusage/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Dealsusagetb> getPurchasedDeals(@PathParam("userId") int userId) {
+        return ubl.getPurchasedDeals(userId);
+    }
     
 //    Rating
     @GET
@@ -139,6 +146,6 @@ public class UserResource {
     @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public void giveRating(Dealsusagetb usage) {
-        ubl.giveRating(usage.getUserID().getUserID(), usage.getUserRating(), usage.getUserComment());
+        //ubl.giveRating(usage.getUserID().getUserID());
     }
 }

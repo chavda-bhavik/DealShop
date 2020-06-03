@@ -11,6 +11,7 @@ import entity.Dealsdetailstb;
 import entity.Dealsmenutb;
 import entity.Dealspaymenttb;
 import entity.Dealstb;
+import entity.Dealsusagetb;
 import java.util.Collection;
 import java.util.HashMap;
 import javax.annotation.security.DeclareRoles;
@@ -55,7 +56,6 @@ public class BusinessResource {
     @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void editBusiness(Businesstb b) {
-        System.out.println("edit gone to");
         bbl.editBusinessProfile(b.getBusinessID(), b.getBusinessName(), b.getEmailID(), b.getAddress(), b.getCustomerCarePhoneNo(), b.getReservationPhoneNo(), b.getDaysOfOperation(), b.getHoursOfOperation(), b.getLocation(), b.getNeedToKnow(), b.getAwardsRecognition(), b.getBusinessCategoryID().getCategoryID(), b.getBusinessTypeID().getBusinessTypeID(), b.getStateID().getStateID(), b.getCityID().getCityID());
     }
     @DELETE
@@ -92,8 +92,7 @@ public class BusinessResource {
     @Path("/businessphotos/{bid}")
     @RolesAllowed("Business")
     public void removeBusinessPhoto(@PathParam("bid") int id) {
-        System.out.println("Resource "+id);
-        //bbl.removeBussinessPhoto(id);
+        bbl.removeBussinessPhoto(id);
     }
     @POST
     @Path("/links/{bid}/{linkId}")
@@ -211,5 +210,21 @@ public class BusinessResource {
     @RolesAllowed("Business")
     public void changeDealUsage(@PathParam("dealid") int dealid) {
         bbl.changeUsageStatus(dealid);
+    }
+    // Deals Payment
+    @GET
+    @Path("/dealUsage/{businessId}")
+    @RolesAllowed("Business")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Dealsusagetb> getSoldDealsUsages(@PathParam("businessId") int BusinessId) {
+        return bbl.getSoldDealsUsages(BusinessId);
+    }
+    
+    @POST
+    @Path("/addUsage/{usageId}/{secretCode}")
+    @RolesAllowed("Business")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Boolean addUsage(@PathParam("usageId") int UsageID, @PathParam("secretCode") int SecretCode) {
+        return bbl.addDealUsage(UsageID, SecretCode);
     }
 }

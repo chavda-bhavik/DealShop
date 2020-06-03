@@ -10,7 +10,6 @@
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="content">
-                ${loginBean.checkLoginAndRedirect()}
                 ${checkoutBean.countTotal()}
                 
                 <h:form>
@@ -128,18 +127,10 @@
 
                             <div class="row">
                                 
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="section-box cart-box">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <p>
-                                                To browse offers and apply promocode click <h:commandLink class="green" action="/user2/Offers.jsf?faces-redirect=true" value="here" />.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                <h:outputText value="{checkoutBean.cartTotal == 0}" />-->
 
-<!--                                <c:choose>
-                                    <c:when test="{checkoutBean.cartTotal == 0}">
+                                <c:choose>
+                                    <c:when test="${checkoutBean.cartTotal == 0}">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="section-box cart-box">
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -150,7 +141,17 @@
                                             </div>
                                         </div>                                    
                                     </c:when>
-                                    <c:otherwise>-->
+                                    <c:otherwise>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="section-box cart-box">
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <p>
+                                                        To browse offers and apply promocode click <h:commandLink class="green" action="/user2/Offers.jsf?faces-redirect=true" value="here" />.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                         <div class="col-md-6 col-sm-6 col-xs-12 pull-left">
                                             <div class="cart marT30">
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
@@ -193,8 +194,8 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12 text-right marT30 marB5">
                                             <h:commandLink class="itg-btn cart-btn" value="Place order" action="${checkoutBean.placeOrder()}" />
                                         </div>
-<!--                                    </c:otherwise>
-                                </c:choose>-->
+                                    </c:otherwise>
+                                </c:choose>
                                 
                             </div>
                             

@@ -38,10 +38,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Dealspaymenttb.findByPaymentMode", query = "SELECT d FROM Dealspaymenttb d WHERE d.paymentMode = :paymentMode"),
     @NamedQuery(name = "Dealspaymenttb.findByPaymentDate", query = "SELECT d FROM Dealspaymenttb d WHERE d.paymentDate = :paymentDate"),
     @NamedQuery(name = "Dealspaymenttb.findByStatus", query = "SELECT d FROM Dealspaymenttb d WHERE d.status = :status"),
-    @NamedQuery(name = "Dealspaymenttb.findByIsEntered", query = "SELECT d FROM Dealspaymenttb d WHERE d.isEntered = :isEntered"),
-    @NamedQuery(name = "Dealspaymenttb.findByIsEnteredUserID", query = "SELECt d FROM Dealspaymenttb d where d.isEntered = :isEntered and d.userID = :userID")
-})
-
+    @NamedQuery(name = "Dealspaymenttb.findByIsEntered", query = "SELECT d FROM Dealspaymenttb d WHERE d.isEntered = :isEntered")})
 public class Dealspaymenttb implements Serializable {
 
     private static final long serialVersionUID = 1L;
