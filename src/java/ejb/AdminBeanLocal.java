@@ -5,6 +5,9 @@
  */
 package ejb;
 
+import entity.AdminDashboard;
+import entity.Redeems;
+import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Local;
 
@@ -64,6 +67,10 @@ public interface AdminBeanLocal {
     void addOffer(String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage, int PercentOff, int DollarsOff);
     void editOffer(int OfferID, String Name, String Code, String TermsConditions, Date IssueDate, Date DueDate, String BannerImage, String OfferImage, int PercentOff, int DollarsOff);
     void removeOffer(int OfferID);
+ 
+    //---Dashboard--
+    AdminDashboard getDashboardData();
     
     //--Payment---   
+    Collection<Redeems> getRedeems();
 }

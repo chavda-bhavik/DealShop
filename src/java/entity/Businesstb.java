@@ -41,7 +41,10 @@ import javax.persistence.Table;
     @NamedQuery(name = "Businesstb.findByDaysOfOperation", query = "SELECT b FROM Businesstb b WHERE b.daysOfOperation = :daysOfOperation"),
     @NamedQuery(name = "Businesstb.findByHoursOfOperation", query = "SELECT b FROM Businesstb b WHERE b.hoursOfOperation = :hoursOfOperation"),
     @NamedQuery(name = "Businesstb.findByLocation", query = "SELECT b FROM Businesstb b WHERE b.location = :location"),
-    @NamedQuery(name = "Businesstb.findByIsVerified", query = "SELECT b FROM Businesstb b WHERE b.isVerified = :isVerified")})
+    @NamedQuery(name = "Businesstb.findByIsVerified", query = "SELECT b FROM Businesstb b WHERE b.isVerified = :isVerified"),
+    @NamedQuery(name = "Businesstb.findByBankAccountNo", query = "SELECT b FROM Businesstb b WHERE b.bankAccountNo = :bankAccountNo"),
+    @NamedQuery(name = "Businesstb.findByBankName", query = "SELECT b FROM Businesstb b WHERE b.bankName = :bankName"),
+    @NamedQuery(name = "Businesstb.findByIFSCCode", query = "SELECT b FROM Businesstb b WHERE b.iFSCCode = :iFSCCode")})
 public class Businesstb implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -85,6 +88,13 @@ public class Businesstb implements Serializable {
     @Basic(optional = false)
     @Column(name = "isVerified")
     private int isVerified;
+    @Basic(optional = false)
+    @Column(name = "BankAccountNo")
+    private long bankAccountNo;
+    @Column(name = "BankName")
+    private String bankName;
+    @Column(name = "IFSCCode")
+    private String iFSCCode;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bussinessID", fetch = FetchType.EAGER)
     private Collection<Businesslinkstb> businesslinkstbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessID", fetch = FetchType.EAGER)
@@ -93,6 +103,8 @@ public class Businesstb implements Serializable {
     private Collection<Reviewtb> reviewtbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bussinessID", fetch = FetchType.EAGER)
     private Collection<Businessinfotb> businessinfotbCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessID", fetch = FetchType.EAGER)
+    private Collection<Redeemtb> redeemtbCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "businessID", fetch = FetchType.EAGER)
     private Collection<Businessphotostb> businessphotostbCollection;
     @JoinColumn(name = "CityID", referencedColumnName = "CityID")
@@ -118,7 +130,7 @@ public class Businesstb implements Serializable {
         this.businessID = businessID;
     }
 
-    public Businesstb(Integer businessID, String businessName, String emailID, String address, String customerCarePhoneNo, String reservationPhoneNo, String daysOfOperation, String hoursOfOperation, String location, String needToKnow, String awardsRecognition, int isVerified) {
+    public Businesstb(Integer businessID, String businessName, String emailID, String address, String customerCarePhoneNo, String reservationPhoneNo, String daysOfOperation, String hoursOfOperation, String location, String needToKnow, String awardsRecognition, int isVerified, long bankAccountNo) {
         this.businessID = businessID;
         this.businessName = businessName;
         this.emailID = emailID;
@@ -131,6 +143,7 @@ public class Businesstb implements Serializable {
         this.needToKnow = needToKnow;
         this.awardsRecognition = awardsRecognition;
         this.isVerified = isVerified;
+        this.bankAccountNo = bankAccountNo;
     }
 
     public Integer getBusinessID() {
@@ -229,6 +242,30 @@ public class Businesstb implements Serializable {
         this.isVerified = isVerified;
     }
 
+    public long getBankAccountNo() {
+        return bankAccountNo;
+    }
+
+    public void setBankAccountNo(long bankAccountNo) {
+        this.bankAccountNo = bankAccountNo;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getIFSCCode() {
+        return iFSCCode;
+    }
+
+    public void setIFSCCode(String iFSCCode) {
+        this.iFSCCode = iFSCCode;
+    }
+
     @JsonbTransient
     public Collection<Businesslinkstb> getBusinesslinkstbCollection() {
         return businesslinkstbCollection;
@@ -263,6 +300,15 @@ public class Businesstb implements Serializable {
 
     public void setBusinessinfotbCollection(Collection<Businessinfotb> businessinfotbCollection) {
         this.businessinfotbCollection = businessinfotbCollection;
+    }
+
+    @JsonbTransient
+    public Collection<Redeemtb> getRedeemtbCollection() {
+        return redeemtbCollection;
+    }
+
+    public void setRedeemtbCollection(Collection<Redeemtb> redeemtbCollection) {
+        this.redeemtbCollection = redeemtbCollection;
     }
 
     @JsonbTransient

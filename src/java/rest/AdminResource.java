@@ -7,6 +7,7 @@ package rest;
 
 import ejb.AdminBeanLocal;
 import ejb.CommonBeanLocal;
+import entity.AdminDashboard;
 import entity.Businesscategorytb;
 import entity.Businesstypetb;
 import entity.Citytb;
@@ -14,6 +15,7 @@ import entity.Dealscategorytb;
 import entity.Informationtb;
 import entity.Linkstb;
 import entity.Offertb;
+import entity.Redeems;
 import entity.Statetb;
 import java.util.Collection;
 import javax.annotation.security.DeclareRoles;
@@ -281,5 +283,20 @@ public class AdminResource {
     @Path("/verifybusiness/{bId}")
     public void verifyBusinessSuccess(@PathParam("bId") int bId) {
         admin.verifyBusinessSuccess(bId);
+    }
+    @GET
+    @Path("/dashboard")
+    @RolesAllowed("Admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public AdminDashboard getAdminDashboard() {
+        return admin.getDashboardData();
+    }
+    
+    @GET
+    @Path("/redeems")
+    @RolesAllowed("Admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Redeems> getRedeems() {
+        return admin.getRedeems();
     }
 }

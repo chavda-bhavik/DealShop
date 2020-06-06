@@ -1,15 +1,240 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="content">
+                
+                ${adminHomeBean.getDashboardData()}
+                
                 <div class="content-wrapper">
-                   Admin Dashboard
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-12">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-purple-dark justify-content-center rounded-left">
+                                    <em class="icon-paper-plane font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-purple rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalBusinesses}</div>
+                                    <div class="text-uppercase">Total Businesses</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-purple-dark justify-content-center rounded-left">
+                                    <em class="icon-menu font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-purple rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalStates}</div>
+                                    <div class="text-uppercase">Active States</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-purple-dark justify-content-center rounded-left">
+                                    <em class="icon-list font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-purple rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalCities}</div>
+                                    <div class="text-uppercase">Active Cities</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-warning-dark justify-content-center rounded-left">
+                                    <em class="icon-present font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-warning rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalOffers}</div>
+                                    <div class="text-uppercase">Active Offers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-warning-dark justify-content-center rounded-left">
+                                    <em class="icon-basket-loaded font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-warning rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalDeals}</div>
+                                    <div class="text-uppercase">Total Deals</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-warning-dark justify-content-center rounded-left">
+                                    <em class="icon-basket font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-warning rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalActiveDeals}</div>
+                                    <div class="text-uppercase">Active Deals</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-green-dark justify-content-center rounded-left">
+                                    <em class="icon-wallet font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-green rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalPayments}</div>
+                                    <div class="text-uppercase">Total Payments</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-green-dark justify-content-center rounded-left">
+                                    <em class="icon-tag font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-green rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalDealsSold}</div>
+                                    <div class="text-uppercase">Deals Sold</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-green-dark justify-content-center rounded-left">
+                                    <em class="icon-people font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-green rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalUsers}</div>
+                                    <div class="text-uppercase">Total Users</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left">
+                                    <em class="icon-directions font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-primary rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalBusiCategories}</div>
+                                    <div class="text-uppercase">Total Busi. Categories</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left">
+                                    <em class="icon-layers font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-primary rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalBusiTypes}</div>
+                                    <div class="text-uppercase">Total Busi. Types</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left">
+                                    <em class="icon-direction font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-primary rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalDealsCategories}</div>
+                                    <div class="text-uppercase">Total Deal Types</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-info-dark justify-content-center rounded-left">
+                                    <em class="icon-cursor font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-info rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalLinks}</div>
+                                    <div class="text-uppercase">Types of Links</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-info-dark justify-content-center rounded-left">
+                                    <em class="icon-chemistry font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-info rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalInfos}</div>
+                                    <div class="text-uppercase">Types of Information</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-info-dark justify-content-center rounded-left">
+                                    <em class="icon-bubbles font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-info rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalReviews}</div>
+                                    <div class="text-uppercase">Total Reviews</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-success-dark justify-content-center rounded-left">
+                                    <em class="icon-wallet font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-success rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalEarned}</div>
+                                    <div class="text-uppercase">Money Earned</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <!-- START card-->
+                            <div class="card flex-row align-items-center align-items-stretch border-0">
+                                <div class="col-4 d-flex align-items-center bg-success-dark justify-content-center rounded-left">
+                                    <em class="icon-diamond font-40"></em>
+                                </div>
+                                <div class="col-8 py-3 bg-success rounded-right">
+                                    <div class="h2 mt-0">${adminHomeBean.dashboard.totalRedeemed}</div>
+                                    <div class="text-uppercase">Money Redeemed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </ui:define>
 

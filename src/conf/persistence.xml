@@ -24,6 +24,7 @@
     <class>entity.Dealsdetailstb</class>
     <class>entity.Usertb</class>
     <class>entity.Businessphotostb</class>
+    <class>entity.Redeemtb</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

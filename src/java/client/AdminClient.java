@@ -27,7 +27,6 @@ public class AdminClient {
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/DealShop/webresources";
 
-    
     public AdminClient(String token) {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         client.register(new RestFilter(token));
@@ -165,6 +164,12 @@ public class AdminClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public <T> T getAdminDashboard(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("dashboard");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public void editState(Object requestEntity, String stateId) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("state/{0}", new Object[]{stateId})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
@@ -185,6 +190,12 @@ public class AdminClient {
 
     public void removeCity(String cityId) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("city/{0}", new Object[]{cityId})).request().delete();
+    }
+
+    public <T> T getRedeems(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("redeems");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public void addLink(Object requestEntity) throws ClientErrorException {

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                
+                <div class="content-wrapper" style="color:black !important;">
+                    <div class="card card-default" id="cardDemo14">
+                        <div class="card-header card-title">
+                            Use Deals
+                        </div>
+                        <div class="card-body">
+                            <b:form>
+                                
+                                <b:dataTable value="${adminRedeemBean.redeems}" var="redeem"  style="width:100%">
+                                    <b:dataTableColumn value="${redeem.businessName}" label="Business Name"  class="text-center" />
+                                    <b:dataTableColumn value="${redeem.bankName}" label="Bank Name"  class="text-center" />
+                                    <b:dataTableColumn label="Account No" value="${redeem.bankAccountNo}"  class="text-center" />
+                                    
+                                    <b:dataTableColumn value="${redeem.IFSC}" label="IFSC" />
+                                    <b:dataTableColumn value="${redeem.reservationNo}" label="Reservation No." />
+                                    <b:dataTableColumn value="${redeem.customerCareNo}" label="Contact No." />
+                                    <b:dataTableColumn value="${redeem.emailID}" label="Contact No." />
+                                    <b:dataTableColumn value="${redeem.redeemAmount}" label="Redeem Amount" class="text-center" />
+                                    <b:dataTableColumn label="Redeem" class="text-center">
+                                        <b:commandButton 
+                                            look="warning" size="md"
+                                            icon-awesome="paper-plane">
+                                        </b:commandButton>
+                                    </b:dataTableColumn>
+                                </b:dataTable>
+                                
+                            </b:form>      
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

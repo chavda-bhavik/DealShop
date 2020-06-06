@@ -5,6 +5,7 @@
  */
 package ejb;
 
+import entity.AdminDashboard;
 import entity.Businesscategorytb;
 import entity.Businesstb;
 import entity.Businesstypetb;
@@ -14,12 +15,16 @@ import entity.Dealstb;
 import entity.Informationtb;
 import entity.Linkstb;
 import entity.Offertb;
+import entity.Redeems;
 import entity.Statetb;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -275,5 +280,67 @@ public class AdminBean implements AdminBeanLocal {
     public void removeOffer(int OfferID) {
         Offertb offer = em.find(Offertb.class, OfferID);
         em.remove(offer);
+    }
+    
+    // Dashboard
+    @Override
+    public AdminDashboard getDashboardData() {
+        int totalBusi = em.createNamedQuery("Businesstb.findAll").getResultList().size();
+        int totalVerifiedBusi = em.createNamedQuery("Businesstb.findByIsVerified").setParameter("isVerified", 2).getResultList().size();
+        int totalLinks = em.createNamedQuery("Linkstb.findAll").getResultList().size();
+        int totalInfos = em.createNamedQuery("Informationtb.findAll").getResultList().size();
+        int totalCities = em.createNamedQuery("Citytb.findAll").getResultList().size();
+        int totalStates = em.createNamedQuery("Statetb.findAll").getResultList().size();
+        int totalOffers = em.createNamedQuery("Offertb.findAll").getResultList().size();
+        int totalBusiCategories = em.createNamedQuery("Businesscategorytb.findAll").getResultList().size();
+        int totalBusiTypes = em.createNamedQuery("Businesstypetb.findAll").getResultList().size();
+        int totalDealCategories = em.createNamedQuery("Dealscategorytb.findAll").getResultList().size();
+        int totalReviews = em.createNamedQuery("Reviewtb.findAll").getResultList().size();
+        int totalPayments = em.createNamedQuery("Dealspaymenttb.findAll").getResultList().size();
+        int totalDeals = em.createNamedQuery("Dealstb.findAll").getResultList().size();
+        int totalUsers = em.createNamedQuery("Usertb.findAll").getResultList().size();
+        
+        Date today = new Date();
+        Long totalActiveDeals = (Long) em.createQuery("SELECT COUNT(d) FROM Dealstb d WHERE d.isVerified = 2 AND d.dueDate < :today").setParameter("today",today,TemporalType.DATE).getSingleResult();
+        
+        int totalDealsSold = em.createNamedQuery("Dealsusagetb.findAll").getResultList().size();
+        Long totalMoneyEarned = (Long) em.createQuery("SELECT SUM(d.dealID.averageCost) AS total FROM Dealsusagetb d").getSingleResult();
+        Long totalMoneyRedeemed = (Long) em.createQuery("SELECT SUM(d.dealID.averageCost) AS total FROM Dealsusagetb d WHERE d.status = 3").getSingleResult();
+        if(totalMoneyRedeemed == null) {
+            totalMoneyRedeemed = Long.valueOf(0);
+        }
+        
+        AdminDashboard ad = new AdminDashboard();
+        ad.setTotalUsers(totalUsers);
+        ad.setTotalActiveDeals(totalActiveDeals.intValue());
+        ad.setTotalDeals(totalDeals);
+        ad.setTotalBusinesses(totalBusi);
+        ad.setTotalVerifiedBusinesses(totalVerifiedBusi);
+        ad.setTotalLinks(totalLinks);
+        ad.setTotalInfos(totalInfos);
+        ad.setTotalCities(totalCities);
+        ad.setTotalStates(totalStates);
+        ad.setTotalOffers(totalOffers);
+        ad.setTotalBusiCategories(totalBusiCategories);
+        ad.setTotalBusiTypes(totalBusiTypes);
+        ad.setTotalDealsCategories(totalDealCategories);
+        ad.setTotalReviews(totalReviews);
+        ad.setTotalPayments(totalPayments);
+        ad.setTotalDealsSold(totalDealsSold);
+        ad.setTotalEarned(totalMoneyEarned.intValue());
+        ad.setTotalRedeemed(totalMoneyRedeemed.intValue());
+        
+        return ad;
+    }
+
+    @Override
+    public Collection<Redeems> getRedeems() {
+        Query q = em.createQuery("SELECT bu.businessID, bu.businessName, bu.bankAccountNo, bu.iFSCCode, bu.bankName, bu.reservationPhoneNo, bu.customerCarePhoneNo, bu.emailID, SUM(du.dealID.averageCost) as RedeemAmount FROM Dealsusagetb du, Businesstb bu WHERE du.dealID.businessID.businessID = bu.businessID GROUP BY bu.businessID");
+        Collection<Object[]> objs = q.getResultList();
+        Collection<Redeems> rdms = new ArrayList<>();
+        for (Object[] obj : objs) {
+            rdms.add(new Redeems(obj));
+        }
+        return rdms;
     }
 }

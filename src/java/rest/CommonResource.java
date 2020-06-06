@@ -5,8 +5,10 @@
  */
 package rest;
 
+import ejb.AdminBeanLocal;
 import ejb.BusinessBeanLocal;
 import ejb.CommonBeanLocal;
+import entity.AdminDashboard;
 import entity.Businesscategorytb;
 import entity.Businesslinkstb;
 import entity.Businessphotostb;
@@ -47,6 +49,7 @@ import javax.ws.rs.core.MediaType;
 public class CommonResource {
     @EJB CommonBeanLocal common;
     @EJB BusinessBeanLocal bbl;
+    @EJB AdminBeanLocal admin;
     
     @Context
     private UriInfo context;
