@@ -7,6 +7,7 @@ package ejb;
 
 import entity.AdminDashboard;
 import entity.Redeems;
+import entity.Redeemtb;
 import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Local;
@@ -72,5 +73,7 @@ public interface AdminBeanLocal {
     AdminDashboard getDashboardData();
     
     //--Payment---   
-    Collection<Redeems> getRedeems();
+    Collection<Redeems> getPendingRedeems();
+    Collection<Redeemtb> getGivenRedeems();
+    void setBusinessRedeems(int BusinessId, int Amount);
 }

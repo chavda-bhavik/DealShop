@@ -96,12 +96,40 @@ public class BusinessBean implements Serializable {
     private String DaysOfOperation;
     private String HoursOfOperation;
     private String AwardsRecognition;
+    private String BankName;
+    private String IfscCode;
+    private long BankAccountNo;
     private int status;
     private int BusinessCategory;
     private int BusinessType;
     private int State;
     private int City;
 
+    public String getBankName() {
+        return BankName;
+    }
+
+    public void setBankName(String BankName) {
+        this.BankName = BankName;
+    }
+
+    public String getIfscCode() {
+        return IfscCode;
+    }
+
+    public void setIfscCode(String IfscCode) {
+        this.IfscCode = IfscCode;
+    }
+
+    public long getBankAccountNo() {
+        return BankAccountNo;
+    }
+
+    public void setBankAccountNo(long BankAccountNo) {
+        this.BankAccountNo = BankAccountNo;
+    }
+
+    
     public int getLinkId() {
         return linkId;
     }

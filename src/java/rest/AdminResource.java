@@ -16,6 +16,7 @@ import entity.Informationtb;
 import entity.Linkstb;
 import entity.Offertb;
 import entity.Redeems;
+import entity.Redeemtb;
 import entity.Statetb;
 import java.util.Collection;
 import javax.annotation.security.DeclareRoles;
@@ -292,11 +293,25 @@ public class AdminResource {
         return admin.getDashboardData();
     }
     
+    // Redeems
     @GET
-    @Path("/redeems")
+    @Path("/pendingredeems")
     @RolesAllowed("Admin")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Redeems> getRedeems() {
-        return admin.getRedeems();
+    public Collection<Redeems> getPendingRedeems() {
+        return admin.getPendingRedeems();
     }
+    @GET
+    @Path("/givenredeems")
+    @RolesAllowed("Admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Redeemtb> getGivenRedeems() {
+        return admin.getGivenRedeems();
+    }
+    @POST
+    @Path("/redeems/{businessId}/{amount}")
+    public void setBusinessRedeems(@PathParam("businessId") int BusinessId, @PathParam("amount") int amount) {
+        admin.setBusinessRedeems(BusinessId, amount);
+    }
+    
 }

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                <div class="content-wrapper" style="color:black !important;">
+                    <div class="card card-default" id="cardDemo14">
+                        <div class="card-header card-title">
+                            Pending Redeems
+                        </div>
+                        <div class="card-body">
+                            <b:form>
+                                <b:dataTable value="${adminRedeemBean.redeems}" var="redeem">
+                                    
+                                    <b:dataTableColumn value="${redeem.businessName}" label="Store Name"  class="text-center" />
+                                    <b:dataTableColumn value="${redeem.bankAccountNo}" label="Bank Account no"  class="text-center" />
+                                    <b:dataTableColumn value="${redeem.IFSC}" label="IFSC Code"  class="text-center" />
+                                    <b:dataTableColumn value="${redeem.bankName}" label="Bank Name"  class="text-center" />
+                                    <b:dataTableColumn value="${redeem.reservationNo}" label="Reservation No"  class="text-center" />
+                                    <b:dataTableColumn value="${redeem.customerCareNo}" label="Customer Care no"  class="text-center" />
+                                    <b:dataTableColumn value="${redeem.emailID}" label="Email"  class="text-center" />
+                                    <b:dataTableColumn value="${redeem.redeemAmount}" label="Redeem Amount"  class="text-center" />
+                                    
+                                    <b:dataTableColumn label="Redeem" class="text-center">
+                                        <b:commandButton disabled="${redeem.redeemAmount == 0}"
+                                                         icon="check" actionListener="${adminRedeemBean.redeem(redeem.businessID, redeem.redeemAmount)}" />
+                                    </b:dataTableColumn>
+                                
+                                </b:dataTable>
+                            </b:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

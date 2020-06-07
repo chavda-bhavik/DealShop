@@ -144,11 +144,41 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
+                                            <b:inputText placeholder="Bank Name" label="Bank Name" value="${businessBean.business.bankName}"
+                                                         required="true" requiredMessage="Bank Name is required." id="bnm" >
+                                                <f:ajax event="change" render="bnmMessage" />
+                                                <f:ajax event="blur" render="bnmMessage" />
+                                            </b:inputText>
+                                            <b:message id="bnmMessage" errorClass="true" for="bnm" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <b:inputText placeholder="Bank Account No" label="Bank Account No" value="${businessBean.business.bankAccountNo}"
+                                                         required="true" requiredMessage="Account Number is required." id="bac" >
+                                                <f:ajax event="change" render="bacMessage" />
+                                                <f:ajax event="blur" render="bacMessage" />
+                                            </b:inputText>
+                                            <b:message id="bacMessage" errorClass="true" for="bac" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <b:inputText placeholder="IFSC Code" label="IFSC Code" value="${businessBean.business.IFSCCode}"
+                                                     required="true" requiredMessage="IFSC Code is required." id="ifsc" >
+                                            <f:ajax event="change" render="ifscMessage" />
+                                            <f:ajax event="blur" render="ifscMessage" />
+                                        </b:inputText>
+                                        <b:message id="ifscMessage" errorClass="true" for="ifsc" />
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
                                             <label>Store Category</label>
                                             <h:inputText value="${businessBean.business.businessCategoryID.name}" disabled="true" class="form-control" />
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <div class="form-group">
                                             <label>Store Type</label>
                                             <h:inputText value="${businessBean.business.businessTypeID.name}" disabled="true" class="form-control" />

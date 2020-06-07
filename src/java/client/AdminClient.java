@@ -58,6 +58,16 @@ public class AdminClient {
         webTarget.path(java.text.MessageFormat.format("businessInfo/{0}", new Object[]{biId})).request().delete();
     }
 
+    public void setBusinessRedeems(String businessId, String amount) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("redeems/{0}/{1}", new Object[]{businessId, amount})).request().post(null);
+    }
+
+    public <T> T getGivenRedeems(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("givenredeems");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public void editBusinessType(Object requestEntity, String btId) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("businessTypes/{0}", new Object[]{btId})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
@@ -69,6 +79,12 @@ public class AdminClient {
     public <T> T getBusinessInfoList(Class<T> responseType) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path("businessInfo");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T getPendingRedeems(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("pendingredeems");
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
@@ -190,12 +206,6 @@ public class AdminClient {
 
     public void removeCity(String cityId) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("city/{0}", new Object[]{cityId})).request().delete();
-    }
-
-    public <T> T getRedeems(Class<T> responseType) throws ClientErrorException {
-        WebTarget resource = webTarget;
-        resource = resource.path("redeems");
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public void addLink(Object requestEntity) throws ClientErrorException {

@@ -218,14 +218,18 @@ public class UserBean implements UserBeanLocal {
         
         for (Iterator<Carttb> iterator = userCartCollection.iterator(); iterator.hasNext();) {
             Carttb cart = iterator.next();
+            Dealstb deal = cart.getDealID();
             
             Dealsusagetb dUsage = new Dealsusagetb();
-            dUsage.setDealID(cart.getDealID());
+            dUsage.setDealID(deal);
             dUsage.setUserID(user);
             dUsage.setStatus(1);
             dUsage.setSecretCode(this.createRandomNumber(100, 999));
             dUsage.setPaymentID(payment);
             em.persist(dUsage);
+            
+            deal.setSoldNo(deal.getSoldNo()+1);
+            em.merge(deal);
             
             userDealsCollection.add(dUsage);
             paymentDealsUsage.add(dUsage);

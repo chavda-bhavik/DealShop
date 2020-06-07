@@ -90,7 +90,7 @@ public class BusinessBean implements BusinessBeanLocal {
     }
 
     @Override
-    public void editBusinessProfile(int BusinessID, String Name, String EmailID, String Address, String CustomerCareNumber, String ReservationNumber, String DaysOfOperation, String HoursOfOperation, String Location, String NeedToKnow, String AwardsRecognition, int CategoryID, int TypeID, int StateID, int CityID) {
+    public void editBusinessProfile(int BusinessID, String Name, String EmailID, String Address, String CustomerCareNumber, String ReservationNumber, String DaysOfOperation, String HoursOfOperation, String Location, String NeedToKnow, String AwardsRecognition, int CategoryID, int TypeID, int StateID, int CityID, Long AccountNo, String BankName, String IFSCCode) {
         System.out.println("edit from bean");
         Businesscategorytb bcategory = em.find(Businesscategorytb.class, CategoryID);
         Collection<Businesstb> categories = bcategory.getBusinesstbCollection();
@@ -119,6 +119,9 @@ public class BusinessBean implements BusinessBeanLocal {
         business.setBusinessTypeID(btype);
         business.setCityID(city);
         business.setStateID(state);
+        business.setBankAccountNo(AccountNo);
+        business.setBankName(BankName);
+        business.setIFSCCode(IFSCCode);
 
         if(business.getStateID() != state) {
             Statetb oldState = business.getStateID();

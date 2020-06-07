@@ -21,7 +21,7 @@ import javax.ejb.Local;
 public interface BusinessBeanLocal {
     //--Business--
     void registerBusiness(String Name, String EmailID, String Address, String CustomerCareNumber, String ReservationNumber, String DaysOfOperation, String HoursOfOperation, String Location, String NeedToKnow, String AwardsRecognition, int CategoryID, int TypeID, int StateID, int CityID, int UserID);
-    void editBusinessProfile(int BusinessID, String Name, String EmailID, String Address, String CustomerCareNumber, String ReservationNumber, String DaysOfOperation, String HoursOfOperation, String Location, String NeedToKnow, String AwardsRecognition, int CategoryID, int TypeID, int StateID, int CityID);
+    void editBusinessProfile(int BusinessID, String Name, String EmailID, String Address, String CustomerCareNumber, String ReservationNumber, String DaysOfOperation, String HoursOfOperation, String Location, String NeedToKnow, String AwardsRecognition, int CategoryID, int TypeID, int StateID, int CityID, Long AccountNo, String BankName, String IFSCCode);
     void removeBusiness(int BusinessID);
     void submitBusiness(int BusinessID);
     

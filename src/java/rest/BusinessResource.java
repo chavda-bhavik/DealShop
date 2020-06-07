@@ -56,7 +56,7 @@ public class BusinessResource {
     @RolesAllowed("Business")
     @Consumes(MediaType.APPLICATION_JSON)
     public void editBusiness(Businesstb b) {
-        bbl.editBusinessProfile(b.getBusinessID(), b.getBusinessName(), b.getEmailID(), b.getAddress(), b.getCustomerCarePhoneNo(), b.getReservationPhoneNo(), b.getDaysOfOperation(), b.getHoursOfOperation(), b.getLocation(), b.getNeedToKnow(), b.getAwardsRecognition(), b.getBusinessCategoryID().getCategoryID(), b.getBusinessTypeID().getBusinessTypeID(), b.getStateID().getStateID(), b.getCityID().getCityID());
+        bbl.editBusinessProfile(b.getBusinessID(), b.getBusinessName(), b.getEmailID(), b.getAddress(), b.getCustomerCarePhoneNo(), b.getReservationPhoneNo(), b.getDaysOfOperation(), b.getHoursOfOperation(), b.getLocation(), b.getNeedToKnow(), b.getAwardsRecognition(), b.getBusinessCategoryID().getCategoryID(), b.getBusinessTypeID().getBusinessTypeID(), b.getStateID().getStateID(), b.getCityID().getCityID(), b.getBankAccountNo(), b.getBankName(), b.getIFSCCode());
     }
     @DELETE
     @Path("/{bid}")

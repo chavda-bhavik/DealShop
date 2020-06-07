@@ -7,6 +7,7 @@ package beans.admin;
 
 import client.AdminClient;
 import entity.Redeems;
+import entity.Redeemtb;
 import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -24,15 +25,27 @@ import javax.ws.rs.core.Response;
 @RequestScoped
 public class AdminRedeemBean {
 
-    AdminClient adminClient;
-    Response res;
+    private AdminClient adminClient;
+    private Response res;
     GenericType<Collection<Redeems>> gRedeems;
-    Collection<Redeems> redeems;
+    private Collection<Redeems> redeems;
+    GenericType<Collection<Redeemtb>> gGRedeems;
+    private Collection<Redeemtb> GivenRedeems;
+
+    public Collection<Redeemtb> getGivenRedeems() {
+        res = adminClient.getGivenRedeems(Response.class);
+        GivenRedeems = res.readEntity(gGRedeems);
+        return GivenRedeems;
+    }
 
     public Collection<Redeems> getRedeems() {
-        res = adminClient.getRedeems(Response.class);
+        res = adminClient.getPendingRedeems(Response.class);
         redeems = res.readEntity(gRedeems);
         return redeems;
+    }
+    
+    public void redeem(int BusinessID, int amount) {
+        adminClient.setBusinessRedeems(String.valueOf(BusinessID), String.valueOf(amount));
     }
     
     public AdminRedeemBean() {
@@ -43,6 +56,6 @@ public class AdminRedeemBean {
         
         adminClient = new AdminClient(token);
         gRedeems  = new GenericType<Collection<Redeems>>(){};
+        gGRedeems = new GenericType<Collection<Redeemtb>>(){};
     }
-    
 }

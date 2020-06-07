@@ -16,6 +16,7 @@ import entity.Informationtb;
 import entity.Linkstb;
 import entity.Offertb;
 import entity.Redeems;
+import entity.Redeemtb;
 import entity.Statetb;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -334,8 +335,8 @@ public class AdminBean implements AdminBeanLocal {
     }
 
     @Override
-    public Collection<Redeems> getRedeems() {
-        Query q = em.createQuery("SELECT bu.businessID, bu.businessName, bu.bankAccountNo, bu.iFSCCode, bu.bankName, bu.reservationPhoneNo, bu.customerCarePhoneNo, bu.emailID, SUM(du.dealID.averageCost) as RedeemAmount FROM Dealsusagetb du, Businesstb bu WHERE du.dealID.businessID.businessID = bu.businessID GROUP BY bu.businessID");
+    public Collection<Redeems> getPendingRedeems() {
+        Query q = em.createQuery("SELECT bu.businessID, bu.businessName, bu.bankAccountNo, bu.iFSCCode, bu.bankName, bu.reservationPhoneNo, bu.customerCarePhoneNo, bu.emailID, SUM(du.dealID.averageCost) as RedeemAmount FROM Dealsusagetb du, Businesstb bu WHERE du.status=2 AND du.dealID.businessID.businessID = bu.businessID GROUP BY bu.businessID");
         Collection<Object[]> objs = q.getResultList();
         Collection<Redeems> rdms = new ArrayList<>();
         for (Object[] obj : objs) {
@@ -343,4 +344,30 @@ public class AdminBean implements AdminBeanLocal {
         }
         return rdms;
     }
+
+    @Override
+    public Collection<Redeemtb> getGivenRedeems() {
+        Collection<Redeemtb> redeems = em.createNamedQuery("Redeemtb.findAll").getResultList();
+        return redeems;
+    }
+    
+
+    @Override
+    public void setBusinessRedeems(int BusinessId, int Amount) {
+        Businesstb business = em.find(Businesstb.class, BusinessId);
+        Collection<Redeemtb> bRedeems = business.getRedeemtbCollection();
+        
+        Redeemtb redeem = new Redeemtb();
+        redeem.setAmount(Amount);
+        redeem.setBusinessID(business);
+        redeem.setRedeemDate(new Date());
+        em.persist(redeem);
+        
+        bRedeems.add(redeem);
+        business.setRedeemtbCollection(bRedeems);
+        em.merge(business);
+        
+        em.createQuery("UPDATE Dealsusagetb du SET du.status=3 WHERE du.dealID.businessID.businessID="+BusinessId).executeUpdate();
+    }
+    
 }
