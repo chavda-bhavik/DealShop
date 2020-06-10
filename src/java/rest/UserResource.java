@@ -53,6 +53,13 @@ public class UserResource {
     }
     
 //    Review
+    @GET
+    @Path("/userReviews/{userId}")
+    @RolesAllowed("User")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Reviewtb> getUserReviews(@PathParam("userId") int userId) {
+        return ubl.getUserReview(userId);
+    }
     @POST
     @Path("/review")
     @RolesAllowed("User")

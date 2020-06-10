@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                #{loginBean.checkLoginAndRedirect()}
+                
+                <h:form>
+                <!-- //***breadcrumb-section Start***// -->
+                <div class="breadcrumb-section">
+                    <div class="breadcrumb-text">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="breadcrumb-text padTB100">
+                                        <h3>Reviews</h3>
+                                        <ul class="breadcrumb-list">
+                                            <li><h:commandLink action="/user2/Home.jsf?faces-redirect=true">home</h:commandLink></li>
+                                            <li>Reviews</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //***breadcrumb-section End***// -->
+                
+                <div class="shopcart-section bg padT20 padB40">
+                    <div class="container">
+                        <div class="row">
+                            
+                            <c:choose>
+                                <c:when test="${reviewBean.userReviews.size() == 0}">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="section-box cart-box">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <p>
+                                                    <i class="flaticon-blogger-logotype"></i>
+                                                    You haven't gave any reviews yet! Visit our <h:commandLink action="/user2/Stores.jsf?faces-redirect=true" value="here" class="green" /> to give review.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                
+                                <c:otherwise>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="shopcart-box marT10 marB10">
+                                            <div class="col-sm-5">
+                                                <h4>Store</h4>
+                                            </div>
+                                            <div class="col-sm-2 text-center">
+                                                <h4>Rate</h4>
+                                            </div>
+                                            <div class="col-sm-4 text-center">
+                                                <h4>Title</h4>
+                                            </div>
+                                            <div class="col-sm-1 text-center">
+                                                <h4>Delete</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <ui:repeat var="review" value="${reviewBean.userReviews}">
+                                        <div class="cart-details" style="padding: 10px;">
+                                            <div class="col-sm-5">
+                                                <h5><h:outputText value="${review.bussinessID.businessName}" /></h5>
+                                            </div>
+                                            <div class="col-sm-2 text-center">
+                                                <h5><h:outputText value="${review.rate}" /></h5>
+                                            </div>
+                                            <div class="col-sm-4 text-center">
+                                                <h5><h:outputText value="${review.title}" /></h5>
+                                            </div>
+                                            <div class="col-sm-1 text-center">
+                                                <h5>
+                                                    <h:commandLink style="padding:5px;" action="${reviewBean.removeReview(review.reviewID)}" value="X" />
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </ui:repeat>
+                                </c:otherwise>
+                            </c:choose>                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- //***Shopcart-Section End***// -->
+                <div class="clear"></div>
+                
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -76,6 +76,12 @@ public class UserClient {
         webTarget.path(java.text.MessageFormat.format("dealusage/{0}", new Object[]{userid})).request().post(null);
     }
 
+    public <T> T getUserReviews(Class<T> responseType, String userId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("userReviews/{0}", new Object[]{userId}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public <T> T ifCartContainsDeal(Class<T> responseType, String userId, String dealId) throws ClientErrorException {
         return webTarget.path(java.text.MessageFormat.format("cartcontains/{0}/{1}", new Object[]{userId, dealId})).request().post(null, responseType);
     }

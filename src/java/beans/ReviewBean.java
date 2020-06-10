@@ -11,12 +11,14 @@ import entity.Reviewtb;
 import entity.Usertb;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -27,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ReviewBean implements Serializable {
 
     UserClient userClient;
+    Response res;
     private String userId;
     
     BusinessUserBean bubean;
@@ -34,6 +37,8 @@ public class ReviewBean implements Serializable {
     private String title;
     private int rate;
     private String review;
+    private GenericType<Collection<Reviewtb>> gUserReviews;
+    private Collection<Reviewtb> userReviews;
     
     public String getTitle() {
         return title;
@@ -57,6 +62,16 @@ public class ReviewBean implements Serializable {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public Collection<Reviewtb> getUserReviews() {
+        res = userClient.getUserReviews(Response.class, userId);
+        userReviews = res.readEntity(gUserReviews);
+        return userReviews;
+    }
+    
+    public void removeReview(int reviewId) {
+        userClient.deleteReview(String.valueOf(reviewId));
     }
     
     public String giveReview() throws IOException {
@@ -87,6 +102,7 @@ public class ReviewBean implements Serializable {
         userId = request.getSession().getAttribute("userid").toString();
         
         userClient = new UserClient(token);
+        gUserReviews = new GenericType<Collection<Reviewtb>>(){};
         review = "";
     }
     

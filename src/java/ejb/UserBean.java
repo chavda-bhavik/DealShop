@@ -98,11 +98,19 @@ public class UserBean implements UserBeanLocal {
     @Override
     public void removeReview(int ReviewID) {
         Reviewtb review = em.find(Reviewtb.class, ReviewID);
+        
         Businesstb business = review.getBussinessID();
         Collection<Reviewtb> reviews = business.getReviewtbCollection();
         reviews.remove(review);
         business.setReviewtbCollection(reviews);
         em.merge(business);
+        
+        Usertb user = review.getUserID();
+        Collection<Reviewtb> userReviews = user.getReviewtbCollection();
+        userReviews.remove(review);
+        user.setReviewtbCollection(userReviews);
+        em.merge(user);
+        
         em.remove(review);
     }
 
