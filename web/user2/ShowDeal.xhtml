@@ -44,9 +44,12 @@
                             <div class="col-md-3 col-sm-4 col-xs-12">
                                 <div class="awesome-spot">  
                                     <h3 class="capital marB10 green">
-                                        <a href="#">${dealsDetailsBean.business.businessName}</a>
+                                        <h:link outcome="/user2/Store.jsf?faces-redirect=true">
+                                            <f:param value="${dealsDetailsBean.business.businessID}" name="store" />
+                                            ${dealsDetailsBean.business.businessName}
+                                        </h:link>
                                     </h3>
-                                    <p>#{dealsDetailsBean.deal.businessID.address}</p>
+                                    <p>${dealsDetailsBean.deal.businessID.address}</p>
                                     <ul class="stars marB10">
                                         <li><i class="fa fa-star"></i></li>
                                         <li><i class="fa fa-star"></i></li>
@@ -107,7 +110,7 @@
                                     <p>${dealsDetailsBean.business.customerCarePhoneNo}</p>
                                     
                                     <h4 class="capital marT10">Facilities</h4>
-                                    <ul class="stars marB10">
+                                    <ul class="marB10" style="color:#ffb911">
                                         <ui:repeat var="info" value="#{dealsDetailsBean.informations}">
                                             <li>#{info.title}</li>
                                         </ui:repeat>
@@ -122,31 +125,24 @@
                                 </div>
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
-                                <div class="row">
+                                <div class="row marB50">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="blog marB30">
                                             <div id="blog" class="owl-carousel owlCarousel">
-                                                <div class="item">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="row">
-                                                            <figure>
-                                                                <img src="resources/img/all/deals1.jpg" alt="" />
-                                                            </figure>
+                                                <ui:repeat var="photo" value="${dealsDetailsBean.dealPhotos}">
+                                                    <div class="item">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="row">
+                                                                <figure>
+                                                                    <img src="/DealShop/assets/images/deals/${photo.photo}" alt="" style="width: 100%;height:400px;" />
+                                                                </figure>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="row">
-                                                            <figure>
-                                                                <img src="resources/img/all/image333.jpg" alt="" />
-                                                            </figure>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </ui:repeat>
                                             </div>
                                         </div>
-                                        <h4 class="marT30">Deal Inlcusion</h4>
+                                        <h4 class="marT30">Deal Inclusion</h4>
                                         <p>#{dealsDetailsBean.dealDetails.inclusion}</p>
                                         
                                         <h4 class="marT30">How to Use?</h4>
@@ -155,7 +151,7 @@
                                         <h4 class="marT30">Things to Remember</h4>
                                         <p>#{dealsDetailsBean.dealDetails.thingsToRemember}</p>
                                     </div>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
+<!--                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="comments-area">
                                             <div class="row">
                                                 <h3 class="capital marT30 marB40">Reviews</h3>
@@ -189,9 +185,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <c:if test="${loginBean.isUserLoggedIn()}">
-                                        <div class="col-md-12 col-sm-12 col-xs-12 marT30 marB30">
+<!--                                        <div class="col-md-12 col-sm-12 col-xs-12 marT30 marB30">
                                             <div class="row">
                                                 <div class="comments-form">
                                                     <div class="coments col-md-12 col-sm-12 col-xs-12 marB30">
@@ -217,7 +213,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </c:if>
                                 </div>
                             </div>

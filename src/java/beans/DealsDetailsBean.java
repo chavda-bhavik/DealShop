@@ -9,6 +9,7 @@ import client.CommonClient;
 import client.UserClient;
 import entity.Businessphotostb;
 import entity.Businesstb;
+import entity.Dealphotostb;
 import entity.Dealsdetailstb;
 import entity.Dealsmenutb;
 import entity.Dealstb;
@@ -51,25 +52,19 @@ public class DealsDetailsBean {
     private Dealsmenutb DealMenu;
     GenericType<Collection<Informationtb>> gInformations;
     private Collection<Informationtb> Informations;
-    GenericType<Collection<Businessphotostb>> gBusinessPhotos;
-    private Collection<Businessphotostb> BusinessPhotos;
+    GenericType<Collection<Dealphotostb>> gDealPhotos;
+    private Collection<Dealphotostb> DealPhotos;
     GenericType<Collection<Reviewtb>> gBusinessReviews;
     private Collection<Reviewtb> BusinessReviews;
     GenericType<Boolean> gCartContainsDeal;
     Boolean CartContainsDeal;
 
+    public Collection<Dealphotostb> getDealPhotos() {
+        return DealPhotos;
+    }
+
     public Boolean getCartContainsDeal() {
         return CartContainsDeal;
-    }
-    
-    public Collection<Businessphotostb> getMenuPhotos() {
-        Collection<Businessphotostb> menu = new ArrayList<Businessphotostb>();
-        for (Businessphotostb BusinessPhoto : BusinessPhotos) {
-            if(BusinessPhoto.getType() == 2) {
-                menu.add(BusinessPhoto);
-            }
-        }
-        return menu;
     }
     
     public Collection<Reviewtb> getBusinessReviews() {
@@ -82,16 +77,6 @@ public class DealsDetailsBean {
 
     public Collection<Informationtb> getInformations() {
         return Informations;
-    }
-
-    public Collection<Businessphotostb> getBusinessPhotos() {
-        Collection<Businessphotostb> photos = new ArrayList<Businessphotostb>();
-        for (Businessphotostb BusinessPhoto : BusinessPhotos) {
-            if(BusinessPhoto.getType() == 1) {
-                photos.add(BusinessPhoto);
-            }
-        }
-        return photos;
     }
 
     public Businesstb getBusiness() {
@@ -156,8 +141,11 @@ public class DealsDetailsBean {
         Informations = res.readEntity(gInformations);
         
         // Get Business Photos
-        res = common.getBusinessPhotos(Response.class, Business.getBusinessID().toString());
-        BusinessPhotos = res.readEntity(gBusinessPhotos);
+//        res = common.getBusinessPhotos(Response.class, Business.getBusinessID().toString());
+//        BusinessPhotos = res.readEntity(gBusinessPhotos);
+        // Get Deals Photos
+        res = common.getDealPhotos(Response.class, String.valueOf(dealId));
+        DealPhotos = res.readEntity(gDealPhotos);
         
         // Get Business Reviews
         res = common.getBusinessReviews(Response.class, Business.getBusinessID().toString());
@@ -191,8 +179,7 @@ public class DealsDetailsBean {
         gDealMenu = new GenericType<Dealsmenutb>(){};
         gInformations  = new GenericType<Collection<Informationtb>>(){};
         Informations = new ArrayList<Informationtb>();
-        gBusinessPhotos = new GenericType<Collection<Businessphotostb>>(){};
-        BusinessPhotos = new ArrayList<Businessphotostb>();
+        gDealPhotos = new GenericType<Collection<Dealphotostb>>(){};
         gBusinessReviews = new GenericType<Collection<Reviewtb>>(){};
         BusinessReviews = new ArrayList<Reviewtb>();
         gCartContainsDeal = new GenericType<Boolean>(){};

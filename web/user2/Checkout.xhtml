@@ -54,17 +54,17 @@
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="shopcart-box marT50 marB20">
-                                        <div class="col-md-8 col-sm-8 col-xs-12">
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-10 col-sm-10 col-xs-12">
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
                                                 <h4>product</h4>
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
                                                 <div class="row">
                                                     <h4 class="text-right">quantity</h4>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <h4>total</h4>
                                             </div>
@@ -77,15 +77,15 @@
                                 <ui:repeat var="cart" value="${checkoutBean.cart}">
 
                                     <div class="cart-details marT30 marB30">
-                                        <div class="col-md-8 col-sm-8 col-xs-12">
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-10 col-sm-10 col-xs-12">
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
                                                 <div class="cart-detail marB30">
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="col-md-5 col-sm-5 col-xs-12">
                                                         <figure>
                                                             <img src="/DealShop/assets/images/deals/#{cart.dealID.bannerImage}" />
                                                         </figure>
                                                     </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="col-md-7 col-sm-7 col-xs-12">
                                                         <div class="row">
                                                             <h4 class="capital">
                                                                 <a href="#">
@@ -96,13 +96,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
                                                 <div class="cart-input text-right">
                                                     <h3>1</h3>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <h3 class="cart-price">
                                                     <h:outputText value="$#{cart.dealID.averageCost}" />
@@ -124,13 +124,9 @@
                             </div>
                         </c:when>
                         <c:otherwise>
-
                             <div class="row">
-                                
-<!--                                <h:outputText value="{checkoutBean.cartTotal == 0}" />-->
-
-                                <c:choose>
-                                    <c:when test="${checkoutBean.cartTotal == 0}">
+<!--                                <c:choose>
+                                    <c:when test="{checkoutBean.cartTotal == 0}">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="section-box cart-box">
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -141,7 +137,7 @@
                                             </div>
                                         </div>                                    
                                     </c:when>
-                                    <c:otherwise>
+                                    <c:otherwise>-->
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="section-box cart-box">
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -194,11 +190,10 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12 text-right marT30 marB5">
                                             <h:commandLink class="itg-btn cart-btn" value="Place order" action="${checkoutBean.placeOrder()}" />
                                         </div>
-                                    </c:otherwise>
-                                </c:choose>
+<!--                                    </c:otherwise>
+                                </c:choose>-->
                                 
                             </div>
-                            
                         </c:otherwise>
                     </c:choose>
                     

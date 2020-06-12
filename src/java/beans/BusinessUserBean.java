@@ -6,7 +6,9 @@
 package beans;
 
 import client.CommonClient;
+import entity.Businessphotostb;
 import entity.Businesstb;
+import entity.Dealstb;
 import entity.Reviewtb;
 import java.io.IOException;
 import java.util.Collection;
@@ -32,11 +34,16 @@ public class BusinessUserBean {
     
     CommonClient common;
     Response res;
+    
     GenericType<Collection<Businesstb>> gBusinesses;
     Collection<Businesstb> businesses;
     GenericType<Collection<Reviewtb>> gReviews;
     Collection<Reviewtb> reviews;
+    GenericType<Collection<Dealstb>> gDeals;
+    Collection<Dealstb> deals;
     GenericType<Businesstb> gBusiness;
+    GenericType<Collection<Businessphotostb>> gBPhotos;
+    Collection<Businessphotostb> photos;
     Businesstb business;
     String businessId;
 
@@ -46,12 +53,25 @@ public class BusinessUserBean {
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect(context.getRequestContextPath() + "/user2/Storelist.jsf?faces-redirect=true");
         } else {
-            res = common.getBusiness(Response.class, String.valueOf(businessId));
+            res = common.getBusiness(Response.class, businessId);
             business = res.readEntity(gBusiness);
-            res = common.getBusinessReviews(Response.class, String.valueOf(businessId));
-            reviews = res.readEntity(gReviews);   
+            res = common.getBusinessReviews(Response.class, businessId);
+            reviews = res.readEntity(gReviews);
+            res = common.getDealsByBusinessUser(Response.class, businessId);
+            deals = res.readEntity(gDeals);
+            res = common.getBusinessPhotos(Response.class, businessId);
+            photos = res.readEntity(gBPhotos);
         }
     }
+
+    public Collection<Businessphotostb> getPhotos() {
+        return photos;
+    }
+
+    public Collection<Dealstb> getDeals() {
+        return deals;
+    }
+    
     public Collection<Reviewtb> getReviews() {
         return reviews;
     }
@@ -84,6 +104,8 @@ public class BusinessUserBean {
         gBusinesses = new GenericType<Collection<Businesstb>>(){};
         gReviews = new GenericType<Collection<Reviewtb>>(){};
         gBusiness = new GenericType<Businesstb>(){};
+        gDeals = new GenericType<Collection<Dealstb>>(){};
+        gBPhotos = new GenericType<Collection<Businessphotostb>>(){};
     }
     
 }

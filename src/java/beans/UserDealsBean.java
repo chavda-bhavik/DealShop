@@ -83,7 +83,7 @@ public class UserDealsBean {
 //        String userId = session.getAttribute("userid").toString();
         res = userClient.getUserCartDeals(Response.class, userId);
         userCart = res.readEntity(gUserCart);
-//        System.out.println("Get user Cart "+userCart.size());
+        System.out.println("Get user Cart "+userCart.size());
         this.setTotalPrice();
         return userCart;
     }

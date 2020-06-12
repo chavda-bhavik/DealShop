@@ -1,12 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-
-    </h:head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-        <div class="main-footer padB50">
+        <h:form>
+            <div class="main-footer padB50">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -43,69 +42,52 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="footer-logo">
-                            <a href="#"><img src="resources/img/footer-logo.png" alt="" /></a>
-                            <p>Lorem Ipsum is simply dummy text 
-                                of the printing and typesetting industry. 
-                                Lorem Ipsum has been the industry's the 
-                                standard dummy 
+                            <h:commandLink action="/user2/Home.jsf?faces-redirect=true" >
+                                <img src="resources/img/footer-logo.png" alt="" />
+                            </h:commandLink>
+                            <p>
+                                DealShop is a way to enhance your shopping expierence with additional discounts and offers at your ease, anytime and anywhere.
                             </p>
-                            <img src="resources/img/all/payment-icon.png" alt="" />
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-12">
                         <h4>information</h4>
-                        <p><a href="#">about Us</a></p>
-                        <p><a href="#">service</a></p>
-                        <p><a href="#">recent</a></p>
-                        <p><a href="#">seller</a></p>
-                        <p><a href="#">privacy</a></p>
-                        <p><a href="#">policy</a></p>
+                        <p><h:commandLink action="/user2/Home.jsf?faces-redirect=true" value="Home" /></p>
+                        <p><h:commandLink action="/user2/Deals.jsf?faces-redirect=true" value="Deals" /></p>
+                        <p><h:commandLink action="/user2/Storelist.jsf?faces-redirect=true" value="Stores" /></p>
+                        <p><h:commandLink action="/user2/Offers.jsf?faces-redirect=true" value="Offers" /></p>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-12">
-                        <h4>brands</h4>
-                        <p><a href="#">apple</a></p>
-                        <p><a href="#">asus</a></p>
-                        <p><a href="#">samsung</a></p>
-                        <p><a href="#">nike</a></p>
-                        <p><a href="#">addidas</a></p>
-                        <p><a href="#">oppo</a></p>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <h4>categorie</h4>
-                        <p><a href="#">fashion</a></p>
-                        <p><a href="#">accesories</a></p>
-                        <p><a href="#">home &amp; garden</a></p>
-                        <p><a href="#">furnimart</a></p>
-                        <p><a href="#">electronics</a></p>
-                        <p><a href="#">foods</a></p>
+                        <h4>categories</h4>
+                        <ui:repeat value="#{dealsCategoryBean.categories}" var="category">
+                            <p>
+                                <h:commandLink action="#{dealsBean.showDealsByCategory(category.categoryID)}">
+                                    #{category.name}
+                                </h:commandLink>
+                            </p>
+                        </ui:repeat>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-12">
                         <h4>my account</h4>
-                        <p><a href="#">sign in</a></p>
-                        <p><a href="#">view cart</a></p>
-                        <p><a href="#">my wishlist</a></p>
-                        <p><a href="#">track order</a></p>
-                        <p><a href="#">shipping policy</a></p>
-                        <p><a href="#">help</a></p>
+                        <p><h:commandLink value="My Deals" action="/user2/PurchasedDeals.jsf?faces-redirect=true" /></p>
+                        <p><h:commandLink value="Checkout" action="/user2/Checkout.jsf?faces-redirect=true" /></p>
+                        <p><h:commandLink value="Cart" action="/user2/UserDeals.jsf?faces-redirect=true" /></p>
+                        <p><h:commandLink value="Reviews" action="/user2/Reviews.jsf?faces-redirect=true" /></p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="copyright-section">
+            <div class="copyright-section">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <p>
-                    <a href="#">
-                        <i class="fa fa-copyright" aria-hidden="true"></i>
-                    </a> 
-                    2017 Black Friday - Bootstrap Responsive template for deals &amp; coupon codes..Theme by
-                    <a href="#">
-                        <span class="itg-color"> IT-Geeks.</span>
-                    </a>
+                    <i class="fa fa-copyright" aria-hidden="true"></i>
+                    2020 DealShop - Latest Deals, Trends &amp; Offers at one place
                 </p>
             </div>
         </div>
+        </h:form>
     </h:body>
 </html>
 

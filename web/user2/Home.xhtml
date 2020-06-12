@@ -15,7 +15,7 @@
                 <!-- //***categories Start***// -->
                 <div class="bg our-categorie">
                     <div class="container-fluid">
-                        <h:form>
+<!--                        <h:form>-->
                         <div class="row">
                             <div id="categories" class="owl-carousel owlCarousel slidercategorie">
                                 
@@ -46,7 +46,7 @@
                                 </div>-->
                             </div>
                         </div>
-                        </h:form>
+<!--                        </h:form>-->
                     </div>
                 </div>
                 <!-- //***categories End***// -->
@@ -137,78 +137,47 @@
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="symbol">
-                                            <h5>view all <a href="deals-grid-sidebar.html"><i class="flaticon-external-link-symbol"></i></a></h5>
+                                            <h5>view all 
+                                                <h:commandLink action="/user2/Deals.jsf?faces-redirect=true">
+                                                    <i class="flaticon-external-link-symbol"></i>
+                                                </h:commandLink>
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
                             <ui:repeat value="#{dealsBean.maxSoldDeals}" var="deal">
-                            <div class="col-md-4 col-sm-4 col-xs-12 marB30">
-                                <div class="box-a">
-                                    <figure>
-                                        <img src="/DealShop/assets/images/deals/#{deal.bannerImage}" alt="" style="width:360px;height:238px;" />
-                                    </figure>
-                                    <div class="box-detail">
-                                        <div class="col-md-8 col-sm-8 col-xs-7">
-                                            <div class="row">
-                                                <h4 class="hover marB20"><a href="deals-single.html">#{deal.name}</a></h4>
+                                <div class="col-md-4 col-sm-4 col-xs-12 marB10">
+                                    <div class="box-a">
+                                        <figure>
+                                            <img src="/DealShop/assets/images/deals/#{deal.bannerImage}" alt="" style="width:360px;height:238px;" />
+                                        </figure>
+                                        <div class="box-detail">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="row">
+                                                    <h4 class="hover marB10">
+                                                        <h:link value="${deal.name}" outcome="/user2/ShowDeal.jsf?dealid=${deal.dealID}">
+                                                            <f:param name="dealid" value="${deal.dealID}" />
+                                                        </h:link>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="row">
+                                                    <p> at ${deal.businessID.address}</p>
+                                                    <h4 class="marT5">
+                                                        <span class="red">
+                                                            <i class="fa fa-usd" aria-hidden="true"></i>
+                                                            ${deal.averageCost}
+                                                        </span>  
+                                                    </h4>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-sm-4 col-xs-5 text-right">
-                                            <div class="row">
-                                                <ul class="stars">
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li class="grey-a"><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-<!--                                            <div class="row">-->
-                                                <p> at ${deal.businessID.address}</p>
-                                                <h4 class="marT20">
-                                                    <span class="red">
-<!--                                                        <i class="fa fa-usd" aria-hidden="true"></i>-->
-                                                        ${deal.averageCost}
-                                                    </span>  
-                                                </h4>
-<!--                                            </div>-->
-                                        </div>
+                                        <div class="border"></div>
                                     </div>
-                                    <div class="border"></div>
-<!--                                    <div class="box-detail">-->
-<!--                                        <div class="col-md-10 col-sm-10 col-xs-10">
-                                            <div class="row">
-                                                <div class="demo1" data-expiry="Dec 30, 2019 15:37:25">
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">
-                                                        <div class="timer">000<span>d.</span></div>
-                                                    </div>
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">
-                                                        <div class="timer">00<span>h.</span></div>
-                                                    </div>
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">
-                                                        <div class="timer">00<span>m.</span></div>
-                                                    </div>
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">
-                                                        <div class="timer">00<span>s.</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>-->
-<!--                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                            <div class="row">
-                                                <div class="cart-icon">
-                                                    <a href="#"><i class="flaticon-shopping-cart"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>-->
-<!--                                    </div>-->
                                 </div>
-                            </div>
-
                             </ui:repeat>
                             
                         </div>

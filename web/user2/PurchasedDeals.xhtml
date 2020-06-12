@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./Template.xhtml">
-
             <ui:define name="content">
                 <div class="breadcrumb-section">
                     <div class="breadcrumb-text">
@@ -82,7 +82,13 @@
                                     </div>
                                     <div class="col-sm-2 text-center">
                                         <h5>
-                                            <h:outputText value="${usage.secretCode}" />
+<!--                                            <c:if test="{ usage.status  != 1 }">
+                                                <h:outputText value="{usage.usageDate}">
+                                                    <f:convertDateTime pattern="dd/mm/yyyy" />
+                                                </h:outputText>
+                                            </c:if>-->
+
+                                                <h:outputText value="${usage.secretCode}" />
                                         </h5>
                                     </div>
                                 </div>
