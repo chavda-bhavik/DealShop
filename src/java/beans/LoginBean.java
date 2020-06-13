@@ -8,6 +8,12 @@ package beans;
 import client.CommonClient;
 import entity.Usertb;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -206,6 +212,17 @@ public class LoginBean {
         ur.setPassword(pbkd.generate(password.toCharArray()));
         commonClient.registerCommonUser(ur);
         return "/user2/Login.jsf";
+    }
+    
+    public String getTimeDate(Date date) throws ParseException {
+        String[] monthNames = {"jan", "feb", "mar", "apr", "may", "jun", "jul", "ag", "sep", "oct", "nov", "dec"};
+        String oldDate = date.toString();
+        DateFormat format = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
+        Date testDate = (Date) format.parse(oldDate);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(testDate);
+        String temp = monthNames[cal.get(Calendar.MONTH) + 1]+" "+cal.get(Calendar.DATE)+", "+cal.get(Calendar.YEAR);
+        return temp;
     }
     
     private static void addError(FacesContext context, String message) {

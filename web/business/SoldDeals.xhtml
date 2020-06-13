@@ -28,7 +28,7 @@
                                     
                                     <b:dataTableColumn label="Use Date"  class="text-center" >
                                         <h:outputText value="${usage.usageDate}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <f:converter converterId="DateConverter" />
                                         </h:outputText>
                                     </b:dataTableColumn>
                                     

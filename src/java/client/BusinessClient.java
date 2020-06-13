@@ -117,6 +117,12 @@ public class BusinessClient {
         webTarget.path(java.text.MessageFormat.format("deals/{0}", new Object[]{did})).request().delete();
     }
 
+    public <T> T getBusinessRedeems(Class<T> responseType, String businessId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("redeems/{0}", new Object[]{businessId}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public void setBusinessLinks(Object requestEntity, String bid, String linkId) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("links/{0}/{1}", new Object[]{bid, linkId})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }

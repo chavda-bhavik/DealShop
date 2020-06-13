@@ -25,13 +25,13 @@
                                     <b:dataTableColumn label="Code" value="${offer.code}" class="text-center" />
                                     <b:dataTableColumn label="Issue Date" class="text-center" >
                                         <h:outputText value="${offer.issueDate}" >
-                                            <f:convertDateTime pattern="dd-mm-yyyy" />
+                                            <f:converter converterId="DateConverter" />
                                         </h:outputText>
                                     </b:dataTableColumn>
                                     
                                     <b:dataTableColumn label="Due Date" class="text-center" >
                                         <h:outputText value="${offer.dueDate}" >
-                                            <f:convertDateTime pattern="dd-mm-yyyy" />
+                                            <f:converter converterId="DateConverter" />
                                         </h:outputText>
                                     </b:dataTableColumn>
                                     

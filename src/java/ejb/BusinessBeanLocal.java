@@ -5,10 +5,10 @@
  */
 package ejb;
 
-import entity.Dealphotostb;
 import entity.Dealspaymenttb;
 import entity.Dealstb;
 import entity.Dealsusagetb;
+import entity.Redeemtb;
 import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Local;
@@ -74,4 +74,7 @@ public interface BusinessBeanLocal {
     //---Deals Payment
     Collection<Dealsusagetb> getSoldDealsUsages(int BusinessId);
     Boolean addDealUsage(int UsageID, int SecretCode);
+    
+    //---Redeems
+    Collection<Redeemtb> getRedeems(int BusinessId);
 }

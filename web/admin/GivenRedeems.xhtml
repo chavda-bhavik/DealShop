@@ -27,7 +27,7 @@
                                     <b:dataTableColumn value="${redeem.businessID.emailID}" label="Email ID"  class="text-center" />
                                     <b:dataTableColumn label="Redeem Date"  class="text-center" >
                                         <h:outputText value="${redeem.redeemDate}" >
-                                            <f:convertDateTime pattern="dd/mm/yyyy" />
+                                            <f:converter converterId="DateConverter" />
                                         </h:outputText>
                                     </b:dataTableColumn>
                                     <b:dataTableColumn value="${redeem.amount}" label="Redeem Amount"  class="text-center" />

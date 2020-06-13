@@ -58,7 +58,7 @@
                                     <b:dataTableColumn value="${usage.userID.name}" label="User Name"  class="text-center" />
                                     <b:dataTableColumn label="Payment Date"  class="text-center" >
                                         <h:outputText value="${usage.paymentID.paymentDate}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            <f:converter converterId="DateConverter" />
                                         </h:outputText>
                                     </b:dataTableColumn>
                                     

@@ -79,7 +79,9 @@
                                         <f:convertDateTime pattern="MMM dd, yyyy hh:mm:ss" />
                                     </h:outputText>-->
                                     
-                                    <div class="demo1" data-expiry="jan 30, 2021 15:37:25"><div id="timer"></div></div>
+                                    <div class="demo1" data-expiry="${loginBean.getTimeDate(dealsDetailsBean.deal.dueDate)}">
+                                        <div id="timer"></div>
+                                    </div>
                                     
                                     <div class="marT20 marB20">
                                         <c:choose>

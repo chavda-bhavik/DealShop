@@ -12,8 +12,8 @@ import entity.Dealsmenutb;
 import entity.Dealspaymenttb;
 import entity.Dealstb;
 import entity.Dealsusagetb;
+import entity.Redeemtb;
 import java.util.Collection;
-import java.util.HashMap;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -226,5 +226,13 @@ public class BusinessResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Boolean addUsage(@PathParam("usageId") int UsageID, @PathParam("secretCode") int SecretCode) {
         return bbl.addDealUsage(UsageID, SecretCode);
+    }
+    
+    @GET
+    @Path("/redeems/{businessId}")
+    @RolesAllowed("Business")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Redeemtb> getBusinessRedeems(@PathParam("businessId") int BusinessId) {
+        return bbl.getRedeems(BusinessId);
     }
 }

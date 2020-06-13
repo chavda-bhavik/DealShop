@@ -176,6 +176,15 @@
                                             </div>
                                         </div>
                                         <div class="border"></div>
+                                        <div class="box-detail">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="row">
+                                                    <div class="demo1" data-expiry="${loginBean.getTimeDate(deal.dueDate)}">
+                                                        <div class="timer"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </ui:repeat>
@@ -218,12 +227,12 @@
                                                             <h4 class="hover marB20">
                                                                 <h:commandLink action="/user2/OfferDetails.jsf" >
                                                                     <f:param name="offerid" value="${offer.offerID}" />
-                                                                ${offer.name}
+                                                                    ${offer.name}
                                                                 </h:commandLink>
                                                             </h4>
                                                             <h4 class="marB20">expires :
-                                                                <h:outputText value="${offer.issueDate}" class="red">
-                                                                    <f:convertDateTime pattern="dd-mm-yyyy" />
+                                                                <h:outputText value="${offer.dueDate}" class="red">
+                                                                    <f:converter converterId="DateConverter" />
                                                                 </h:outputText>
                                                             </h4>
                                                         </div>

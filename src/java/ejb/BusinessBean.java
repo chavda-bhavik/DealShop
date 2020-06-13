@@ -21,6 +21,7 @@ import entity.Dealstb;
 import entity.Dealsusagetb;
 import entity.Informationtb;
 import entity.Linkstb;
+import entity.Redeemtb;
 import entity.Statetb;
 import entity.Usertb;
 import java.util.ArrayList;
@@ -520,6 +521,10 @@ public class BusinessBean implements BusinessBeanLocal {
         }
         return result;
     }
-    
-    
+
+    @Override
+    public Collection<Redeemtb> getRedeems(int BusinessId) {
+        Businesstb busi = em.find(Businesstb.class, BusinessId);
+        return busi.getRedeemtbCollection();
+    }
 }
