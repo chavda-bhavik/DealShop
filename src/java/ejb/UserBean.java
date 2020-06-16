@@ -124,15 +124,15 @@ public class UserBean implements UserBeanLocal {
     public void addDealToCart(int UserID, int DealID) {
         Usertb user = em.find(Usertb.class, UserID);
         Collection<Carttb> userCart = user.getCarttbCollection();
-        boolean cartContainsDeal = false;
-        
-        for(Carttb ucart:userCart) {
-            if(ucart.getDealID().getDealID() == DealID) {
-                cartContainsDeal = true;
-                break;
-            }
-        }
-        if(!cartContainsDeal) {
+//        boolean cartContainsDeal = false;
+//        
+//        for(Carttb ucart:userCart) {
+//            if(ucart.getDealID().getDealID() == DealID) {
+//                cartContainsDeal = true;
+//                break;
+//            }
+//        }
+//        if(!cartContainsDeal) {
             Dealstb deal = em.find(Dealstb.class, DealID);
             Collection<Carttb> dealCart = deal.getCarttbCollection();
 
@@ -143,15 +143,15 @@ public class UserBean implements UserBeanLocal {
             cart.setAddDate(addDate);
             cart.setIsPaid(1);
 
-            userCart.remove(cart);
-            dealCart.remove(cart);
+            userCart.add(cart);
+            dealCart.add(cart);
             user.setCarttbCollection(userCart);
             deal.setCarttbCollection(dealCart);
 
             em.merge(user);
             em.merge(deal);
             em.persist(cart);   
-        }
+//        }
     }
 
     @Override
@@ -175,6 +175,7 @@ public class UserBean implements UserBeanLocal {
     @Override
     public Collection<Carttb> getUserCartDeals(int UserID) {
         Usertb user = em.find(Usertb.class, UserID);
+        System.out.println("EJB User Cart Length "+user.getCarttbCollection().size());
         return user.getCarttbCollection();
     }
 
