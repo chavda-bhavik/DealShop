@@ -15,9 +15,11 @@
             <ui:define name="content">
                 
             
-            <b:modal id="amodal" styleClass="formValidationModalClass" title="Use Deal"
-                 closable="false" closeOnEscape="true"
-                 style="margin-top: 50px;" >
+            <b:modal 
+                    id="amodal" class="formValidationModalClass" title="Use Deal"
+                    closable="false"  close-on-escape="false" backdrop="false"
+                    style="margin-top: 50px;" 
+            >
                 
                 <b:form>
                     <div class="row">
@@ -61,8 +63,6 @@
                                             <f:converter converterId="DateConverter" />
                                         </h:outputText>
                                     </b:dataTableColumn>
-                                    
-                                    <b:dataTableColumn value="${usage.secretCode}" label="code" />
                                     <b:dataTableColumn label="Payment Mode"  class="text-center" >
                                         <h:outputText value="
                                                         ${
@@ -80,12 +80,13 @@
         Used
     </c:when>
     <c:otherwise>-->
-        <b:commandButton actionListener="${dealsRedeemBean.giveUsage(usage.usageID)}" ajax="true"
-            look="success" size="md"
-            icon-awesome="superpowers"
-            p:data-target="#amodal" p:data-toggle="modal" >
+        <b:commandButton 
+            actionListener="${dealsRedeemBean.giveUsage(usage.usageID)}" ajax="true"
+            look="success" size="md" class="modalBtn"
+            icon-awesome="superpowers" >
         </b:commandButton>
 <!--    </c:otherwise>
+p:data-target=".formValidationModalClass" p:data-toggle="modal"
 </c:choose>-->
                                     </b:dataTableColumn>
                                 </b:dataTable>
